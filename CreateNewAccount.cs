@@ -4,19 +4,28 @@ using System.ComponentModel;
 using System.Data;
 using System.Drawing;
 using System.Linq;
+using System.Reflection;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using static System.Windows.Forms.VisualStyles.VisualStyleElement;
 
 namespace Library_Final_Project
 {
     public partial class CreateNewAccount : Form
     {
         private readonly LibraryEntities _db;
+        User _user;
         public CreateNewAccount()
         {
             InitializeComponent();
             _db = new LibraryEntities();
+        }
+        public CreateNewAccount(User admin = null)
+        {
+            InitializeComponent();
+            _db = new LibraryEntities();
+            _user = admin;
         }
 
         private void btnSubmit_Click(object sender, EventArgs e)
@@ -27,8 +36,13 @@ namespace Library_Final_Project
                 var password = tbPassword.Text;
                 var confirmPassword = tbConfirmPassword.Text;
                 var role = (int)cbRole.SelectedValue;
+                if (role == 1 && _user == null)
+                {
+                    //If this operation is from a user but not an admin then stop to create this account
+                    MessageBox.Show("You don't have authentication to create and account as administrator.");
+                }
                 //Save all values in the form to variables
-                if (string.IsNullOrEmpty(userName) || string.IsNullOrEmpty(password) || string.IsNullOrEmpty(confirmPassword))
+                else if (string.IsNullOrEmpty(userName) || string.IsNullOrEmpty(password) || string.IsNullOrEmpty(confirmPassword))
                 {
                     //If one of three input is empty
                     MessageBox.Show("Please fill the empty information.");

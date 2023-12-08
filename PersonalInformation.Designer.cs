@@ -36,12 +36,13 @@
             this.label1 = new System.Windows.Forms.Label();
             this.label4 = new System.Windows.Forms.Label();
             this.grGender = new System.Windows.Forms.GroupBox();
-            this.backgroundWorker1 = new System.ComponentModel.BackgroundWorker();
-            this.radioButton1 = new System.Windows.Forms.RadioButton();
             this.radioButton2 = new System.Windows.Forms.RadioButton();
+            this.radioButton1 = new System.Windows.Forms.RadioButton();
+            this.backgroundWorker1 = new System.ComponentModel.BackgroundWorker();
             this.dtBirthDate = new System.Windows.Forms.DateTimePicker();
             this.btnSubmit = new System.Windows.Forms.Button();
             this.lblTitle = new System.Windows.Forms.Label();
+            this.radioButton3 = new System.Windows.Forms.RadioButton();
             this.grGender.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -108,6 +109,7 @@
             // 
             // grGender
             // 
+            this.grGender.Controls.Add(this.radioButton3);
             this.grGender.Controls.Add(this.radioButton2);
             this.grGender.Controls.Add(this.radioButton1);
             this.grGender.Font = new System.Drawing.Font("Microsoft Sans Serif", 15F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
@@ -118,27 +120,27 @@
             this.grGender.TabStop = false;
             this.grGender.Text = "Gender";
             // 
-            // radioButton1
-            // 
-            this.radioButton1.AutoSize = true;
-            this.radioButton1.Location = new System.Drawing.Point(18, 53);
-            this.radioButton1.Name = "radioButton1";
-            this.radioButton1.Size = new System.Drawing.Size(73, 29);
-            this.radioButton1.TabIndex = 0;
-            this.radioButton1.TabStop = true;
-            this.radioButton1.Text = "Male";
-            this.radioButton1.UseVisualStyleBackColor = true;
-            // 
             // radioButton2
             // 
             this.radioButton2.AutoSize = true;
-            this.radioButton2.Location = new System.Drawing.Point(18, 108);
+            this.radioButton2.Location = new System.Drawing.Point(18, 74);
             this.radioButton2.Name = "radioButton2";
             this.radioButton2.Size = new System.Drawing.Size(95, 29);
             this.radioButton2.TabIndex = 14;
             this.radioButton2.TabStop = true;
             this.radioButton2.Text = "Female";
             this.radioButton2.UseVisualStyleBackColor = true;
+            // 
+            // radioButton1
+            // 
+            this.radioButton1.AutoSize = true;
+            this.radioButton1.Location = new System.Drawing.Point(18, 39);
+            this.radioButton1.Name = "radioButton1";
+            this.radioButton1.Size = new System.Drawing.Size(73, 29);
+            this.radioButton1.TabIndex = 0;
+            this.radioButton1.TabStop = true;
+            this.radioButton1.Text = "Male";
+            this.radioButton1.UseVisualStyleBackColor = true;
             // 
             // dtBirthDate
             // 
@@ -166,6 +168,17 @@
             this.lblTitle.Name = "lblTitle";
             this.lblTitle.Size = new System.Drawing.Size(0, 31);
             this.lblTitle.TabIndex = 19;
+            // 
+            // radioButton3
+            // 
+            this.radioButton3.AutoSize = true;
+            this.radioButton3.Location = new System.Drawing.Point(18, 109);
+            this.radioButton3.Name = "radioButton3";
+            this.radioButton3.Size = new System.Drawing.Size(112, 29);
+            this.radioButton3.TabIndex = 15;
+            this.radioButton3.TabStop = true;
+            this.radioButton3.Text = "Unknown";
+            this.radioButton3.UseVisualStyleBackColor = true;
             // 
             // PersonalInformation
             // 
@@ -209,5 +222,6 @@
         private System.Windows.Forms.DateTimePicker dtBirthDate;
         private System.Windows.Forms.Button btnSubmit;
         private System.Windows.Forms.Label lblTitle;
+        private System.Windows.Forms.RadioButton radioButton3;
     }
 }
