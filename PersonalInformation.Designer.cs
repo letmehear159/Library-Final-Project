@@ -198,6 +198,7 @@
             this.Controls.Add(this.label2);
             this.Name = "PersonalInformation";
             this.Text = "PersonalInformation";
+            this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.PersonalInformation_FormClosing);
             this.Load += new System.EventHandler(this.PersonalInformation_Load);
             this.grGender.ResumeLayout(false);
             this.grGender.PerformLayout();

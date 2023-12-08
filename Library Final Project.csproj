@@ -79,6 +79,12 @@
     <Compile Include="FavouriteList.Designer.cs">
       <DependentUpon>FavouriteList.cs</DependentUpon>
     </Compile>
+    <Compile Include="ForgotPassword.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="ForgotPassword.Designer.cs">
+      <DependentUpon>ForgotPassword.cs</DependentUpon>
+    </Compile>
     <Compile Include="LibraryHome.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -128,6 +134,12 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>Resources.resx</DependentUpon>
     </Compile>
+    <Compile Include="ResetPassword.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="ResetPassword.Designer.cs">
+      <DependentUpon>ResetPassword.cs</DependentUpon>
+    </Compile>
     <Compile Include="Role.cs">
       <DependentUpon>Model1.tt</DependentUpon>
     </Compile>
@@ -162,6 +174,9 @@
     <EmbeddedResource Include="FavouriteList.resx">
       <DependentUpon>FavouriteList.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="ForgotPassword.resx">
+      <DependentUpon>ForgotPassword.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="LibraryHome.resx">
       <DependentUpon>LibraryHome.cs</DependentUpon>
     </EmbeddedResource>
@@ -178,6 +193,9 @@
       <Generator>ResXFileCodeGenerator</Generator>
       <SubType>Designer</SubType>
       <LastGenOutput>Resources.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
+    <EmbeddedResource Include="ResetPassword.resx">
+      <DependentUpon>ResetPassword.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="SearchBook.resx">
       <DependentUpon>SearchBook.cs</DependentUpon>

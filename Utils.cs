@@ -10,6 +10,7 @@ namespace Library_Final_Project
 {
     internal class Utils
     {
+
         /// <summary>
         /// Check if this form is already opened?
         /// </summary>
@@ -44,6 +45,11 @@ namespace Library_Final_Project
             }
             string hashed_password = sBuilder.ToString();
             return hashed_password;
+        }
+        public static bool CheckAccountExisted(string userName, LibraryEntities _db)
+        {
+            var isExisted = _db.Users.Any(q => q.Account == userName);
+            return isExisted;
         }
     }
 }

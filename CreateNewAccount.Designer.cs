@@ -114,6 +114,7 @@
             this.linkLblLogin.TabIndex = 12;
             this.linkLblLogin.TabStop = true;
             this.linkLblLogin.Text = "Already Had? Login";
+            this.linkLblLogin.LinkClicked += new System.Windows.Forms.LinkLabelLinkClickedEventHandler(this.linkLblLogin_LinkClicked);
             // 
             // btnSubmit
             // 
@@ -162,6 +163,7 @@
             this.Controls.Add(this.label1);
             this.Name = "CreateNewAccount";
             this.Text = "Create New Account";
+            this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.CreateNewAccount_FormClosing);
             this.Load += new System.EventHandler(this.CreateNewAccount_Load);
             this.ResumeLayout(false);
             this.PerformLayout();

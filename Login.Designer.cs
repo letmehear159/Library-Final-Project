@@ -35,13 +35,12 @@
             this.linkLblCreateAccount = new System.Windows.Forms.LinkLabel();
             this.menuStrip1 = new System.Windows.Forms.MenuStrip();
             this.toolSForgot = new System.Windows.Forms.ToolStripMenuItem();
-            this.menuSFindPass = new System.Windows.Forms.ToolStripMenuItem();
-            this.menuSResetPassword = new System.Windows.Forms.ToolStripMenuItem();
             this.toolSAboutUs = new System.Windows.Forms.ToolStripMenuItem();
             this.menuSInformation = new System.Windows.Forms.ToolStripMenuItem();
             this.menuSContact = new System.Windows.Forms.ToolStripMenuItem();
             this.backgroundWorker1 = new System.ComponentModel.BackgroundWorker();
             this.tbUsername = new System.Windows.Forms.TextBox();
+            this.btnLogin = new System.Windows.Forms.Button();
             this.menuStrip1.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -64,7 +63,6 @@
             this.label2.Size = new System.Drawing.Size(73, 17);
             this.label2.TabIndex = 1;
             this.label2.Text = "Username";
-            this.label2.Click += new System.EventHandler(this.label2_Click);
             // 
             // label3
             // 
@@ -75,7 +73,6 @@
             this.label3.Size = new System.Drawing.Size(69, 17);
             this.label3.TabIndex = 2;
             this.label3.Text = "Password";
-            this.label3.Click += new System.EventHandler(this.label3_Click);
             // 
             // tbPassword
             // 
@@ -94,7 +91,7 @@
             this.linkLblCreateAccount.TabIndex = 5;
             this.linkLblCreateAccount.TabStop = true;
             this.linkLblCreateAccount.Text = "Haven\'t one? Create New Account";
-            this.linkLblCreateAccount.LinkClicked += new System.Windows.Forms.LinkLabelLinkClickedEventHandler(this.liLblCreate_LinkClicked);
+            this.linkLblCreateAccount.LinkClicked += new System.Windows.Forms.LinkLabelLinkClickedEventHandler(this.linkLblCreateAccount_LinkClicked);
             // 
             // menuStrip1
             // 
@@ -109,26 +106,10 @@
             // 
             // toolSForgot
             // 
-            this.toolSForgot.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.menuSFindPass,
-            this.menuSResetPassword});
             this.toolSForgot.Name = "toolSForgot";
             this.toolSForgot.Size = new System.Drawing.Size(107, 20);
             this.toolSForgot.Text = "Forgot Password";
-            this.toolSForgot.Click += new System.EventHandler(this.helloToolStripMenuItem_Click);
-            // 
-            // menuSFindPass
-            // 
-            this.menuSFindPass.Name = "menuSFindPass";
-            this.menuSFindPass.Size = new System.Drawing.Size(192, 22);
-            this.menuSFindPass.Text = "Find My Old Password";
-            // 
-            // menuSResetPassword
-            // 
-            this.menuSResetPassword.Name = "menuSResetPassword";
-            this.menuSResetPassword.Size = new System.Drawing.Size(192, 22);
-            this.menuSResetPassword.Text = "Reset My Password";
-            this.menuSResetPassword.Click += new System.EventHandler(this.menuSResetPassword_Click);
+            this.toolSForgot.Click += new System.EventHandler(this.toolSForgot_Click);
             // 
             // toolSAboutUs
             // 
@@ -144,12 +125,14 @@
             this.menuSInformation.Name = "menuSInformation";
             this.menuSInformation.Size = new System.Drawing.Size(180, 22);
             this.menuSInformation.Text = "Information";
+            this.menuSInformation.Click += new System.EventHandler(this.menuSInformation_Click);
             // 
             // menuSContact
             // 
             this.menuSContact.Name = "menuSContact";
             this.menuSContact.Size = new System.Drawing.Size(180, 22);
             this.menuSContact.Text = "Contact To Us";
+            this.menuSContact.Click += new System.EventHandler(this.menuSContact_Click);
             // 
             // tbUsername
             // 
@@ -157,13 +140,24 @@
             this.tbUsername.Name = "tbUsername";
             this.tbUsername.Size = new System.Drawing.Size(251, 20);
             this.tbUsername.TabIndex = 3;
-            this.tbUsername.TextChanged += new System.EventHandler(this.tbUsername_TextChanged);
+            // 
+            // btnLogin
+            // 
+            this.btnLogin.Font = new System.Drawing.Font("Microsoft Sans Serif", 15F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btnLogin.Location = new System.Drawing.Point(284, 367);
+            this.btnLogin.Name = "btnLogin";
+            this.btnLogin.Size = new System.Drawing.Size(192, 57);
+            this.btnLogin.TabIndex = 7;
+            this.btnLogin.Text = "Login";
+            this.btnLogin.UseVisualStyleBackColor = true;
+            this.btnLogin.Click += new System.EventHandler(this.btnLogin_Click);
             // 
             // Login
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(800, 450);
+            this.Controls.Add(this.btnLogin);
             this.Controls.Add(this.linkLblCreateAccount);
             this.Controls.Add(this.tbUsername);
             this.Controls.Add(this.tbPassword);
@@ -175,6 +169,8 @@
             this.Name = "Login";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "Login ";
+            this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.Login_FormClosing);
+            this.Load += new System.EventHandler(this.Login_Load);
             this.menuStrip1.ResumeLayout(false);
             this.menuStrip1.PerformLayout();
             this.ResumeLayout(false);
@@ -191,13 +187,12 @@
         private System.Windows.Forms.LinkLabel linkLblCreateAccount;
         private System.Windows.Forms.MenuStrip menuStrip1;
         private System.Windows.Forms.ToolStripMenuItem toolSForgot;
-        private System.Windows.Forms.ToolStripMenuItem menuSFindPass;
-        private System.Windows.Forms.ToolStripMenuItem menuSResetPassword;
         private System.Windows.Forms.ToolStripMenuItem toolSAboutUs;
         private System.Windows.Forms.ToolStripMenuItem menuSInformation;
         private System.Windows.Forms.ToolStripMenuItem menuSContact;
         private System.ComponentModel.BackgroundWorker backgroundWorker1;
         private System.Windows.Forms.TextBox tbUsername;
+        private System.Windows.Forms.Button btnLogin;
     }
 }
 

@@ -15,11 +15,18 @@ namespace Library_Final_Project
     public partial class CreateNewAccount : Form
     {
         private readonly LibraryEntities _db;
+        Login _login;
         User _user;
         public CreateNewAccount()
         {
             InitializeComponent();
             _db = new LibraryEntities();
+        }
+        public CreateNewAccount(Login login)
+        {
+            InitializeComponent();
+            _db = new LibraryEntities();
+            _login = login;
         }
         public CreateNewAccount(User admin = null)
         {
@@ -40,6 +47,12 @@ namespace Library_Final_Project
                 {
                     //If this operation is from a user but not an admin then stop to create this account
                     MessageBox.Show("You don't have authentication to create and account as administrator.");
+                }
+                else if (Utils.CheckAccountExisted(userName, _db))
+                {
+                    //If this userName was in database then tell user to choose again
+                    MessageBox.Show("This account has existed, please choose again.");
+
                 }
                 //Save all values in the form to variables
                 else if (string.IsNullOrEmpty(userName) || string.IsNullOrEmpty(password) || string.IsNullOrEmpty(confirmPassword))
@@ -86,5 +99,18 @@ namespace Library_Final_Project
             cbRole.DataSource = roles;
         }
 
+
+        private void linkLblLogin_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
+        {
+            var login = new Login();
+            login.Show();
+            this.Hide();
+            //Hide the current form and open new login form
+        }
+
+        private void CreateNewAccount_FormClosing(object sender, FormClosingEventArgs e)
+        {
+            _login.Close();
+        }
     }
 }

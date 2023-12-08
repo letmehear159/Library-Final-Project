@@ -41,11 +41,11 @@
             this.searchBookToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.searchByBooksNameToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.searchByContentToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.searchByAuthorToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.searchOverdueBookToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.manageBookToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.manageUserToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.btnEditBook = new System.Windows.Forms.Button();
-            this.searchByAuthorToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.searchOverdueBookToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.statusStrip1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).BeginInit();
             this.menuStrip1.SuspendLayout();
@@ -161,6 +161,18 @@
             this.searchByContentToolStripMenuItem.Size = new System.Drawing.Size(198, 22);
             this.searchByContentToolStripMenuItem.Text = "Search by content";
             // 
+            // searchByAuthorToolStripMenuItem
+            // 
+            this.searchByAuthorToolStripMenuItem.Name = "searchByAuthorToolStripMenuItem";
+            this.searchByAuthorToolStripMenuItem.Size = new System.Drawing.Size(198, 22);
+            this.searchByAuthorToolStripMenuItem.Text = "Search By Author";
+            // 
+            // searchOverdueBookToolStripMenuItem
+            // 
+            this.searchOverdueBookToolStripMenuItem.Name = "searchOverdueBookToolStripMenuItem";
+            this.searchOverdueBookToolStripMenuItem.Size = new System.Drawing.Size(198, 22);
+            this.searchOverdueBookToolStripMenuItem.Text = "Search overdueBook";
+            // 
             // manageBookToolStripMenuItem
             // 
             this.manageBookToolStripMenuItem.Name = "manageBookToolStripMenuItem";
@@ -182,18 +194,6 @@
             this.btnEditBook.Text = "Edit Book";
             this.btnEditBook.UseVisualStyleBackColor = true;
             // 
-            // searchByAuthorToolStripMenuItem
-            // 
-            this.searchByAuthorToolStripMenuItem.Name = "searchByAuthorToolStripMenuItem";
-            this.searchByAuthorToolStripMenuItem.Size = new System.Drawing.Size(198, 22);
-            this.searchByAuthorToolStripMenuItem.Text = "Search By Author";
-            // 
-            // searchOverdueBookToolStripMenuItem
-            // 
-            this.searchOverdueBookToolStripMenuItem.Name = "searchOverdueBookToolStripMenuItem";
-            this.searchOverdueBookToolStripMenuItem.Size = new System.Drawing.Size(198, 22);
-            this.searchOverdueBookToolStripMenuItem.Text = "Search overdueBook";
-            // 
             // LibraryHome
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -209,6 +209,7 @@
             this.MainMenuStrip = this.menuStrip1;
             this.Name = "LibraryHome";
             this.Text = "Library Home";
+            this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.LibraryHome_FormClosing);
             this.Load += new System.EventHandler(this.LibrarayHome_Load);
             this.statusStrip1.ResumeLayout(false);
             this.statusStrip1.PerformLayout();

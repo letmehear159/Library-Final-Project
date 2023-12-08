@@ -12,9 +12,14 @@ namespace Library_Final_Project
 {
     public partial class LibraryHome : Form
     {
-        public LibraryHome()
+        private readonly LibraryEntities _db = new LibraryEntities();
+        public User _user;
+        public Login _login;
+        public LibraryHome(User user, Login login)
         {
             InitializeComponent();
+            _user = user;
+            _login = login;
         }
 
         private void LibrarayHome_Load(object sender, EventArgs e)
@@ -25,6 +30,11 @@ namespace Library_Final_Project
         private void heeloToolStripMenuItem_Click(object sender, EventArgs e)
         {
 
+        }
+
+        private void LibraryHome_FormClosing(object sender, FormClosingEventArgs e)
+        {
+            _login.Close();
         }
     }
 }

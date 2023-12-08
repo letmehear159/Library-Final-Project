@@ -16,7 +16,7 @@ namespace Library_Final_Project
         {
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
-            Application.Run(new CreateNewAccount());
+            Application.Run(new Login());
         }
     }
 }

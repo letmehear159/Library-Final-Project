@@ -15,6 +15,7 @@ namespace Library_Final_Project
         private readonly LibraryEntities _db;
         public User _user = new User();
         public int _role;
+        CreateNewAccount _cre;
         public PersonalInformation()
         {
             InitializeComponent();
@@ -26,6 +27,7 @@ namespace Library_Final_Project
             _db = new LibraryEntities();
             _user = user;
             _role = role;
+            _cre = cre;
             //Get the value from parameter 
         }
 
@@ -82,6 +84,9 @@ namespace Library_Final_Project
                     //Add Personal Information and role of that user we have just added to database
 
                     MessageBox.Show($"{_user.Account} is created successfully!");
+                    var login = new Login();
+                    login.Show();
+                    this.Hide();
                 }
             }
             catch (Exception ex)
@@ -94,6 +99,11 @@ namespace Library_Final_Project
         private void textBox1_TextChanged(object sender, EventArgs e)
         {
 
+        }
+
+        private void PersonalInformation_FormClosing(object sender, FormClosingEventArgs e)
+        {
+            _cre.Close();
         }
     }
 }
