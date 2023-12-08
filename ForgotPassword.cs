@@ -33,10 +33,9 @@ namespace Library_Final_Project
             }
             else
             {
-                var _user = _db.Users.FirstOrDefault(q => q.Account == userName);
                 //We need to ensure this is correct user so we need to confimr the answer from the user 
                 MessageBox.Show("To assure that it's you , We need to you to fill out our question");
-                var resetPass = new ResetPassword(this, _user);
+                var resetPass = new ResetPassword(this, userName);
                 resetPass.Show();
                 this.Hide();
 

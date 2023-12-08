@@ -44,9 +44,8 @@ namespace Library_Final_Project
                 var _user = _db.Users.FirstOrDefault(q => q.Account == username);
                 _user.Password = Utils.EncodingPassword("25892589");
                 _db.SaveChanges();
-                MessageBox.Show($"{_user.Account}'s new password is 25892589");
+                MessageBox.Show($"Reset password successfully!\r\n{_user.Account}'s new password is 25892589.");
                 Close();
-
             }
         }
     }

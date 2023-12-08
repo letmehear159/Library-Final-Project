@@ -51,5 +51,9 @@ namespace Library_Final_Project
             var isExisted = _db.Users.Any(q => q.Account == userName);
             return isExisted;
         }
+        public static void PopulateBookGrid(LibraryEntities _db)
+        {
+
+        }
     }
 }
