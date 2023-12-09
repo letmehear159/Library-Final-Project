@@ -29,5 +29,6 @@ namespace Library_Final_Project
         public virtual DbSet<User> Users { get; set; }
         public virtual DbSet<UserRole> UserRoles { get; set; }
         public virtual DbSet<PersonalInfor> PersonalInfors { get; set; }
+        public virtual DbSet<Book> Books { get; set; }
     }
 }

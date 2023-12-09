@@ -12,6 +12,7 @@
         <AssociationConnector Association="LibraryModel.FK_UserRole_User" />
         <EntityTypeShape EntityType="LibraryModel.PersonalInfor" Width="1.5" PointX="3" PointY="3.875" />
         <AssociationConnector Association="LibraryModel.FK_PersonalInformation_User" />
+        <EntityTypeShape EntityType="LibraryModel.Book" Width="1.5" PointX="5.375" PointY="0.75" />
       </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>

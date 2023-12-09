@@ -51,10 +51,23 @@ namespace Library_Final_Project
             var isExisted = _db.Users.Any(q => q.Account == userName);
             return isExisted;
         }
-        public static void PopulateBookGrid(LibraryEntities _db)
+        public static void PopulateBookGrid(LibraryEntities _db, DataGridView data)
         {
             //Tạo database sách rồi select sách để truyên source vào grid 
-
+            var books = (
+                from book in _db.Books
+                where book.Show == true
+                select new
+                {
+                    ISBN = book.ISBN,
+                    Title = book.Title,
+                    Author = book.Author,
+                    Category = book.Category,
+                    Quantity = book.Quantity,
+                }).ToList();
+            data.DataSource = books;
+            data.AutoResizeColumns(DataGridViewAutoSizeColumnsMode.AllCells);
+            data.Columns[0].Visible = false;
         }
         public static void PopulateUserGrid(LibraryEntities _db, DataGridView data)
         {
@@ -70,6 +83,8 @@ namespace Library_Final_Project
                     IsActive = user.IsActive
                 }).ToList();
             data.DataSource = users;
+            data.AutoResizeColumns(DataGridViewAutoSizeColumnsMode.AllCells);
+            data.Columns[3].Width = 110;
         }
     }
 }

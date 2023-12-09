@@ -29,14 +29,12 @@ namespace Library_Final_Project
 
         private void LibraryHomeTab_Load(object sender, EventArgs e)
         {
-            var role = _user.UserRoles.FirstOrDefault().Role.RoleNameShorcut;
-            tsStatusLogin.Text = $"Logged as {role}";
+            //var role = _user.UserRoles.FirstOrDefault().Role.RoleNameShorcut;
+            //tsStatusLogin.Text = $"Logged as {role}";
             Utils.PopulateUserGrid(_db, gvUserList);
+            Utils.PopulateBookGrid(_db, gvBookListMenu);
         }
 
-        private void gbManageBook_Enter(object sender, EventArgs e)
-        {
 
-        }
     }
 }
