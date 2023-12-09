@@ -31,7 +31,12 @@ namespace Library_Final_Project
         {
             var role = _user.UserRoles.FirstOrDefault().Role.RoleNameShorcut;
             tsStatusLogin.Text = $"Logged as {role}";
+            Utils.PopulateUserGrid(_db, gvUserList);
         }
 
+        private void gbManageBook_Enter(object sender, EventArgs e)
+        {
+
+        }
     }
 }

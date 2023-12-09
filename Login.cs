@@ -70,7 +70,7 @@ namespace Library_Final_Project
                 else
                 {
                     //If login successfully
-                    var libraryHome = new LibraryHome(_user, this);
+                    var libraryHome = new LibraryHomeTab(_user, this);
                     libraryHome.Show();
                     this.Hide();
                 }

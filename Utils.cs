@@ -53,7 +53,23 @@ namespace Library_Final_Project
         }
         public static void PopulateBookGrid(LibraryEntities _db)
         {
+            //Tạo database sách rồi select sách để truyên source vào grid 
 
+        }
+        public static void PopulateUserGrid(LibraryEntities _db, DataGridView data)
+        {
+            //Tạo database sách rồi select sách để truyên source vào grid 
+            var users = (
+                from user in _db.Users
+                select new
+                {
+                    Account = user.Account,
+                    Name = user.PersonalInfor.Name,
+                    Gender = user.PersonalInfor.Gender,
+                    BirthDate = user.PersonalInfor.BirthDate,
+                    IsActive = user.IsActive
+                }).ToList();
+            data.DataSource = users;
         }
     }
 }

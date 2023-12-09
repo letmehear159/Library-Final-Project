@@ -38,17 +38,18 @@
             this.label5 = new System.Windows.Forms.Label();
             this.label2 = new System.Windows.Forms.Label();
             this.tableLayoutPanel1 = new System.Windows.Forms.TableLayoutPanel();
+            this.tbCategory = new System.Windows.Forms.TextBox();
+            this.tbStatus = new System.Windows.Forms.TextBox();
+            this.tbISBN = new System.Windows.Forms.TextBox();
+            this.tbUsername = new System.Windows.Forms.TextBox();
+            this.tbTitle = new System.Windows.Forms.TextBox();
             this.label6 = new System.Windows.Forms.Label();
             this.tbContenSummary = new System.Windows.Forms.TextBox();
             this.label3 = new System.Windows.Forms.Label();
             this.btnViewComment = new System.Windows.Forms.Button();
             this.btnAddToFavourList = new System.Windows.Forms.Button();
             this.label7 = new System.Windows.Forms.Label();
-            this.tbUsername = new System.Windows.Forms.TextBox();
-            this.tbTitle = new System.Windows.Forms.TextBox();
-            this.tbISBN = new System.Windows.Forms.TextBox();
-            this.tbStatus = new System.Windows.Forms.TextBox();
-            this.tbCategory = new System.Windows.Forms.TextBox();
+            this.btnAddToLibrary = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)(this.pbBookImage)).BeginInit();
             this.tableLayoutPanel1.SuspendLayout();
             this.SuspendLayout();
@@ -153,6 +154,42 @@
             this.tableLayoutPanel1.Size = new System.Drawing.Size(460, 233);
             this.tableLayoutPanel1.TabIndex = 9;
             // 
+            // tbCategory
+            // 
+            this.tbCategory.Location = new System.Drawing.Point(194, 187);
+            this.tbCategory.Multiline = true;
+            this.tbCategory.Name = "tbCategory";
+            this.tbCategory.Size = new System.Drawing.Size(262, 43);
+            this.tbCategory.TabIndex = 19;
+            // 
+            // tbStatus
+            // 
+            this.tbStatus.Location = new System.Drawing.Point(194, 141);
+            this.tbStatus.Name = "tbStatus";
+            this.tbStatus.Size = new System.Drawing.Size(131, 20);
+            this.tbStatus.TabIndex = 19;
+            // 
+            // tbISBN
+            // 
+            this.tbISBN.Location = new System.Drawing.Point(194, 95);
+            this.tbISBN.Name = "tbISBN";
+            this.tbISBN.Size = new System.Drawing.Size(131, 20);
+            this.tbISBN.TabIndex = 19;
+            // 
+            // tbUsername
+            // 
+            this.tbUsername.Location = new System.Drawing.Point(194, 49);
+            this.tbUsername.Name = "tbUsername";
+            this.tbUsername.Size = new System.Drawing.Size(262, 20);
+            this.tbUsername.TabIndex = 18;
+            // 
+            // tbTitle
+            // 
+            this.tbTitle.Location = new System.Drawing.Point(194, 3);
+            this.tbTitle.Name = "tbTitle";
+            this.tbTitle.Size = new System.Drawing.Size(262, 20);
+            this.tbTitle.TabIndex = 19;
+            // 
             // label6
             // 
             this.label6.AutoSize = true;
@@ -213,47 +250,22 @@
             this.label7.TabIndex = 17;
             this.label7.Text = "Currently Borrowing:";
             // 
-            // tbUsername
+            // btnAddToLibrary
             // 
-            this.tbUsername.Location = new System.Drawing.Point(195, 49);
-            this.tbUsername.Name = "tbUsername";
-            this.tbUsername.Size = new System.Drawing.Size(262, 20);
-            this.tbUsername.TabIndex = 18;
-            // 
-            // tbTitle
-            // 
-            this.tbTitle.Location = new System.Drawing.Point(195, 3);
-            this.tbTitle.Name = "tbTitle";
-            this.tbTitle.Size = new System.Drawing.Size(262, 20);
-            this.tbTitle.TabIndex = 19;
-            // 
-            // tbISBN
-            // 
-            this.tbISBN.Location = new System.Drawing.Point(195, 95);
-            this.tbISBN.Name = "tbISBN";
-            this.tbISBN.Size = new System.Drawing.Size(131, 20);
-            this.tbISBN.TabIndex = 19;
-            // 
-            // tbStatus
-            // 
-            this.tbStatus.Location = new System.Drawing.Point(195, 141);
-            this.tbStatus.Name = "tbStatus";
-            this.tbStatus.Size = new System.Drawing.Size(131, 20);
-            this.tbStatus.TabIndex = 19;
-            // 
-            // tbCategory
-            // 
-            this.tbCategory.Location = new System.Drawing.Point(195, 187);
-            this.tbCategory.Multiline = true;
-            this.tbCategory.Name = "tbCategory";
-            this.tbCategory.Size = new System.Drawing.Size(262, 43);
-            this.tbCategory.TabIndex = 19;
+            this.btnAddToLibrary.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btnAddToLibrary.Location = new System.Drawing.Point(760, 432);
+            this.btnAddToLibrary.Name = "btnAddToLibrary";
+            this.btnAddToLibrary.Size = new System.Drawing.Size(263, 84);
+            this.btnAddToLibrary.TabIndex = 18;
+            this.btnAddToLibrary.Text = "Add Book To Library";
+            this.btnAddToLibrary.UseVisualStyleBackColor = true;
             // 
             // BookInformation
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(1035, 799);
+            this.ClientSize = new System.Drawing.Size(1035, 588);
+            this.Controls.Add(this.btnAddToLibrary);
             this.Controls.Add(this.label7);
             this.Controls.Add(this.btnAddToFavourList);
             this.Controls.Add(this.btnViewComment);
@@ -296,5 +308,6 @@
         private System.Windows.Forms.TextBox tbISBN;
         private System.Windows.Forms.TextBox tbUsername;
         private System.Windows.Forms.TextBox tbTitle;
+        private System.Windows.Forms.Button btnAddToLibrary;
     }
 }
