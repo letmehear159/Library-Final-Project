@@ -46,6 +46,10 @@ namespace Library_Final_Project
             string hashed_password = sBuilder.ToString();
             return hashed_password;
         }
+        /// <summary>
+        /// Check if this account existed
+        /// </summary>
+        /// <returns></returns> True if existed or false if not
         public static bool CheckAccountExisted(string userName, LibraryEntities _db)
         {
             var isExisted = _db.Users.Any(q => q.Account == userName);
@@ -53,7 +57,7 @@ namespace Library_Final_Project
         }
         public static void PopulateBookGrid(LibraryEntities _db, DataGridView data)
         {
-            //Tạo database sách rồi select sách để truyên source vào grid 
+
             var books = (
                 from book in _db.Books
                 where book.Show == true
@@ -65,9 +69,13 @@ namespace Library_Final_Project
                     Category = book.Category,
                     Quantity = book.Quantity,
                 }).ToList();
+            //Create a list book from a linq from database
             data.DataSource = books;
+            //Update the data of book list to datagridview 
             data.AutoResizeColumns(DataGridViewAutoSizeColumnsMode.AllCells);
+            //Resize the width of column
             data.Columns[0].Visible = false;
+            //Hide the ISBN coloumn, we need it for edit but not indicating
         }
         public static void PopulateUserGrid(LibraryEntities _db, DataGridView data)
         {
@@ -82,9 +90,26 @@ namespace Library_Final_Project
                     BirthDate = user.PersonalInfor.BirthDate,
                     IsActive = user.IsActive
                 }).ToList();
+            //Create a list User from a linq from database
             data.DataSource = users;
+            //Update the data of User list to datagridview 
             data.AutoResizeColumns(DataGridViewAutoSizeColumnsMode.AllCells);
             data.Columns[3].Width = 110;
+            //Resize the width of column
         }
+        /// <summary>
+        /// Get the role of the using user
+        /// </summary>
+        /// <param name="_db"></param> Database
+        /// <param name="user"></param>: Using user
+        /// <returns></returns>: String of Shorcut Role Name
+        public static string GetRoleOfUser(LibraryEntities _db, User user)
+        {
+            string role = user.UserRoles.FirstOrDefault().Role.RoleNameShorcut;
+            return role;
+        }
+
+
+
     }
 }

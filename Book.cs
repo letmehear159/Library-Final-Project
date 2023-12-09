@@ -14,6 +14,13 @@ namespace Library_Final_Project
     
     public partial class Book
     {
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
+        public Book()
+        {
+            this.TransactionHistories = new HashSet<TransactionHistory>();
+            this.Users = new HashSet<User>();
+        }
+    
         public int ISBN { get; set; }
         public string Title { get; set; }
         public string Author { get; set; }
@@ -21,5 +28,12 @@ namespace Library_Final_Project
         public bool Status { get; set; }
         public int Quantity { get; set; }
         public bool Show { get; set; }
+    
+        public virtual Comment Comment { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<TransactionHistory> TransactionHistories { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<User> Users { get; set; }
+        public virtual ContentSummary ContentSummary { get; set; }
     }
 }

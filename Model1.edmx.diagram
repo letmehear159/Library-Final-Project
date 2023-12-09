@@ -13,6 +13,15 @@
         <EntityTypeShape EntityType="LibraryModel.PersonalInfor" Width="1.5" PointX="3" PointY="3.875" />
         <AssociationConnector Association="LibraryModel.FK_PersonalInformation_User" />
         <EntityTypeShape EntityType="LibraryModel.Book" Width="1.5" PointX="5.375" PointY="0.75" />
+        <EntityTypeShape EntityType="LibraryModel.Comment" Width="1.5" PointX="7.625" PointY="5.75" />
+        <EntityTypeShape EntityType="LibraryModel.TransactionHistory" Width="1.5" PointX="7.625" PointY="2.5" />
+        <AssociationConnector Association="LibraryModel.FK_Comment_Book" />
+        <AssociationConnector Association="LibraryModel.FK_TransactionHistory_Book" />
+        <AssociationConnector Association="LibraryModel.FK_Comment_User" />
+        <AssociationConnector Association="LibraryModel.FK_TransactionHistory_User" />
+        <AssociationConnector Association="LibraryModel.FavouriteBook" />
+        <EntityTypeShape EntityType="LibraryModel.ContentSummary" Width="1.5" PointX="7.625" PointY="0.75" />
+        <AssociationConnector Association="LibraryModel.FK_ContentSummary_ContentSummary" />
       </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>

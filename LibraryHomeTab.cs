@@ -32,9 +32,35 @@ namespace Library_Final_Project
             //var role = _user.UserRoles.FirstOrDefault().Role.RoleNameShorcut;
             //tsStatusLogin.Text = $"Logged as {role}";
             Utils.PopulateUserGrid(_db, gvUserList);
+            //Update the data of user from database to gvUserList to display
+
             Utils.PopulateBookGrid(_db, gvBookListMenu);
+            //Update the data of book from database to gvUserList to display
+
+        }
+        /// <summary>
+        /// View choosen book's information
+        /// </summary>
+        private void btnViewBookInfor_Click(object sender, EventArgs e)
+        {
+            var isbn = (int)gvBookListMenu.SelectedRows[0].Cells["ISBN"].Value;
+            //Get the isbn of selected book
+
+            var book = _db.Books.FirstOrDefault(q => q.ISBN == isbn);
+            //Get this book's data from the database
+
+            if (book != null)   //If we view or edit book 
+            {
+                BookInformation bookInformation = new BookInformation(book, _user, false);
+                bookInformation.Show();
+                //Show the book_information winform
+            }
+
         }
 
-
+        private void LibraryHomeTab_FormClosing(object sender, FormClosingEventArgs e)
+        {
+            _login.Close();
+        }
     }
 }

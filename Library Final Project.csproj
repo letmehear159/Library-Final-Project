@@ -64,11 +64,17 @@
     <Compile Include="BookInformation.Designer.cs">
       <DependentUpon>BookInformation.cs</DependentUpon>
     </Compile>
+    <Compile Include="Comment.cs">
+      <DependentUpon>Model1.tt</DependentUpon>
+    </Compile>
     <Compile Include="CommentList.cs">
       <SubType>Form</SubType>
     </Compile>
     <Compile Include="CommentList.Designer.cs">
       <DependentUpon>CommentList.cs</DependentUpon>
+    </Compile>
+    <Compile Include="ContentSummary.cs">
+      <DependentUpon>Model1.tt</DependentUpon>
     </Compile>
     <Compile Include="CreateNewAccount.cs">
       <SubType>Form</SubType>
@@ -163,6 +169,9 @@
     </Compile>
     <Compile Include="LibraryHomeTab.Designer.cs">
       <DependentUpon>LibraryHomeTab.cs</DependentUpon>
+    </Compile>
+    <Compile Include="TransactionHistory.cs">
+      <DependentUpon>Model1.tt</DependentUpon>
     </Compile>
     <Compile Include="UserRole.cs">
       <DependentUpon>Model1.tt</DependentUpon>

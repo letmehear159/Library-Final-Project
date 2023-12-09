@@ -33,7 +33,7 @@
             this.pbBookImage = new System.Windows.Forms.PictureBox();
             this.label1 = new System.Windows.Forms.Label();
             this.label9 = new System.Windows.Forms.Label();
-            this.lblBookBorrowing = new System.Windows.Forms.Label();
+            this.lblBorrowUser = new System.Windows.Forms.Label();
             this.label4 = new System.Windows.Forms.Label();
             this.label5 = new System.Windows.Forms.Label();
             this.label2 = new System.Windows.Forms.Label();
@@ -41,15 +41,16 @@
             this.tbCategory = new System.Windows.Forms.TextBox();
             this.tbStatus = new System.Windows.Forms.TextBox();
             this.tbISBN = new System.Windows.Forms.TextBox();
-            this.tbUsername = new System.Windows.Forms.TextBox();
+            this.tbAuthor = new System.Windows.Forms.TextBox();
             this.tbTitle = new System.Windows.Forms.TextBox();
             this.label6 = new System.Windows.Forms.Label();
             this.tbContenSummary = new System.Windows.Forms.TextBox();
             this.label3 = new System.Windows.Forms.Label();
             this.btnViewComment = new System.Windows.Forms.Button();
             this.btnAddToFavourList = new System.Windows.Forms.Button();
-            this.label7 = new System.Windows.Forms.Label();
+            this.lblCurrentBorrow = new System.Windows.Forms.Label();
             this.btnAddToLibrary = new System.Windows.Forms.Button();
+            this.btnSubmit = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)(this.pbBookImage)).BeginInit();
             this.tableLayoutPanel1.SuspendLayout();
             this.SuspendLayout();
@@ -88,15 +89,15 @@
             this.label9.TabIndex = 10;
             this.label9.Text = "Status";
             // 
-            // lblBookBorrowing
+            // lblBorrowUser
             // 
-            this.lblBookBorrowing.AutoSize = true;
-            this.lblBookBorrowing.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lblBookBorrowing.Location = new System.Drawing.Point(857, 101);
-            this.lblBookBorrowing.Name = "lblBookBorrowing";
-            this.lblBookBorrowing.Size = new System.Drawing.Size(51, 20);
-            this.lblBookBorrowing.TabIndex = 6;
-            this.lblBookBorrowing.Text = "label3";
+            this.lblBorrowUser.AutoSize = true;
+            this.lblBorrowUser.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lblBorrowUser.Location = new System.Drawing.Point(857, 101);
+            this.lblBorrowUser.Name = "lblBorrowUser";
+            this.lblBorrowUser.Size = new System.Drawing.Size(51, 20);
+            this.lblBorrowUser.TabIndex = 6;
+            this.lblBorrowUser.Text = "label3";
             // 
             // label4
             // 
@@ -136,7 +137,7 @@
             this.tableLayoutPanel1.Controls.Add(this.tbCategory, 1, 4);
             this.tableLayoutPanel1.Controls.Add(this.tbStatus, 1, 3);
             this.tableLayoutPanel1.Controls.Add(this.tbISBN, 1, 2);
-            this.tableLayoutPanel1.Controls.Add(this.tbUsername, 1, 1);
+            this.tableLayoutPanel1.Controls.Add(this.tbAuthor, 1, 1);
             this.tableLayoutPanel1.Controls.Add(this.tbTitle, 1, 0);
             this.tableLayoutPanel1.Controls.Add(this.label2, 0, 0);
             this.tableLayoutPanel1.Controls.Add(this.label6, 0, 4);
@@ -176,12 +177,12 @@
             this.tbISBN.Size = new System.Drawing.Size(131, 20);
             this.tbISBN.TabIndex = 19;
             // 
-            // tbUsername
+            // tbAuthor
             // 
-            this.tbUsername.Location = new System.Drawing.Point(194, 49);
-            this.tbUsername.Name = "tbUsername";
-            this.tbUsername.Size = new System.Drawing.Size(262, 20);
-            this.tbUsername.TabIndex = 18;
+            this.tbAuthor.Location = new System.Drawing.Point(194, 49);
+            this.tbAuthor.Name = "tbAuthor";
+            this.tbAuthor.Size = new System.Drawing.Size(262, 20);
+            this.tbAuthor.TabIndex = 18;
             // 
             // tbTitle
             // 
@@ -238,35 +239,47 @@
             this.btnAddToFavourList.TabIndex = 16;
             this.btnAddToFavourList.Text = "Add To Favourite List";
             this.btnAddToFavourList.UseVisualStyleBackColor = false;
-            this.btnAddToFavourList.Click += new System.EventHandler(this.button1_Click);
             // 
-            // label7
+            // lblCurrentBorrow
             // 
-            this.label7.AutoSize = true;
-            this.label7.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, ((System.Drawing.FontStyle)((System.Drawing.FontStyle.Bold | System.Drawing.FontStyle.Underline))), System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label7.Location = new System.Drawing.Point(852, 71);
-            this.label7.Name = "label7";
-            this.label7.Size = new System.Drawing.Size(171, 20);
-            this.label7.TabIndex = 17;
-            this.label7.Text = "Currently Borrowing:";
+            this.lblCurrentBorrow.AutoSize = true;
+            this.lblCurrentBorrow.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, ((System.Drawing.FontStyle)((System.Drawing.FontStyle.Bold | System.Drawing.FontStyle.Underline))), System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lblCurrentBorrow.Location = new System.Drawing.Point(852, 71);
+            this.lblCurrentBorrow.Name = "lblCurrentBorrow";
+            this.lblCurrentBorrow.Size = new System.Drawing.Size(171, 20);
+            this.lblCurrentBorrow.TabIndex = 17;
+            this.lblCurrentBorrow.Text = "Currently Borrowing:";
             // 
             // btnAddToLibrary
             // 
             this.btnAddToLibrary.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btnAddToLibrary.Location = new System.Drawing.Point(760, 432);
+            this.btnAddToLibrary.Location = new System.Drawing.Point(894, 437);
             this.btnAddToLibrary.Name = "btnAddToLibrary";
-            this.btnAddToLibrary.Size = new System.Drawing.Size(263, 84);
+            this.btnAddToLibrary.Size = new System.Drawing.Size(129, 84);
             this.btnAddToLibrary.TabIndex = 18;
             this.btnAddToLibrary.Text = "Add Book To Library";
             this.btnAddToLibrary.UseVisualStyleBackColor = true;
+            this.btnAddToLibrary.Click += new System.EventHandler(this.btnAddToLibrary_Click);
+            // 
+            // btnSubmit
+            // 
+            this.btnSubmit.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btnSubmit.Location = new System.Drawing.Point(738, 437);
+            this.btnSubmit.Name = "btnSubmit";
+            this.btnSubmit.Size = new System.Drawing.Size(129, 84);
+            this.btnSubmit.TabIndex = 19;
+            this.btnSubmit.Text = "Submit Book\'s Change";
+            this.btnSubmit.UseVisualStyleBackColor = true;
+            this.btnSubmit.Click += new System.EventHandler(this.btnSubmit_Click);
             // 
             // BookInformation
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(1035, 588);
+            this.Controls.Add(this.btnSubmit);
             this.Controls.Add(this.btnAddToLibrary);
-            this.Controls.Add(this.label7);
+            this.Controls.Add(this.lblCurrentBorrow);
             this.Controls.Add(this.btnAddToFavourList);
             this.Controls.Add(this.btnViewComment);
             this.Controls.Add(this.label3);
@@ -274,10 +287,11 @@
             this.Controls.Add(this.tableLayoutPanel1);
             this.Controls.Add(this.label1);
             this.Controls.Add(this.pbBookImage);
-            this.Controls.Add(this.lblBookBorrowing);
+            this.Controls.Add(this.lblBorrowUser);
             this.Name = "BookInformation";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "BookInformation";
+            this.Load += new System.EventHandler(this.BookInformation_Load);
             ((System.ComponentModel.ISupportInitialize)(this.pbBookImage)).EndInit();
             this.tableLayoutPanel1.ResumeLayout(false);
             this.tableLayoutPanel1.PerformLayout();
@@ -292,7 +306,7 @@
         private System.Windows.Forms.PictureBox pbBookImage;
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.Label label9;
-        private System.Windows.Forms.Label lblBookBorrowing;
+        private System.Windows.Forms.Label lblBorrowUser;
         private System.Windows.Forms.Label label4;
         private System.Windows.Forms.Label label5;
         private System.Windows.Forms.Label label2;
@@ -302,12 +316,13 @@
         private System.Windows.Forms.Label label3;
         private System.Windows.Forms.Button btnViewComment;
         private System.Windows.Forms.Button btnAddToFavourList;
-        private System.Windows.Forms.Label label7;
+        private System.Windows.Forms.Label lblCurrentBorrow;
         private System.Windows.Forms.TextBox tbCategory;
         private System.Windows.Forms.TextBox tbStatus;
         private System.Windows.Forms.TextBox tbISBN;
-        private System.Windows.Forms.TextBox tbUsername;
+        private System.Windows.Forms.TextBox tbAuthor;
         private System.Windows.Forms.TextBox tbTitle;
         private System.Windows.Forms.Button btnAddToLibrary;
+        private System.Windows.Forms.Button btnSubmit;
     }
 }

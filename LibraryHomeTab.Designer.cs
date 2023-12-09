@@ -432,6 +432,7 @@
             this.btnViewBookInfor.TabIndex = 11;
             this.btnViewBookInfor.Text = "View Book\'s Information";
             this.btnViewBookInfor.UseVisualStyleBackColor = true;
+            this.btnViewBookInfor.Click += new System.EventHandler(this.btnViewBookInfor_Click);
             // 
             // label2
             // 
@@ -463,6 +464,7 @@
             this.Controls.Add(this.tcMenu);
             this.Name = "LibraryHomeTab";
             this.Text = "TestTab";
+            this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.LibraryHomeTab_FormClosing);
             this.Load += new System.EventHandler(this.LibraryHomeTab_Load);
             this.tpSearchUser.ResumeLayout(false);
             this.tpSearchUser.PerformLayout();

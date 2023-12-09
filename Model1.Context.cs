@@ -30,5 +30,8 @@ namespace Library_Final_Project
         public virtual DbSet<UserRole> UserRoles { get; set; }
         public virtual DbSet<PersonalInfor> PersonalInfors { get; set; }
         public virtual DbSet<Book> Books { get; set; }
+        public virtual DbSet<Comment> Comments { get; set; }
+        public virtual DbSet<TransactionHistory> TransactionHistories { get; set; }
+        public virtual DbSet<ContentSummary> ContentSummaries { get; set; }
     }
 }
