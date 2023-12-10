@@ -228,6 +228,7 @@
             this.btnViewComment.TabIndex = 15;
             this.btnViewComment.Text = "View Comment";
             this.btnViewComment.UseVisualStyleBackColor = true;
+            this.btnViewComment.Click += new System.EventHandler(this.btnViewComment_Click);
             // 
             // btnAddToFavourList
             // 
@@ -239,6 +240,7 @@
             this.btnAddToFavourList.TabIndex = 16;
             this.btnAddToFavourList.Text = "Add To Favourite List";
             this.btnAddToFavourList.UseVisualStyleBackColor = false;
+            this.btnAddToFavourList.Click += new System.EventHandler(this.btnAddToFavourList_Click);
             // 
             // lblCurrentBorrow
             // 

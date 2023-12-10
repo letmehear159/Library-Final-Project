@@ -108,6 +108,22 @@ namespace Library_Final_Project
             string role = user.UserRoles.FirstOrDefault().Role.RoleNameShorcut;
             return role;
         }
+        public static void PopulateCommentGrid(LibraryEntities _db, DataGridView data, Book book)
+        {
+            var comments = (
+                from comment in _db.Comments
+                where comment.ISBN == book.ISBN
+                select new
+                {
+                    Account = comment.Account,
+                    Content = comment.CommentaryContent,
+                    Date = comment.Date
+                }
+                );
+            data.DataSource = comments;
+            data.AutoResizeColumns(DataGridViewAutoSizeColumnsMode.AllCells);
+            data.Columns[1].Width = 170;
+        }
 
 
 

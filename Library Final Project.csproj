@@ -82,6 +82,9 @@
     <Compile Include="CreateNewAccount.Designer.cs">
       <DependentUpon>CreateNewAccount.cs</DependentUpon>
     </Compile>
+    <Compile Include="FavouriteBook.cs">
+      <DependentUpon>Model1.tt</DependentUpon>
+    </Compile>
     <Compile Include="FavouriteList.cs">
       <SubType>Form</SubType>
     </Compile>

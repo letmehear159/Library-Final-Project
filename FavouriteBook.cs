@@ -12,12 +12,11 @@ namespace Library_Final_Project
     using System;
     using System.Collections.Generic;
     
-    public partial class Comment
+    public partial class FavouriteBook
     {
+        public int id { get; set; }
         public int ISBN { get; set; }
         public string Account { get; set; }
-        public Nullable<System.DateTime> Date { get; set; }
-        public string CommentaryContent { get; set; }
     
         public virtual Book Book { get; set; }
         public virtual User User { get; set; }

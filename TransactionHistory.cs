@@ -19,6 +19,7 @@ namespace Library_Final_Project
         public System.DateTime DateBorrow { get; set; }
         public string BookName { get; set; }
         public Nullable<System.DateTime> DateReturn { get; set; }
+        public bool IsReturned { get; set; }
     
         public virtual Book Book { get; set; }
         public virtual User User { get; set; }

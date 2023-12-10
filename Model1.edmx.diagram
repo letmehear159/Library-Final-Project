@@ -5,23 +5,25 @@
     <!-- Diagram content (shape and connector positions) -->
     <edmx:Diagrams>
       <Diagram DiagramId="e0365b89e63f455ea11356a425bab1eb" Name="Diagram1">
-        <EntityTypeShape EntityType="LibraryModel.Role" Width="1.5" PointX="0.75" PointY="1" />
-        <EntityTypeShape EntityType="LibraryModel.User" Width="1.5" PointX="0.75" PointY="4.125" />
-        <EntityTypeShape EntityType="LibraryModel.UserRole" Width="1.5" PointX="3" PointY="0.875" />
-        <AssociationConnector Association="LibraryModel.FK_UserRole_Role" />
-        <AssociationConnector Association="LibraryModel.FK_UserRole_User" />
-        <EntityTypeShape EntityType="LibraryModel.PersonalInfor" Width="1.5" PointX="3" PointY="3.875" />
-        <AssociationConnector Association="LibraryModel.FK_PersonalInformation_User" />
-        <EntityTypeShape EntityType="LibraryModel.Book" Width="1.5" PointX="5.375" PointY="0.75" />
-        <EntityTypeShape EntityType="LibraryModel.Comment" Width="1.5" PointX="7.625" PointY="5.75" />
-        <EntityTypeShape EntityType="LibraryModel.TransactionHistory" Width="1.5" PointX="7.625" PointY="2.5" />
+        <EntityTypeShape EntityType="LibraryModel.Book" Width="1.5" PointX="3.75" PointY="0.75" />
+        <EntityTypeShape EntityType="LibraryModel.Comment" Width="1.5" PointX="6" PointY="8.375" />
+        <EntityTypeShape EntityType="LibraryModel.ContentSummary" Width="1.5" PointX="8.625" PointY="1.5" />
+        <EntityTypeShape EntityType="LibraryModel.FavouriteBook" Width="1.5" PointX="8.375" PointY="5.375" />
+        <EntityTypeShape EntityType="LibraryModel.PersonalInfor" Width="1.5" PointX="0.625" PointY="11.75" />
+        <EntityTypeShape EntityType="LibraryModel.Role" Width="1.5" PointX="0.5" PointY="5.375" />
+        <EntityTypeShape EntityType="LibraryModel.TransactionHistory" Width="1.5" PointX="3" PointY="8.125" />
+        <EntityTypeShape EntityType="LibraryModel.User" Width="1.5" PointX="0.75" PointY="8" />
+        <EntityTypeShape EntityType="LibraryModel.UserRole" Width="1.5" PointX="2.875" PointY="4.625" />
         <AssociationConnector Association="LibraryModel.FK_Comment_Book" />
+        <AssociationConnector Association="LibraryModel.FK_ContentSummary_ContentSummary" />
+        <AssociationConnector Association="LibraryModel.FK_FavouriteBook_Book" />
         <AssociationConnector Association="LibraryModel.FK_TransactionHistory_Book" />
         <AssociationConnector Association="LibraryModel.FK_Comment_User" />
+        <AssociationConnector Association="LibraryModel.FK_FavouriteBook_User" />
+        <AssociationConnector Association="LibraryModel.FK_PersonalInformation_User" />
+        <AssociationConnector Association="LibraryModel.FK_UserRole_Role" />
         <AssociationConnector Association="LibraryModel.FK_TransactionHistory_User" />
-        <AssociationConnector Association="LibraryModel.FavouriteBook" />
-        <EntityTypeShape EntityType="LibraryModel.ContentSummary" Width="1.5" PointX="7.625" PointY="0.75" />
-        <AssociationConnector Association="LibraryModel.FK_ContentSummary_ContentSummary" />
+        <AssociationConnector Association="LibraryModel.FK_UserRole_User" />
       </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>

@@ -28,20 +28,20 @@
         /// </summary>
         private void InitializeComponent()
         {
-            this.dataGridView1 = new System.Windows.Forms.DataGridView();
+            this.gvCommentList = new System.Windows.Forms.DataGridView();
             this.btnLeaveComment = new System.Windows.Forms.Button();
             this.tbComment = new System.Windows.Forms.TextBox();
             this.lblBookName = new System.Windows.Forms.Label();
-            ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.gvCommentList)).BeginInit();
             this.SuspendLayout();
             // 
-            // dataGridView1
+            // gvCommentList
             // 
-            this.dataGridView1.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.dataGridView1.Location = new System.Drawing.Point(12, 92);
-            this.dataGridView1.Name = "dataGridView1";
-            this.dataGridView1.Size = new System.Drawing.Size(479, 269);
-            this.dataGridView1.TabIndex = 0;
+            this.gvCommentList.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            this.gvCommentList.Location = new System.Drawing.Point(12, 92);
+            this.gvCommentList.Name = "gvCommentList";
+            this.gvCommentList.Size = new System.Drawing.Size(479, 269);
+            this.gvCommentList.TabIndex = 0;
             // 
             // btnLeaveComment
             // 
@@ -80,10 +80,11 @@
             this.Controls.Add(this.lblBookName);
             this.Controls.Add(this.btnLeaveComment);
             this.Controls.Add(this.tbComment);
-            this.Controls.Add(this.dataGridView1);
+            this.Controls.Add(this.gvCommentList);
             this.Name = "CommentList";
             this.Text = "Comment List";
-            ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).EndInit();
+            this.Load += new System.EventHandler(this.CommentList_Load);
+            ((System.ComponentModel.ISupportInitialize)(this.gvCommentList)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -91,7 +92,7 @@
 
         #endregion
 
-        private System.Windows.Forms.DataGridView dataGridView1;
+        private System.Windows.Forms.DataGridView gvCommentList;
         private System.Windows.Forms.Button btnLeaveComment;
         private System.Windows.Forms.TextBox tbComment;
         private System.Windows.Forms.Label lblBookName;

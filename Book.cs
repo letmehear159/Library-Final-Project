@@ -17,8 +17,8 @@ namespace Library_Final_Project
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
         public Book()
         {
+            this.FavouriteBooks = new HashSet<FavouriteBook>();
             this.TransactionHistories = new HashSet<TransactionHistory>();
-            this.Users = new HashSet<User>();
         }
     
         public int ISBN { get; set; }
@@ -30,10 +30,10 @@ namespace Library_Final_Project
         public bool Show { get; set; }
     
         public virtual Comment Comment { get; set; }
+        public virtual ContentSummary ContentSummary { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<FavouriteBook> FavouriteBooks { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<TransactionHistory> TransactionHistories { get; set; }
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<User> Users { get; set; }
-        public virtual ContentSummary ContentSummary { get; set; }
     }
 }

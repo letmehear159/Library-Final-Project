@@ -132,6 +132,7 @@ namespace Library_Final_Project
             //Get the book from book table database
             SaveBookChangeToDatabase(book);
             //Save change
+            MessageBox.Show("Successfuly saved book's changes.");
         }
         /// <summary>
         /// Add new book to library
@@ -152,6 +153,43 @@ namespace Library_Final_Project
             _db.Books.Add(book);
             _db.SaveChanges();
             //Add this book to the database
+
+            MessageBox.Show("Book added successfully to your library.");
+            //Inform the user.
+        }
+
+        private void btnAddToFavourList_Click(object sender, EventArgs e)
+        {
+            var favourBook = new FavouriteBook();
+            favourBook.Account = _user.Account;
+            favourBook.ISBN = _book.ISBN;
+            //Create a new instance of favourite book then pass the data to it
+
+            _db.FavouriteBooks.Add(favourBook);
+            _db.SaveChanges();
+            //Add this favourite book to favouriteBooks in database then save changes.
+
+            MessageBox.Show("Book added successfully to your favourite list.");
+            //Inform the user.
+
+        }
+        //public string BorrowerListThisBook()
+        //{
+
+        //}
+
+
+        /// <summary>
+        /// Display the comment list of this winform and user can add his/her comment
+        /// </summary>
+        private void btnViewComment_Click(object sender, EventArgs e)
+        {
+            if (!Utils.isOpen("CommentList"))   //If this form hasnt been openning then it can display if yes stop this operation to open new form
+            {
+                var commentList = new CommentList(_user, _book);
+                commentList.Show();
+            }
+
         }
     }
 }
