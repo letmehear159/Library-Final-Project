@@ -44,6 +44,7 @@ namespace Library_Final_Project
                     "Thanks for your attribution.");
                 //Inform the user 
                 Utils.PopulateCommentGrid(_db, gvCommentList, _book);
+                //Update instantly so user can see his/her comment right after commenting
             }
             catch (Exception ex)
             {

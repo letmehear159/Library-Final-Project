@@ -53,7 +53,7 @@
             this.button2 = new System.Windows.Forms.Button();
             this.button1 = new System.Windows.Forms.Button();
             this.button7 = new System.Windows.Forms.Button();
-            this.comboBox1 = new System.Windows.Forms.ComboBox();
+            this.cbSearchOption = new System.Windows.Forms.ComboBox();
             this.label5 = new System.Windows.Forms.Label();
             this.label6 = new System.Windows.Forms.Label();
             this.gvBookListSearch = new System.Windows.Forms.DataGridView();
@@ -232,7 +232,7 @@
             // 
             this.tpSearchBook.Controls.Add(this.gbManageBook);
             this.tpSearchBook.Controls.Add(this.button7);
-            this.tpSearchBook.Controls.Add(this.comboBox1);
+            this.tpSearchBook.Controls.Add(this.cbSearchOption);
             this.tpSearchBook.Controls.Add(this.label5);
             this.tpSearchBook.Controls.Add(this.label6);
             this.tpSearchBook.Controls.Add(this.gvBookListSearch);
@@ -323,18 +323,19 @@
             this.button7.Text = "View Book\'s Information";
             this.button7.UseVisualStyleBackColor = true;
             // 
-            // comboBox1
+            // cbSearchOption
             // 
-            this.comboBox1.FormattingEnabled = true;
-            this.comboBox1.Items.AddRange(new object[] {
+            this.cbSearchOption.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.cbSearchOption.FormattingEnabled = true;
+            this.cbSearchOption.Items.AddRange(new object[] {
             "Search By Book\'s Title",
             "Search By Author",
             "Search By Content",
             "Search Overdue Book"});
-            this.comboBox1.Location = new System.Drawing.Point(125, 22);
-            this.comboBox1.Name = "comboBox1";
-            this.comboBox1.Size = new System.Drawing.Size(143, 28);
-            this.comboBox1.TabIndex = 42;
+            this.cbSearchOption.Location = new System.Drawing.Point(125, 22);
+            this.cbSearchOption.Name = "cbSearchOption";
+            this.cbSearchOption.Size = new System.Drawing.Size(143, 28);
+            this.cbSearchOption.TabIndex = 42;
             // 
             // label5
             // 
@@ -371,6 +372,7 @@
             this.btnSearch.TabIndex = 33;
             this.btnSearch.Text = "Search ";
             this.btnSearch.UseVisualStyleBackColor = true;
+            this.btnSearch.Click += new System.EventHandler(this.btnSearch_Click);
             // 
             // tbSearch
             // 
@@ -511,7 +513,7 @@
         private System.Windows.Forms.Button button2;
         private System.Windows.Forms.Button button1;
         private System.Windows.Forms.Button button7;
-        private System.Windows.Forms.ComboBox comboBox1;
+        private System.Windows.Forms.ComboBox cbSearchOption;
         private System.Windows.Forms.Label label5;
         private System.Windows.Forms.Label label6;
         private System.Windows.Forms.DataGridView gvBookListSearch;

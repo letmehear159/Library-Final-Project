@@ -1,8 +1,10 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using TF_IDF;
 
 namespace Library_Final_Project
 {
@@ -16,7 +18,8 @@ namespace Library_Final_Project
         {
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
-            Application.Run(new Login());
+            Application.Run(new LibraryHomeTab());
+
         }
     }
 }

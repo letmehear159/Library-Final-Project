@@ -173,6 +173,7 @@
     <Compile Include="LibraryHomeTab.Designer.cs">
       <DependentUpon>LibraryHomeTab.cs</DependentUpon>
     </Compile>
+    <Compile Include="StringHandle.cs" />
     <Compile Include="TransactionHistory.cs">
       <DependentUpon>Model1.tt</DependentUpon>
     </Compile>

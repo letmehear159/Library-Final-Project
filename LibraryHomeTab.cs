@@ -7,6 +7,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using TF_IDF;
 
 namespace Library_Final_Project
 {
@@ -61,6 +62,41 @@ namespace Library_Final_Project
         private void LibraryHomeTab_FormClosing(object sender, FormClosingEventArgs e)
         {
             _login.Close();
+        }
+
+        private void btnSearch_Click(object sender, EventArgs e)
+        {
+            string searchContent = btnSearch.Text;
+            string searchOption = cbSearchOption.SelectedValue.ToString();
+            switch (searchOption)
+            {
+                case "Search By Book's Title":
+                    List<int> searchResult = StringHandle.CompleteTF_IDF(_db, searchContent);
+
+                    if (searchResult.Count > 0)
+                    {
+                        var books = (from book in _db.Books
+                                     where searchResult.Contains(book.ISBN)
+                                     select new
+                                     {
+                                         book.ISBN,
+                                         Title = book.Title,
+                                         Author = book.Author,
+                                         Category = book.Category,
+                                         Quantity = book.Quantity,
+                                         Status = book.Quantity > 0 ? "Available" : "Unavailable"
+                                     }).ToList();
+                        gvBookListSearch.DataSource = books;
+                    }
+                    else
+                    {
+                        MessageBox.Show("Sorry, we couldn't find approriate books for you.");
+                    }
+                    break;
+
+
+
+            }
         }
     }
 }
