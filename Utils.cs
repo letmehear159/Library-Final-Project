@@ -108,6 +108,12 @@ namespace Library_Final_Project
             string role = user.UserRoles.FirstOrDefault().Role.RoleNameShorcut;
             return role;
         }
+
+        /// <summary>
+        /// Get the comment list of selected book and pass the data to display grid
+        /// </summary>
+        /// <param name="data"></param>: The comment grid view
+        /// <param name="book"></param>: Selected Book
         public static void PopulateCommentGrid(LibraryEntities _db, DataGridView data, Book book)
         {
             var comments = (
@@ -119,10 +125,11 @@ namespace Library_Final_Project
                     Content = comment.CommentaryContent,
                     Date = comment.Date
                 }
-                );
+                ).ToList();
             data.DataSource = comments;
             data.AutoResizeColumns(DataGridViewAutoSizeColumnsMode.AllCells);
-            data.Columns[1].Width = 170;
+            data.Columns[1].Width = 250;
+            data.Columns[2].Width = 150;
         }
 
 

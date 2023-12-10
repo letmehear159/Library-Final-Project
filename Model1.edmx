@@ -20,10 +20,11 @@
         <EntityType Name="Comment">
           <Key>
             <PropertyRef Name="ISBN" />
+            <PropertyRef Name="Date" />
           </Key>
           <Property Name="ISBN" Type="int" Nullable="false" />
           <Property Name="Account" Type="nvarchar" MaxLength="50" />
-          <Property Name="Date" Type="datetime" />
+          <Property Name="Date" Type="datetime" Nullable="false" />
           <Property Name="CommentaryContent" Type="nvarchar" MaxLength="50" />
         </EntityType>
         <EntityType Name="ContentSummary">
@@ -91,7 +92,7 @@
         </EntityType>
         <Association Name="FK_Comment_Book">
           <End Role="Book" Type="Self.Book" Multiplicity="1" />
-          <End Role="Comment" Type="Self.Comment" Multiplicity="0..1" />
+          <End Role="Comment" Type="Self.Comment" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="Book">
               <PropertyRef Name="ISBN" />
@@ -266,7 +267,6 @@
       <Schema Namespace="LibraryModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
         <EntityContainer Name="LibraryEntities" annotation:LazyLoadingEnabled="true">
           <EntitySet Name="Books" EntityType="LibraryModel.Book" />
-          <EntitySet Name="Comments" EntityType="LibraryModel.Comment" />
           <EntitySet Name="ContentSummaries" EntityType="LibraryModel.ContentSummary" />
           <EntitySet Name="FavouriteBooks" EntityType="LibraryModel.FavouriteBook" />
           <EntitySet Name="PersonalInfors" EntityType="LibraryModel.PersonalInfor" />
@@ -274,10 +274,6 @@
           <EntitySet Name="TransactionHistories" EntityType="LibraryModel.TransactionHistory" />
           <EntitySet Name="Users" EntityType="LibraryModel.User" />
           <EntitySet Name="UserRoles" EntityType="LibraryModel.UserRole" />
-          <AssociationSet Name="FK_Comment_Book" Association="LibraryModel.FK_Comment_Book">
-            <End Role="Book" EntitySet="Books" />
-            <End Role="Comment" EntitySet="Comments" />
-          </AssociationSet>
           <AssociationSet Name="FK_ContentSummary_ContentSummary" Association="LibraryModel.FK_ContentSummary_ContentSummary">
             <End Role="Book" EntitySet="Books" />
             <End Role="ContentSummary" EntitySet="ContentSummaries" />
@@ -289,10 +285,6 @@
           <AssociationSet Name="FK_TransactionHistory_Book" Association="LibraryModel.FK_TransactionHistory_Book">
             <End Role="Book" EntitySet="Books" />
             <End Role="TransactionHistory" EntitySet="TransactionHistories" />
-          </AssociationSet>
-          <AssociationSet Name="FK_Comment_User" Association="LibraryModel.FK_Comment_User">
-            <End Role="User" EntitySet="Users" />
-            <End Role="Comment" EntitySet="Comments" />
           </AssociationSet>
           <AssociationSet Name="FK_FavouriteBook_User" Association="LibraryModel.FK_FavouriteBook_User">
             <End Role="User" EntitySet="Users" />
@@ -314,6 +306,15 @@
             <End Role="User" EntitySet="Users" />
             <End Role="UserRole" EntitySet="UserRoles" />
           </AssociationSet>
+          <EntitySet Name="Comments" EntityType="LibraryModel.Comment" />
+          <AssociationSet Name="FK_Comment_Book" Association="LibraryModel.FK_Comment_Book">
+            <End Role="Book" EntitySet="Books" />
+            <End Role="Comment" EntitySet="Comments" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Comment_User" Association="LibraryModel.FK_Comment_User">
+            <End Role="User" EntitySet="Users" />
+            <End Role="Comment" EntitySet="Comments" />
+          </AssociationSet>
         </EntityContainer>
         <EntityType Name="Book">
           <Key>
@@ -326,21 +327,10 @@
           <Property Name="Status" Type="Boolean" Nullable="false" />
           <Property Name="Quantity" Type="Int32" Nullable="false" />
           <Property Name="Show" Type="Boolean" Nullable="false" />
-          <NavigationProperty Name="Comment" Relationship="LibraryModel.FK_Comment_Book" FromRole="Book" ToRole="Comment" />
           <NavigationProperty Name="ContentSummary" Relationship="LibraryModel.FK_ContentSummary_ContentSummary" FromRole="Book" ToRole="ContentSummary" />
           <NavigationProperty Name="FavouriteBooks" Relationship="LibraryModel.FK_FavouriteBook_Book" FromRole="Book" ToRole="FavouriteBook" />
           <NavigationProperty Name="TransactionHistories" Relationship="LibraryModel.FK_TransactionHistory_Book" FromRole="Book" ToRole="TransactionHistory" />
-        </EntityType>
-        <EntityType Name="Comment">
-          <Key>
-            <PropertyRef Name="ISBN" />
-          </Key>
-          <Property Name="ISBN" Type="Int32" Nullable="false" />
-          <Property Name="Account" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
-          <Property Name="Date" Type="DateTime" Precision="3" />
-          <NavigationProperty Name="Book" Relationship="LibraryModel.FK_Comment_Book" FromRole="Comment" ToRole="Book" />
-          <NavigationProperty Name="User" Relationship="LibraryModel.FK_Comment_User" FromRole="Comment" ToRole="User" />
-          <Property Name="CommentaryContent" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="Comments" Relationship="LibraryModel.FK_Comment_Book" FromRole="Book" ToRole="Comment" />
         </EntityType>
         <EntityType Name="ContentSummary">
           <Key>
@@ -403,11 +393,11 @@
           <Property Name="Account" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
           <Property Name="IsActive" Type="Boolean" />
           <Property Name="Password" Type="String" Nullable="false" MaxLength="100" FixedLength="false" Unicode="true" />
-          <NavigationProperty Name="Comments" Relationship="LibraryModel.FK_Comment_User" FromRole="User" ToRole="Comment" />
           <NavigationProperty Name="FavouriteBooks" Relationship="LibraryModel.FK_FavouriteBook_User" FromRole="User" ToRole="FavouriteBook" />
           <NavigationProperty Name="PersonalInfor" Relationship="LibraryModel.FK_PersonalInformation_User" FromRole="User" ToRole="PersonalInfor" />
           <NavigationProperty Name="TransactionHistories" Relationship="LibraryModel.FK_TransactionHistory_User" FromRole="User" ToRole="TransactionHistory" />
           <NavigationProperty Name="UserRoles" Relationship="LibraryModel.FK_UserRole_User" FromRole="User" ToRole="UserRole" />
+          <NavigationProperty Name="Comments" Relationship="LibraryModel.FK_Comment_User" FromRole="User" ToRole="Comment" />
         </EntityType>
         <EntityType Name="UserRole">
           <Key>
@@ -419,18 +409,6 @@
           <NavigationProperty Name="Role" Relationship="LibraryModel.FK_UserRole_Role" FromRole="UserRole" ToRole="Role" />
           <NavigationProperty Name="User" Relationship="LibraryModel.FK_UserRole_User" FromRole="UserRole" ToRole="User" />
         </EntityType>
-        <Association Name="FK_Comment_Book">
-          <End Type="LibraryModel.Book" Role="Book" Multiplicity="1" />
-          <End Type="LibraryModel.Comment" Role="Comment" Multiplicity="0..1" />
-          <ReferentialConstraint>
-            <Principal Role="Book">
-              <PropertyRef Name="ISBN" />
-            </Principal>
-            <Dependent Role="Comment">
-              <PropertyRef Name="ISBN" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
         <Association Name="FK_ContentSummary_ContentSummary">
           <End Type="LibraryModel.Book" Role="Book" Multiplicity="1" />
           <End Type="LibraryModel.ContentSummary" Role="ContentSummary" Multiplicity="0..1" />
@@ -464,18 +442,6 @@
             </Principal>
             <Dependent Role="TransactionHistory">
               <PropertyRef Name="ISBN" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK_Comment_User">
-          <End Type="LibraryModel.User" Role="User" Multiplicity="0..1" />
-          <End Type="LibraryModel.Comment" Role="Comment" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="User">
-              <PropertyRef Name="Account" />
-            </Principal>
-            <Dependent Role="Comment">
-              <PropertyRef Name="Account" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -539,6 +505,42 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <EntityType Name="Comment">
+          <Key>
+            <PropertyRef Name="ISBN" />
+            <PropertyRef Name="Date" />
+          </Key>
+          <Property Name="ISBN" Type="Int32" Nullable="false" />
+          <Property Name="Account" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="Date" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="CommentaryContent" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="Book" Relationship="LibraryModel.FK_Comment_Book" FromRole="Comment" ToRole="Book" />
+          <NavigationProperty Name="User" Relationship="LibraryModel.FK_Comment_User" FromRole="Comment" ToRole="User" />
+        </EntityType>
+        <Association Name="FK_Comment_Book">
+          <End Type="LibraryModel.Book" Role="Book" Multiplicity="1" />
+          <End Type="LibraryModel.Comment" Role="Comment" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Book">
+              <PropertyRef Name="ISBN" />
+            </Principal>
+            <Dependent Role="Comment">
+              <PropertyRef Name="ISBN" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Comment_User">
+          <End Type="LibraryModel.User" Role="User" Multiplicity="0..1" />
+          <End Type="LibraryModel.Comment" Role="Comment" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="User">
+              <PropertyRef Name="Account" />
+            </Principal>
+            <Dependent Role="Comment">
+              <PropertyRef Name="Account" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
@@ -554,16 +556,6 @@
                 <ScalarProperty Name="Category" ColumnName="Category" />
                 <ScalarProperty Name="Author" ColumnName="Author" />
                 <ScalarProperty Name="Title" ColumnName="Title" />
-                <ScalarProperty Name="ISBN" ColumnName="ISBN" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
-          <EntitySetMapping Name="Comments">
-            <EntityTypeMapping TypeName="LibraryModel.Comment">
-              <MappingFragment StoreEntitySet="Comment">
-                <ScalarProperty Name="CommentaryContent" ColumnName="CommentaryContent" />
-                <ScalarProperty Name="Date" ColumnName="Date" />
-                <ScalarProperty Name="Account" ColumnName="Account" />
                 <ScalarProperty Name="ISBN" ColumnName="ISBN" />
               </MappingFragment>
             </EntityTypeMapping>
@@ -633,6 +625,16 @@
                 <ScalarProperty Name="RoleID" ColumnName="RoleID" />
                 <ScalarProperty Name="Username" ColumnName="Username" />
                 <ScalarProperty Name="ID" ColumnName="ID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Comments">
+            <EntityTypeMapping TypeName="LibraryModel.Comment">
+              <MappingFragment StoreEntitySet="Comment">
+                <ScalarProperty Name="CommentaryContent" ColumnName="CommentaryContent" />
+                <ScalarProperty Name="Date" ColumnName="Date" />
+                <ScalarProperty Name="Account" ColumnName="Account" />
+                <ScalarProperty Name="ISBN" ColumnName="ISBN" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>

@@ -331,7 +331,7 @@
             "Search By Author",
             "Search By Content",
             "Search Overdue Book"});
-            this.comboBox1.Location = new System.Drawing.Point(125, 79);
+            this.comboBox1.Location = new System.Drawing.Point(125, 22);
             this.comboBox1.Name = "comboBox1";
             this.comboBox1.Size = new System.Drawing.Size(143, 28);
             this.comboBox1.TabIndex = 42;
@@ -349,7 +349,7 @@
             // 
             this.label6.AutoSize = true;
             this.label6.Font = new System.Drawing.Font("Microsoft Sans Serif", 13F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label6.Location = new System.Drawing.Point(9, 128);
+            this.label6.Location = new System.Drawing.Point(17, 58);
             this.label6.Name = "label6";
             this.label6.Size = new System.Drawing.Size(84, 22);
             this.label6.TabIndex = 35;
@@ -358,14 +358,14 @@
             // gvBookListSearch
             // 
             this.gvBookListSearch.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.gvBookListSearch.Location = new System.Drawing.Point(12, 157);
+            this.gvBookListSearch.Location = new System.Drawing.Point(12, 83);
             this.gvBookListSearch.Name = "gvBookListSearch";
-            this.gvBookListSearch.Size = new System.Drawing.Size(596, 293);
+            this.gvBookListSearch.Size = new System.Drawing.Size(596, 431);
             this.gvBookListSearch.TabIndex = 34;
             // 
             // btnSearch
             // 
-            this.btnSearch.Location = new System.Drawing.Point(656, 79);
+            this.btnSearch.Location = new System.Drawing.Point(656, 22);
             this.btnSearch.Name = "btnSearch";
             this.btnSearch.Size = new System.Drawing.Size(114, 33);
             this.btnSearch.TabIndex = 33;
@@ -374,7 +374,7 @@
             // 
             // tbSearch
             // 
-            this.tbSearch.Location = new System.Drawing.Point(274, 79);
+            this.tbSearch.Location = new System.Drawing.Point(274, 22);
             this.tbSearch.Name = "tbSearch";
             this.tbSearch.Size = new System.Drawing.Size(334, 27);
             this.tbSearch.TabIndex = 32;

@@ -26,7 +26,6 @@ namespace Library_Final_Project
         }
     
         public virtual DbSet<Book> Books { get; set; }
-        public virtual DbSet<Comment> Comments { get; set; }
         public virtual DbSet<ContentSummary> ContentSummaries { get; set; }
         public virtual DbSet<FavouriteBook> FavouriteBooks { get; set; }
         public virtual DbSet<PersonalInfor> PersonalInfors { get; set; }
@@ -34,5 +33,6 @@ namespace Library_Final_Project
         public virtual DbSet<TransactionHistory> TransactionHistories { get; set; }
         public virtual DbSet<User> Users { get; set; }
         public virtual DbSet<UserRole> UserRoles { get; set; }
+        public virtual DbSet<Comment> Comments { get; set; }
     }
 }

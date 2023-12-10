@@ -19,6 +19,7 @@ namespace Library_Final_Project
         {
             this.FavouriteBooks = new HashSet<FavouriteBook>();
             this.TransactionHistories = new HashSet<TransactionHistory>();
+            this.Comments = new HashSet<Comment>();
         }
     
         public int ISBN { get; set; }
@@ -29,11 +30,12 @@ namespace Library_Final_Project
         public int Quantity { get; set; }
         public bool Show { get; set; }
     
-        public virtual Comment Comment { get; set; }
         public virtual ContentSummary ContentSummary { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<FavouriteBook> FavouriteBooks { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<TransactionHistory> TransactionHistories { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<Comment> Comments { get; set; }
     }
 }

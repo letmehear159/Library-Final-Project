@@ -40,9 +40,10 @@ namespace Library_Final_Project
                 _db.SaveChanges();
                 //Add this comment to list
 
-                MessageBox.Show("We received your comment about this book\r\n" +
-                    "Thanks for your attribution");
+                MessageBox.Show("We received your comment about this book.\r\n" +
+                    "Thanks for your attribution.");
                 //Inform the user 
+                Utils.PopulateCommentGrid(_db, gvCommentList, _book);
             }
             catch (Exception ex)
             {

@@ -16,7 +16,7 @@ namespace Library_Final_Project
     {
         public int ISBN { get; set; }
         public string Account { get; set; }
-        public Nullable<System.DateTime> Date { get; set; }
+        public System.DateTime Date { get; set; }
         public string CommentaryContent { get; set; }
     
         public virtual Book Book { get; set; }
