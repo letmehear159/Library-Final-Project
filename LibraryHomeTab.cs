@@ -30,13 +30,27 @@ namespace Library_Final_Project
 
         private void LibraryHomeTab_Load(object sender, EventArgs e)
         {
-            //var role = _user.UserRoles.FirstOrDefault().Role.RoleNameShorcut;
-            //tsStatusLogin.Text = $"Logged as {role}";
-            Utils.PopulateUserGrid(_db, gvUserList);
-            //Update the data of user from database to gvUserList to display
+            //If the user logged in is a user(Borrower) then hide the admin's operation 
+            if (Utils.GetRoleOfUser(_db, _user) == "User")
+            {
+                gbManageBook.Visible = false;
+                tcMenu.TabPages.Remove(tpManageUser);
+                tcMenu.TabPages.Remove(tpSearchUser);
+            }
+            else
+            {
+                Utils.PopulateUserGrid(_db, gvUserList);
+                //Update the data of user from database to gvUserList to display
 
+            }
             Utils.PopulateBookGrid(_db, gvBookListMenu);
-            //Update the data of book from database to gvUserList to display
+            //Update the data of book from database to gvBookListMenu to display
+
+            Utils.PopulateBookGrid(_db, gvBookListSearch);
+            //Update the data of book from database to gvBookListSearch to display
+            gvBookListSearch.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.AllCells;
+            var role = _user.UserRoles.FirstOrDefault().Role.RoleNameShorcut;
+            tsStatusLoginFinal.Text = $"Logged as {role}";
 
         }
         /// <summary>
@@ -66,37 +80,129 @@ namespace Library_Final_Project
 
         private void btnSearch_Click(object sender, EventArgs e)
         {
-            string searchContent = btnSearch.Text;
+            string searchContent = tbSearch.Text;
+            // The keywords inputed from user
             string searchOption = cbSearchOption.SelectedValue.ToString();
-            switch (searchOption)
+            //The search option
+            try
             {
-                case "Search By Book's Title":
-                    List<int> searchResult = StringHandle.CompleteTF_IDF(_db, searchContent);
-
-                    if (searchResult.Count > 0)
-                    {
-                        var books = (from book in _db.Books
-                                     where searchResult.Contains(book.ISBN)
-                                     select new
-                                     {
-                                         book.ISBN,
-                                         Title = book.Title,
-                                         Author = book.Author,
-                                         Category = book.Category,
-                                         Quantity = book.Quantity,
-                                         Status = book.Quantity > 0 ? "Available" : "Unavailable"
-                                     }).ToList();
-                        gvBookListSearch.DataSource = books;
-                    }
-                    else
-                    {
-                        MessageBox.Show("Sorry, we couldn't find approriate books for you.");
-                    }
-                    break;
-
-
-
+                switch (searchOption)
+                {
+                    case "Search By Content":
+                        List<int> searchResult = StringHandle.CompleteTF_IDF(_db, searchContent);
+                        //List of ISBN descending book which has content similar to keywords
+                        if (searchResult.Count > 0)
+                        {
+                            var booksContent = (from book in _db.Books
+                                                where searchResult.Contains(book.ISBN)
+                                                select new
+                                                {
+                                                    book.ISBN,
+                                                    Title = book.Title,
+                                                    Author = book.Author,
+                                                    Category = book.Category,
+                                                    Quantity = book.Quantity,
+                                                    Status = book.Quantity > 0 ? "Available" : "Unavailable"
+                                                }).ToList();
+                            gvBookListSearch.DataSource = booksContent;
+                            //Update the data to booklist grid view
+                        }
+                        else
+                        {
+                            MessageBox.Show("Sorry, we couldn't find approriate books for you.");
+                        }
+                        break;
+                    case "Search By Book's Title":
+                        var booksTitle = (from book in _db.Books
+                                          where StringHandle.DeletePunctuation(searchContent) == StringHandle.DeletePunctuation(book.Title)
+                                          select new
+                                          {
+                                              book.ISBN,
+                                              Title = book.Title,
+                                              Author = book.Author,
+                                              Category = book.Category,
+                                              Quantity = book.Quantity,
+                                              Status = book.Quantity > 0 ? "Available" : "Unavailable"
+                                          }
+                                     ).ToList();
+                        gvBookListSearch.DataSource = booksTitle;
+                        break;
+                    case "Search By Author":
+                        var booksAuthor = (from book in _db.Books
+                                           where StringHandle.DeletePunctuation(searchContent) == StringHandle.DeletePunctuation(book.Author)
+                                           select new
+                                           {
+                                               book.ISBN,
+                                               Title = book.Title,
+                                               Author = book.Author,
+                                               Category = book.Category,
+                                               Quantity = book.Quantity,
+                                               Status = book.Quantity > 0 ? "Available" : "Unavailable"
+                                           }
+                                          ).ToList();
+                        gvBookListSearch.DataSource = booksAuthor;
+                        break;
+                    case "Search Overdue Book":
+                        var booksOverdue = (from book in _db.TransactionHistories
+                                            where book.DateReturn < DateTime.Now && book.IsReturned == false
+                                            select new
+                                            {
+                                                ISBN = book.ISBN,
+                                                Title = book.BookName,
+                                                Borrower = book.Account,
+                                                DateReturn = book.DateReturn,
+                                            }).ToList();
+                        gvBookListSearch.DataSource = booksOverdue;
+                        break;
+                }
+                MessageBox.Show("Search completed.");
             }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message);
+            }
+
         }
+
+
+
+        private void btnAddNewBook_Click(object sender, EventArgs e)
+        {
+            var bookInfor = new BookInformation(_user);
+            bookInfor.Show();
+        }
+
+        private void btnEditBook_Click(object sender, EventArgs e)
+        {
+            //Get the isbn of selected book
+            var isbn = (int)gvBookListSearch.SelectedRows[0].Cells["ISBN"].Value;
+            // Get book from database by book's isbn
+            var book = _db.Books.FirstOrDefault(q => q.ISBN == isbn);
+            var bookInfor = new BookInformation(book, _user, true);
+            bookInfor.Show();
+        }
+
+        private void btnShowHideBook_Click(object sender, EventArgs e)
+        {
+            //Get the isbn of selected book
+            var isbn = (int)gvBookListSearch.SelectedRows[0].Cells["ISBN"].Value;
+            // Get book from database by book's isbn
+            var book = _db.Books.FirstOrDefault(q => q.ISBN == isbn);
+            book.Show = book.Show == true ? false : true;
+            _db.SaveChanges();
+            MessageBox.Show($"{book.Title}'s successfully hiden.");
+            Utils.PopulateBookGrid(_db, gvBookListSearch);
+        }
+
+        private void btnViewBooksInfor_Click(object sender, EventArgs e)
+        {
+            //Get the isbn of selected book
+            var isbn = (int)gvBookListSearch.SelectedRows[0].Cells["ISBN"].Value;
+            // Get book from database by book's isbn
+            var book = _db.Books.FirstOrDefault(q => q.ISBN == isbn);
+            var bookInfor = new BookInformation(book, _user, false);
+            bookInfor.Show();
+        }
+
     }
 }

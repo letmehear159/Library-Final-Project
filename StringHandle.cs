@@ -209,6 +209,8 @@ namespace TF_IDF
         public static List<int> CompleteTF_IDF(LibraryEntities _db, string keywords)
         {
             Dictionary<int, string> doc = new Dictionary<int, string>();
+            //Dictionnary of 50 content summary book with ISBN and it's content(Currently empty)
+
             var books = (
                 from book in _db.Books
                 where book.Show == true
@@ -217,23 +219,42 @@ namespace TF_IDF
                     ISBN = book.ISBN,
                     comment = book.ContentSummary.ContentBook
                 }).ToList();
+            //Select book from database which is showed(not be hiden in the library)
+
             foreach (var book in books)
             {
                 string handledContent = StandardString(book.comment);
+                //Delete punctuation and stopwords of each book's content summary
                 doc.Add(book.ISBN, handledContent);
+                //Add each book's ISBN and content summary to dictionary
             }
             keywords = DeletePunctuation(keywords);
+            //Delete punctuation and lower the keywords
+
             Dictionary<int, string> hasKeywords = ListOfDocumentHasKeywords(doc, keywords);
+            //List of book has one or more keyword in the content summary
+
             Dictionary<string, float> idf = FindIDF(keywords, doc);
+            //Find the IDF of each keyword
+
             Dictionary<int, Dictionary<string, float>> tf = FindTF(keywords, hasKeywords);
+            //Find the TF of each keyword
+
             Dictionary<int, float> completeTF_IDF = CompleteTF_IDF(keywords, tf, idf);
+            //Mutilple each tf-idf then sum of all keyword's tf-idf and get the final weight of each book
+
             var sorted = completeTF_IDF.OrderByDescending(q => q.Value);
+            //Sort the booklist descending
+
             List<int> searchResult = new List<int>();
             foreach (var book in completeTF_IDF)
             {
                 searchResult.Add(book.Key);
             }
+            //Create a list store desceding ISBN of book
+
             return searchResult;
+            //return this list
         }
     }
 }

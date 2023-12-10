@@ -46,13 +46,13 @@
             this.gvUserList = new System.Windows.Forms.DataGridView();
             this.tpSearchBook = new System.Windows.Forms.TabPage();
             this.gbManageBook = new System.Windows.Forms.GroupBox();
-            this.button8 = new System.Windows.Forms.Button();
+            this.btnAddNewBook = new System.Windows.Forms.Button();
             this.label4 = new System.Windows.Forms.Label();
             this.tbUserBorrow = new System.Windows.Forms.TextBox();
             this.btnConfirmBookReturned = new System.Windows.Forms.Button();
-            this.button2 = new System.Windows.Forms.Button();
-            this.button1 = new System.Windows.Forms.Button();
-            this.button7 = new System.Windows.Forms.Button();
+            this.btnEditBook = new System.Windows.Forms.Button();
+            this.btnShowHideBook = new System.Windows.Forms.Button();
+            this.btnViewBooksInfor = new System.Windows.Forms.Button();
             this.cbSearchOption = new System.Windows.Forms.ComboBox();
             this.label5 = new System.Windows.Forms.Label();
             this.label6 = new System.Windows.Forms.Label();
@@ -62,11 +62,12 @@
             this.tcMenu = new System.Windows.Forms.TabControl();
             this.tpMenu = new System.Windows.Forms.TabPage();
             this.label9 = new System.Windows.Forms.Label();
-            this.statusStrip1 = new System.Windows.Forms.StatusStrip();
             this.btnViewBookInfor = new System.Windows.Forms.Button();
             this.label2 = new System.Windows.Forms.Label();
             this.gvBookListMenu = new System.Windows.Forms.DataGridView();
             this.tsStatusLogin = new System.Windows.Forms.ToolStripStatusLabel();
+            this.statusStrip2 = new System.Windows.Forms.StatusStrip();
+            this.tsStatusLoginFinal = new System.Windows.Forms.ToolStripStatusLabel();
             this.tpSearchUser.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.gvBorrowingBook)).BeginInit();
             this.tpManageUser.SuspendLayout();
@@ -77,6 +78,7 @@
             this.tcMenu.SuspendLayout();
             this.tpMenu.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.gvBookListMenu)).BeginInit();
+            this.statusStrip2.SuspendLayout();
             this.SuspendLayout();
             // 
             // tpSearchUser
@@ -231,7 +233,7 @@
             // tpSearchBook
             // 
             this.tpSearchBook.Controls.Add(this.gbManageBook);
-            this.tpSearchBook.Controls.Add(this.button7);
+            this.tpSearchBook.Controls.Add(this.btnViewBooksInfor);
             this.tpSearchBook.Controls.Add(this.cbSearchOption);
             this.tpSearchBook.Controls.Add(this.label5);
             this.tpSearchBook.Controls.Add(this.label6);
@@ -248,12 +250,12 @@
             // 
             // gbManageBook
             // 
-            this.gbManageBook.Controls.Add(this.button8);
+            this.gbManageBook.Controls.Add(this.btnAddNewBook);
             this.gbManageBook.Controls.Add(this.label4);
             this.gbManageBook.Controls.Add(this.tbUserBorrow);
             this.gbManageBook.Controls.Add(this.btnConfirmBookReturned);
-            this.gbManageBook.Controls.Add(this.button2);
-            this.gbManageBook.Controls.Add(this.button1);
+            this.gbManageBook.Controls.Add(this.btnEditBook);
+            this.gbManageBook.Controls.Add(this.btnShowHideBook);
             this.gbManageBook.Location = new System.Drawing.Point(614, 128);
             this.gbManageBook.Name = "gbManageBook";
             this.gbManageBook.Size = new System.Drawing.Size(340, 316);
@@ -261,14 +263,15 @@
             this.gbManageBook.TabStop = false;
             this.gbManageBook.Text = "Manage Book";
             // 
-            // button8
+            // btnAddNewBook
             // 
-            this.button8.Location = new System.Drawing.Point(206, 161);
-            this.button8.Name = "button8";
-            this.button8.Size = new System.Drawing.Size(128, 67);
-            this.button8.TabIndex = 42;
-            this.button8.Text = "Add New Book";
-            this.button8.UseVisualStyleBackColor = true;
+            this.btnAddNewBook.Location = new System.Drawing.Point(206, 161);
+            this.btnAddNewBook.Name = "btnAddNewBook";
+            this.btnAddNewBook.Size = new System.Drawing.Size(128, 67);
+            this.btnAddNewBook.TabIndex = 42;
+            this.btnAddNewBook.Text = "Add New Book";
+            this.btnAddNewBook.UseVisualStyleBackColor = true;
+            this.btnAddNewBook.Click += new System.EventHandler(this.btnAddNewBook_Click);
             // 
             // label4
             // 
@@ -296,32 +299,35 @@
             this.btnConfirmBookReturned.Text = "Confirmly Add";
             this.btnConfirmBookReturned.UseVisualStyleBackColor = true;
             // 
-            // button2
+            // btnEditBook
             // 
-            this.button2.Location = new System.Drawing.Point(27, 188);
-            this.button2.Name = "button2";
-            this.button2.Size = new System.Drawing.Size(150, 40);
-            this.button2.TabIndex = 37;
-            this.button2.Text = "Edit Book";
-            this.button2.UseVisualStyleBackColor = true;
+            this.btnEditBook.Location = new System.Drawing.Point(27, 188);
+            this.btnEditBook.Name = "btnEditBook";
+            this.btnEditBook.Size = new System.Drawing.Size(150, 40);
+            this.btnEditBook.TabIndex = 37;
+            this.btnEditBook.Text = "Edit Book";
+            this.btnEditBook.UseVisualStyleBackColor = true;
+            this.btnEditBook.Click += new System.EventHandler(this.btnEditBook_Click);
             // 
-            // button1
+            // btnShowHideBook
             // 
-            this.button1.Location = new System.Drawing.Point(27, 246);
-            this.button1.Name = "button1";
-            this.button1.Size = new System.Drawing.Size(150, 41);
-            this.button1.TabIndex = 38;
-            this.button1.Text = "Show/Hide in Library";
-            this.button1.UseVisualStyleBackColor = true;
+            this.btnShowHideBook.Location = new System.Drawing.Point(27, 246);
+            this.btnShowHideBook.Name = "btnShowHideBook";
+            this.btnShowHideBook.Size = new System.Drawing.Size(150, 54);
+            this.btnShowHideBook.TabIndex = 38;
+            this.btnShowHideBook.Text = "Hide in Library";
+            this.btnShowHideBook.UseVisualStyleBackColor = true;
+            this.btnShowHideBook.Click += new System.EventHandler(this.btnShowHideBook_Click);
             // 
-            // button7
+            // btnViewBooksInfor
             // 
-            this.button7.Location = new System.Drawing.Point(614, 450);
-            this.button7.Name = "button7";
-            this.button7.Size = new System.Drawing.Size(184, 69);
-            this.button7.TabIndex = 43;
-            this.button7.Text = "View Book\'s Information";
-            this.button7.UseVisualStyleBackColor = true;
+            this.btnViewBooksInfor.Location = new System.Drawing.Point(614, 450);
+            this.btnViewBooksInfor.Name = "btnViewBooksInfor";
+            this.btnViewBooksInfor.Size = new System.Drawing.Size(184, 69);
+            this.btnViewBooksInfor.TabIndex = 43;
+            this.btnViewBooksInfor.Text = "View Book\'s Information";
+            this.btnViewBooksInfor.UseVisualStyleBackColor = true;
+            this.btnViewBooksInfor.Click += new System.EventHandler(this.btnViewBooksInfor_Click);
             // 
             // cbSearchOption
             // 
@@ -397,7 +403,6 @@
             // tpMenu
             // 
             this.tpMenu.Controls.Add(this.label9);
-            this.tpMenu.Controls.Add(this.statusStrip1);
             this.tpMenu.Controls.Add(this.btnViewBookInfor);
             this.tpMenu.Controls.Add(this.label2);
             this.tpMenu.Controls.Add(this.gvBookListMenu);
@@ -418,13 +423,6 @@
             this.label9.Size = new System.Drawing.Size(84, 22);
             this.label9.TabIndex = 36;
             this.label9.Text = "Book List";
-            // 
-            // statusStrip1
-            // 
-            this.statusStrip1.Location = new System.Drawing.Point(3, 495);
-            this.statusStrip1.Name = "statusStrip1";
-            this.statusStrip1.Size = new System.Drawing.Size(955, 22);
-            this.statusStrip1.TabIndex = 13;
             // 
             // btnViewBookInfor
             // 
@@ -458,11 +456,28 @@
             this.tsStatusLogin.Name = "tsStatusLogin";
             this.tsStatusLogin.Size = new System.Drawing.Size(0, 17);
             // 
+            // statusStrip2
+            // 
+            this.statusStrip2.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.tsStatusLoginFinal});
+            this.statusStrip2.Location = new System.Drawing.Point(0, 556);
+            this.statusStrip2.Name = "statusStrip2";
+            this.statusStrip2.Size = new System.Drawing.Size(970, 22);
+            this.statusStrip2.TabIndex = 38;
+            this.statusStrip2.Text = "statusStrip2";
+            // 
+            // tsStatusLoginFinal
+            // 
+            this.tsStatusLoginFinal.Name = "tsStatusLoginFinal";
+            this.tsStatusLoginFinal.Size = new System.Drawing.Size(118, 17);
+            this.tsStatusLoginFinal.Text = "toolStripStatusLabel1";
+            // 
             // LibraryHomeTab
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(970, 555);
+            this.ClientSize = new System.Drawing.Size(970, 578);
+            this.Controls.Add(this.statusStrip2);
             this.Controls.Add(this.tcMenu);
             this.Name = "LibraryHomeTab";
             this.Text = "TestTab";
@@ -483,7 +498,10 @@
             this.tpMenu.ResumeLayout(false);
             this.tpMenu.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.gvBookListMenu)).EndInit();
+            this.statusStrip2.ResumeLayout(false);
+            this.statusStrip2.PerformLayout();
             this.ResumeLayout(false);
+            this.PerformLayout();
 
         }
 
@@ -506,13 +524,13 @@
         private System.Windows.Forms.DataGridView gvUserList;
         private System.Windows.Forms.TabPage tpSearchBook;
         private System.Windows.Forms.GroupBox gbManageBook;
-        private System.Windows.Forms.Button button8;
+        private System.Windows.Forms.Button btnAddNewBook;
         private System.Windows.Forms.Label label4;
         private System.Windows.Forms.TextBox tbUserBorrow;
         private System.Windows.Forms.Button btnConfirmBookReturned;
-        private System.Windows.Forms.Button button2;
-        private System.Windows.Forms.Button button1;
-        private System.Windows.Forms.Button button7;
+        private System.Windows.Forms.Button btnEditBook;
+        private System.Windows.Forms.Button btnShowHideBook;
+        private System.Windows.Forms.Button btnViewBooksInfor;
         private System.Windows.Forms.ComboBox cbSearchOption;
         private System.Windows.Forms.Label label5;
         private System.Windows.Forms.Label label6;
@@ -521,11 +539,12 @@
         private System.Windows.Forms.TextBox tbSearch;
         private System.Windows.Forms.TabControl tcMenu;
         private System.Windows.Forms.TabPage tpMenu;
-        private System.Windows.Forms.StatusStrip statusStrip1;
         private System.Windows.Forms.Button btnViewBookInfor;
         private System.Windows.Forms.Label label2;
         private System.Windows.Forms.DataGridView gvBookListMenu;
         private System.Windows.Forms.ToolStripStatusLabel tsStatusLogin;
         private System.Windows.Forms.Label label9;
+        private System.Windows.Forms.StatusStrip statusStrip2;
+        private System.Windows.Forms.ToolStripStatusLabel tsStatusLoginFinal;
     }
 }

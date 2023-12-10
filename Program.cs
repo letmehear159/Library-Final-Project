@@ -18,7 +18,7 @@ namespace Library_Final_Project
         {
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
-            Application.Run(new LibraryHomeTab());
+            Application.Run(new Login());
 
         }
     }

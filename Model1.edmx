@@ -38,7 +38,7 @@
           <Key>
             <PropertyRef Name="id" />
           </Key>
-          <Property Name="id" Type="int" Nullable="false" />
+          <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="ISBN" Type="int" Nullable="false" />
           <Property Name="Account" Type="nvarchar" MaxLength="50" Nullable="false" />
         </EntityType>
@@ -86,7 +86,7 @@
           <Key>
             <PropertyRef Name="ID" />
           </Key>
-          <Property Name="ID" Type="int" Nullable="false" />
+          <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="Username" Type="nvarchar" MaxLength="50" />
           <Property Name="RoleID" Type="int" />
         </EntityType>
