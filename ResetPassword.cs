@@ -41,10 +41,9 @@ namespace Library_Final_Project
             //Get the information from the username to check the answer of the user
             if (pi.HomeTown == hometown && favourSong == pi.FavouriteSong && name == pi.Name)
             {
-                var _user = _db.Users.FirstOrDefault(q => q.Account == username);
-                _user.Password = Utils.EncodingPassword("25892589");
-                _db.SaveChanges();
-                MessageBox.Show($"Reset password successfully!\r\n{_user.Account}'s new password is 25892589.");
+                MessageBox.Show("Information is matched, you can set your new password now.");
+                var setPassword = new SetNewPassword(username, this);
+                setPassword.Show();
                 Close();
             }
         }

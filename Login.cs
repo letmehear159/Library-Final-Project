@@ -41,40 +41,53 @@ namespace Library_Final_Project
 
         private void btnLogin_Click(object sender, EventArgs e)
         {
-            var userName = tbUsername.Text;
-            var password = tbPassword.Text;
-            var isUserNameValid = _db.Users.Any(q => q.Account == userName);
-            //Get the username and password from the text box
-            //Check is this user existed in database
-            if (string.IsNullOrEmpty(userName) || string.IsNullOrEmpty(password))
+            try
             {
-                //if the user forget to type username or password
-                MessageBox.Show("You can not let the value empty.");
-            }
-
-            else if (!isUserNameValid)
-            {
-                //if the user type wrong username
-                MessageBox.Show($"{userName} does not exist, maybe your typing wrong username.");
-            }
-            else
-            {
-                var _user = _db.Users.FirstOrDefault(q => q.Account == userName);
-                //Select the user data from the database to compare the password input
-                if (Utils.EncodingPassword(password) != _user.Password)
+                var userName = tbUsername.Text;
+                var password = tbPassword.Text;
+                var isUserNameValid = _db.Users.Any(q => q.Account == userName);
+                //Get the username and password from the text box
+                //Check is this user existed in database
+                if (string.IsNullOrEmpty(userName) || string.IsNullOrEmpty(password))
                 {
-                    //Change the password input by hashcode then compare to hashcode password in database
-                    //If it is unmatched
-                    MessageBox.Show($"Wrong password!!!");
+                    //if the user forget to type username or password
+                    MessageBox.Show("You Can Not Let The Value Empty.");
+                }
+
+                else if (!isUserNameValid)
+                {
+                    //if the user type wrong username
+                    MessageBox.Show($"{userName} Does Not Exist, Maybe Your Typing Wrong Username.");
                 }
                 else
                 {
-                    //If login successfully
-                    var libraryHome = new LibraryHomeTab(_user, this);
-                    libraryHome.Show();
-                    this.Hide();
+                    var _user = _db.Users.FirstOrDefault(q => q.Account == userName);
+                    //Select the user data from the database to compare the password input
+                    if (Utils.EncodingPassword(password) != _user.Password)
+                    {
+                        //Change the password input by hashcode then compare to hashcode password in database
+                        //If it is unmatched
+                        MessageBox.Show($"Wrong Password!!!");
+                    }
+                    else if (_user.IsActive == false)
+                    {
+                        MessageBox.Show("Sorry But Your Account Has Been Deactivated By The Librarian, Contact Them To Reopen It.");
+                    }
+                    else
+                    {
+                        //If login successfully
+                        var libraryHome = new LibraryHomeTab(_user, this);
+                        libraryHome.Show();
+                        this.Hide();
+                    }
                 }
             }
+            catch (Exception ex)
+            {
+
+                MessageBox.Show(ex.Message);
+            }
+
         }
 
         private void linkLblCreateAccount_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
@@ -86,14 +99,14 @@ namespace Library_Final_Project
 
         private void menuSInformation_Click(object sender, EventArgs e)
         {
-            MessageBox.Show("This library application is builded by: \r\n" +
+            MessageBox.Show("This Library Application Is Builded By: \r\n" +
                 "-22110085 Nguyễn Trường\r\n" +
                 "-22110032 Lê Gia Huy");
         }
 
         private void menuSContact_Click(object sender, EventArgs e)
         {
-            MessageBox.Show("Nguyễn Trường's email: Nguyentruongpro19@gmail.com");
+            MessageBox.Show("Nguyễn Trường's Email: Nguyentruongpro19@gmail.com");
         }
 
         private void toolSForgot_Click(object sender, EventArgs e)

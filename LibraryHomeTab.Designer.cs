@@ -30,16 +30,15 @@
         {
             this.backgroundWorker1 = new System.ComponentModel.BackgroundWorker();
             this.tpSearchUser = new System.Windows.Forms.TabPage();
-            this.button3 = new System.Windows.Forms.Button();
-            this.button4 = new System.Windows.Forms.Button();
-            this.button5 = new System.Windows.Forms.Button();
+            this.btnResetUserPassword = new System.Windows.Forms.Button();
+            this.btnActDeactiveUser = new System.Windows.Forms.Button();
+            this.btnConfirmBookReturn = new System.Windows.Forms.Button();
             this.label7 = new System.Windows.Forms.Label();
             this.gvBorrowingBook = new System.Windows.Forms.DataGridView();
-            this.button6 = new System.Windows.Forms.Button();
+            this.btnSearchUser = new System.Windows.Forms.Button();
             this.tbUsername = new System.Windows.Forms.TextBox();
             this.label8 = new System.Windows.Forms.Label();
             this.tpManageUser = new System.Windows.Forms.TabPage();
-            this.btnSearchUser = new System.Windows.Forms.Button();
             this.btnResetPassword = new System.Windows.Forms.Button();
             this.btnActDeactUser = new System.Windows.Forms.Button();
             this.label1 = new System.Windows.Forms.Label();
@@ -85,12 +84,12 @@
             // 
             // tpSearchUser
             // 
-            this.tpSearchUser.Controls.Add(this.button3);
-            this.tpSearchUser.Controls.Add(this.button4);
-            this.tpSearchUser.Controls.Add(this.button5);
+            this.tpSearchUser.Controls.Add(this.btnResetUserPassword);
+            this.tpSearchUser.Controls.Add(this.btnActDeactiveUser);
+            this.tpSearchUser.Controls.Add(this.btnConfirmBookReturn);
             this.tpSearchUser.Controls.Add(this.label7);
             this.tpSearchUser.Controls.Add(this.gvBorrowingBook);
-            this.tpSearchUser.Controls.Add(this.button6);
+            this.tpSearchUser.Controls.Add(this.btnSearchUser);
             this.tpSearchUser.Controls.Add(this.tbUsername);
             this.tpSearchUser.Controls.Add(this.label8);
             this.tpSearchUser.Location = new System.Drawing.Point(4, 29);
@@ -101,59 +100,62 @@
             this.tpSearchUser.Text = "Search User";
             this.tpSearchUser.UseVisualStyleBackColor = true;
             // 
-            // button3
+            // btnResetUserPassword
             // 
-            this.button3.Location = new System.Drawing.Point(685, 379);
-            this.button3.Name = "button3";
-            this.button3.Size = new System.Drawing.Size(150, 69);
-            this.button3.TabIndex = 27;
-            this.button3.Text = "Reset User Password";
-            this.button3.UseVisualStyleBackColor = true;
+            this.btnResetUserPassword.Location = new System.Drawing.Point(789, 404);
+            this.btnResetUserPassword.Name = "btnResetUserPassword";
+            this.btnResetUserPassword.Size = new System.Drawing.Size(150, 69);
+            this.btnResetUserPassword.TabIndex = 27;
+            this.btnResetUserPassword.Text = "Reset User Password";
+            this.btnResetUserPassword.UseVisualStyleBackColor = true;
+            this.btnResetUserPassword.Click += new System.EventHandler(this.btnResetUserPassword_Click);
             // 
-            // button4
+            // btnActDeactiveUser
             // 
-            this.button4.Location = new System.Drawing.Point(685, 273);
-            this.button4.Name = "button4";
-            this.button4.Size = new System.Drawing.Size(150, 69);
-            this.button4.TabIndex = 26;
-            this.button4.Text = "Active/Deactive User";
-            this.button4.UseVisualStyleBackColor = true;
+            this.btnActDeactiveUser.Location = new System.Drawing.Point(789, 298);
+            this.btnActDeactiveUser.Name = "btnActDeactiveUser";
+            this.btnActDeactiveUser.Size = new System.Drawing.Size(150, 69);
+            this.btnActDeactiveUser.TabIndex = 26;
+            this.btnActDeactiveUser.Text = "Active/Deactive User";
+            this.btnActDeactiveUser.UseVisualStyleBackColor = true;
+            this.btnActDeactiveUser.Click += new System.EventHandler(this.btnActDeactiveUser_Click);
             // 
-            // button5
+            // btnConfirmBookReturn
             // 
-            this.button5.Location = new System.Drawing.Point(685, 179);
-            this.button5.Name = "button5";
-            this.button5.Size = new System.Drawing.Size(150, 69);
-            this.button5.TabIndex = 25;
-            this.button5.Text = "Confirm Book Returned";
-            this.button5.UseVisualStyleBackColor = true;
+            this.btnConfirmBookReturn.Location = new System.Drawing.Point(789, 204);
+            this.btnConfirmBookReturn.Name = "btnConfirmBookReturn";
+            this.btnConfirmBookReturn.Size = new System.Drawing.Size(150, 69);
+            this.btnConfirmBookReturn.TabIndex = 25;
+            this.btnConfirmBookReturn.Text = "Confirm Book Returned";
+            this.btnConfirmBookReturn.UseVisualStyleBackColor = true;
             // 
             // label7
             // 
             this.label7.AutoSize = true;
-            this.label7.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label7.Location = new System.Drawing.Point(126, 149);
+            this.label7.Font = new System.Drawing.Font("Microsoft Sans Serif", 15F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label7.Location = new System.Drawing.Point(8, 125);
             this.label7.Name = "label7";
-            this.label7.Size = new System.Drawing.Size(107, 17);
+            this.label7.Size = new System.Drawing.Size(149, 25);
             this.label7.TabIndex = 24;
             this.label7.Text = "Borrowing Book";
             // 
             // gvBorrowingBook
             // 
             this.gvBorrowingBook.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.gvBorrowingBook.Location = new System.Drawing.Point(129, 179);
+            this.gvBorrowingBook.Location = new System.Drawing.Point(8, 153);
             this.gvBorrowingBook.Name = "gvBorrowingBook";
-            this.gvBorrowingBook.Size = new System.Drawing.Size(479, 269);
+            this.gvBorrowingBook.Size = new System.Drawing.Size(670, 324);
             this.gvBorrowingBook.TabIndex = 23;
             // 
-            // button6
+            // btnSearchUser
             // 
-            this.button6.Location = new System.Drawing.Point(685, 72);
-            this.button6.Name = "button6";
-            this.button6.Size = new System.Drawing.Size(114, 33);
-            this.button6.TabIndex = 22;
-            this.button6.Text = "Search ";
-            this.button6.UseVisualStyleBackColor = true;
+            this.btnSearchUser.Location = new System.Drawing.Point(686, 77);
+            this.btnSearchUser.Name = "btnSearchUser";
+            this.btnSearchUser.Size = new System.Drawing.Size(114, 33);
+            this.btnSearchUser.TabIndex = 22;
+            this.btnSearchUser.Text = "Search ";
+            this.btnSearchUser.UseVisualStyleBackColor = true;
+            this.btnSearchUser.Click += new System.EventHandler(this.btnSearchUser_Click);
             // 
             // tbUsername
             // 
@@ -166,15 +168,15 @@
             // 
             this.label8.AutoSize = true;
             this.label8.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label8.Location = new System.Drawing.Point(126, 88);
+            this.label8.Location = new System.Drawing.Point(106, 90);
             this.label8.Name = "label8";
             this.label8.Size = new System.Drawing.Size(142, 17);
             this.label8.TabIndex = 20;
             this.label8.Text = "Search By Username";
+            this.label8.Click += new System.EventHandler(this.label8_Click);
             // 
             // tpManageUser
             // 
-            this.tpManageUser.Controls.Add(this.btnSearchUser);
             this.tpManageUser.Controls.Add(this.btnResetPassword);
             this.tpManageUser.Controls.Add(this.btnActDeactUser);
             this.tpManageUser.Controls.Add(this.label1);
@@ -187,15 +189,6 @@
             this.tpManageUser.Text = "Manage User";
             this.tpManageUser.UseVisualStyleBackColor = true;
             // 
-            // btnSearchUser
-            // 
-            this.btnSearchUser.Location = new System.Drawing.Point(732, 104);
-            this.btnSearchUser.Name = "btnSearchUser";
-            this.btnSearchUser.Size = new System.Drawing.Size(154, 69);
-            this.btnSearchUser.TabIndex = 18;
-            this.btnSearchUser.Text = "Search User";
-            this.btnSearchUser.UseVisualStyleBackColor = true;
-            // 
             // btnResetPassword
             // 
             this.btnResetPassword.Location = new System.Drawing.Point(732, 304);
@@ -204,6 +197,7 @@
             this.btnResetPassword.TabIndex = 17;
             this.btnResetPassword.Text = "Reset User Password";
             this.btnResetPassword.UseVisualStyleBackColor = true;
+            this.btnResetPassword.Click += new System.EventHandler(this.btnResetPassword_Click);
             // 
             // btnActDeactUser
             // 
@@ -213,6 +207,7 @@
             this.btnActDeactUser.TabIndex = 16;
             this.btnActDeactUser.Text = "Active/Deactive User";
             this.btnActDeactUser.UseVisualStyleBackColor = true;
+            this.btnActDeactUser.Click += new System.EventHandler(this.btnActDeactUser_Click);
             // 
             // label1
             // 
@@ -533,16 +528,15 @@
         #endregion
         private System.ComponentModel.BackgroundWorker backgroundWorker1;
         private System.Windows.Forms.TabPage tpSearchUser;
-        private System.Windows.Forms.Button button3;
-        private System.Windows.Forms.Button button4;
-        private System.Windows.Forms.Button button5;
+        private System.Windows.Forms.Button btnResetUserPassword;
+        private System.Windows.Forms.Button btnActDeactiveUser;
+        private System.Windows.Forms.Button btnConfirmBookReturn;
         private System.Windows.Forms.Label label7;
         private System.Windows.Forms.DataGridView gvBorrowingBook;
-        private System.Windows.Forms.Button button6;
+        private System.Windows.Forms.Button btnSearchUser;
         private System.Windows.Forms.TextBox tbUsername;
         private System.Windows.Forms.Label label8;
         private System.Windows.Forms.TabPage tpManageUser;
-        private System.Windows.Forms.Button btnSearchUser;
         private System.Windows.Forms.Button btnResetPassword;
         private System.Windows.Forms.Button btnActDeactUser;
         private System.Windows.Forms.Label label1;

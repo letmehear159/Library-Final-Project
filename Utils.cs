@@ -67,6 +67,7 @@ namespace Library_Final_Project
                     Author = book.Author,
                     Category = book.Category,
                     Quantity = book.Quantity,
+                    Status = book.Quantity > 0 ? "Available" : "Unavailable"
                 }).ToList();
             //Create a list book from a linq from database
             data.DataSource = books;

@@ -41,7 +41,6 @@ namespace Library_Final_Project
             {
                 Utils.PopulateUserGrid(_db, gvUserList);
                 //Update the data of user from database to gvUserList to display
-
             }
             Utils.PopulateBookGrid(_db, gvBookListMenu);
             //Update the data of book from database to gvBookListMenu to display
@@ -51,7 +50,6 @@ namespace Library_Final_Project
             gvBookListSearch.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.AllCells;
             var role = _user.UserRoles.FirstOrDefault().Role.RoleNameShorcut;
             tsStatusLoginFinal.Text = $"Logged as {role}";
-
         }
         /// <summary>
         /// View choosen book's information
@@ -345,6 +343,69 @@ namespace Library_Final_Project
             }
 
 
+        }
+
+        private void label8_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void btnActDeactUser_Click(object sender, EventArgs e)
+        {
+            var account = (string)gvUserList.SelectedRows[0].Cells["Account"].Value;
+            var user = _db.Users.FirstOrDefault(q => q.Account == account);
+            user.IsActive = user.IsActive == true ? false : true;
+            _db.SaveChanges();
+            MessageBox.Show($"\"{account}\"'s status successfully changes.");
+            Utils.PopulateUserGrid(_db, gvUserList);
+        }
+
+        private void btnResetPassword_Click(object sender, EventArgs e)
+        {
+            var account = (string)gvUserList.SelectedRows[0].Cells["Account"].Value;
+            var resetPass = new SetNewPassword(account);
+            resetPass.Show();
+
+        }
+
+        private void btnSearchUserLink_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void btnSearchUser_Click(object sender, EventArgs e)
+        {
+            string account = tbUsername.Text.Trim();
+            var user = _db.Users.FirstOrDefault(q => q.Account == account);
+            if (user == null)
+            {
+                MessageBox.Show("Invalid user, it doesn't Exist.");
+            }
+            else
+            {
+                var borrowingBooks = (from book in user.TransactionHistories
+                                      where book.Account == account && book.IsReturned == false
+                                      select book).ToList();
+                gvBorrowingBook.DataSource = borrowingBooks;
+                gvBorrowingBook.AutoResizeColumns(DataGridViewAutoSizeColumnsMode.AllCells);
+                MessageBox.Show("Search Completed");
+            }
+        }
+
+        private void btnActDeactiveUser_Click(object sender, EventArgs e)
+        {
+            string account = tbUsername.Text.Trim();
+            var user = _db.Users.FirstOrDefault(q => q.Account == account);
+            user.IsActive = user.IsActive == true ? false : true;
+            _db.SaveChanges();
+            MessageBox.Show($"\"{account}\"'s status successfully changes.");
+        }
+
+        private void btnResetUserPassword_Click(object sender, EventArgs e)
+        {
+            string account = tbUsername.Text.Trim();
+            var resetPass = new SetNewPassword(account);
+            resetPass.Show();
         }
     }
 }
