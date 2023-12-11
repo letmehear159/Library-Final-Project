@@ -45,11 +45,13 @@
             this.label1 = new System.Windows.Forms.Label();
             this.gvUserList = new System.Windows.Forms.DataGridView();
             this.tpSearchBook = new System.Windows.Forms.TabPage();
+            this.btnRefresh = new System.Windows.Forms.Button();
             this.gbManageBook = new System.Windows.Forms.GroupBox();
+            this.btnConfirmBookReturned = new System.Windows.Forms.Button();
             this.btnAddNewBook = new System.Windows.Forms.Button();
             this.label4 = new System.Windows.Forms.Label();
             this.tbUserBorrow = new System.Windows.Forms.TextBox();
-            this.btnConfirmBookReturned = new System.Windows.Forms.Button();
+            this.btnConfirmBookAdd = new System.Windows.Forms.Button();
             this.btnEditBook = new System.Windows.Forms.Button();
             this.btnShowHideBook = new System.Windows.Forms.Button();
             this.btnViewBooksInfor = new System.Windows.Forms.Button();
@@ -68,7 +70,6 @@
             this.tsStatusLogin = new System.Windows.Forms.ToolStripStatusLabel();
             this.statusStrip2 = new System.Windows.Forms.StatusStrip();
             this.tsStatusLoginFinal = new System.Windows.Forms.ToolStripStatusLabel();
-            this.btnRefresh = new System.Windows.Forms.Button();
             this.tpSearchUser.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.gvBorrowingBook)).BeginInit();
             this.tpManageUser.SuspendLayout();
@@ -250,12 +251,23 @@
             this.tpSearchBook.Text = "Search Book";
             this.tpSearchBook.UseVisualStyleBackColor = true;
             // 
+            // btnRefresh
+            // 
+            this.btnRefresh.Location = new System.Drawing.Point(819, 448);
+            this.btnRefresh.Name = "btnRefresh";
+            this.btnRefresh.Size = new System.Drawing.Size(135, 69);
+            this.btnRefresh.TabIndex = 44;
+            this.btnRefresh.Text = "Refresh Search";
+            this.btnRefresh.UseVisualStyleBackColor = true;
+            this.btnRefresh.Click += new System.EventHandler(this.btnRefresh_Click);
+            // 
             // gbManageBook
             // 
+            this.gbManageBook.Controls.Add(this.btnConfirmBookReturned);
             this.gbManageBook.Controls.Add(this.btnAddNewBook);
             this.gbManageBook.Controls.Add(this.label4);
             this.gbManageBook.Controls.Add(this.tbUserBorrow);
-            this.gbManageBook.Controls.Add(this.btnConfirmBookReturned);
+            this.gbManageBook.Controls.Add(this.btnConfirmBookAdd);
             this.gbManageBook.Controls.Add(this.btnEditBook);
             this.gbManageBook.Controls.Add(this.btnShowHideBook);
             this.gbManageBook.Location = new System.Drawing.Point(614, 128);
@@ -265,11 +277,21 @@
             this.gbManageBook.TabStop = false;
             this.gbManageBook.Text = "Manage Book";
             // 
+            // btnConfirmBookReturned
+            // 
+            this.btnConfirmBookReturned.Location = new System.Drawing.Point(183, 120);
+            this.btnConfirmBookReturned.Name = "btnConfirmBookReturned";
+            this.btnConfirmBookReturned.Size = new System.Drawing.Size(150, 52);
+            this.btnConfirmBookReturned.TabIndex = 43;
+            this.btnConfirmBookReturned.Text = "Confirmly Returned";
+            this.btnConfirmBookReturned.UseVisualStyleBackColor = true;
+            this.btnConfirmBookReturned.Click += new System.EventHandler(this.btnConfirmBookReturned_Click);
+            // 
             // btnAddNewBook
             // 
-            this.btnAddNewBook.Location = new System.Drawing.Point(206, 161);
+            this.btnAddNewBook.Location = new System.Drawing.Point(183, 246);
             this.btnAddNewBook.Name = "btnAddNewBook";
-            this.btnAddNewBook.Size = new System.Drawing.Size(128, 67);
+            this.btnAddNewBook.Size = new System.Drawing.Size(150, 54);
             this.btnAddNewBook.TabIndex = 42;
             this.btnAddNewBook.Text = "Add New Book";
             this.btnAddNewBook.UseVisualStyleBackColor = true;
@@ -281,25 +303,26 @@
             this.label4.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label4.Location = new System.Drawing.Point(24, 50);
             this.label4.Name = "label4";
-            this.label4.Size = new System.Drawing.Size(115, 17);
+            this.label4.Size = new System.Drawing.Size(266, 17);
             this.label4.TabIndex = 41;
-            this.label4.Text = "Add User Borrow";
+            this.label4.Text = "Add User Borrow/Confirm Book Returned";
             // 
             // tbUserBorrow
             // 
             this.tbUserBorrow.Location = new System.Drawing.Point(27, 70);
             this.tbUserBorrow.Name = "tbUserBorrow";
-            this.tbUserBorrow.Size = new System.Drawing.Size(222, 27);
+            this.tbUserBorrow.Size = new System.Drawing.Size(306, 27);
             this.tbUserBorrow.TabIndex = 39;
             // 
-            // btnConfirmBookReturned
+            // btnConfirmBookAdd
             // 
-            this.btnConfirmBookReturned.Location = new System.Drawing.Point(27, 120);
-            this.btnConfirmBookReturned.Name = "btnConfirmBookReturned";
-            this.btnConfirmBookReturned.Size = new System.Drawing.Size(150, 42);
-            this.btnConfirmBookReturned.TabIndex = 36;
-            this.btnConfirmBookReturned.Text = "Confirmly Add";
-            this.btnConfirmBookReturned.UseVisualStyleBackColor = true;
+            this.btnConfirmBookAdd.Location = new System.Drawing.Point(27, 120);
+            this.btnConfirmBookAdd.Name = "btnConfirmBookAdd";
+            this.btnConfirmBookAdd.Size = new System.Drawing.Size(150, 42);
+            this.btnConfirmBookAdd.TabIndex = 36;
+            this.btnConfirmBookAdd.Text = "Confirmly Add";
+            this.btnConfirmBookAdd.UseVisualStyleBackColor = true;
+            this.btnConfirmBookAdd.Click += new System.EventHandler(this.btnConfirmBookAdd_Click);
             // 
             // btnEditBook
             // 
@@ -474,16 +497,6 @@
             this.tsStatusLoginFinal.Size = new System.Drawing.Size(118, 17);
             this.tsStatusLoginFinal.Text = "toolStripStatusLabel1";
             // 
-            // btnRefresh
-            // 
-            this.btnRefresh.Location = new System.Drawing.Point(819, 448);
-            this.btnRefresh.Name = "btnRefresh";
-            this.btnRefresh.Size = new System.Drawing.Size(135, 69);
-            this.btnRefresh.TabIndex = 44;
-            this.btnRefresh.Text = "Refresh Search";
-            this.btnRefresh.UseVisualStyleBackColor = true;
-            this.btnRefresh.Click += new System.EventHandler(this.btnRefresh_Click);
-            // 
             // LibraryHomeTab
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -539,7 +552,7 @@
         private System.Windows.Forms.Button btnAddNewBook;
         private System.Windows.Forms.Label label4;
         private System.Windows.Forms.TextBox tbUserBorrow;
-        private System.Windows.Forms.Button btnConfirmBookReturned;
+        private System.Windows.Forms.Button btnConfirmBookAdd;
         private System.Windows.Forms.Button btnEditBook;
         private System.Windows.Forms.Button btnShowHideBook;
         private System.Windows.Forms.Button btnViewBooksInfor;
@@ -559,5 +572,6 @@
         private System.Windows.Forms.StatusStrip statusStrip2;
         private System.Windows.Forms.ToolStripStatusLabel tsStatusLoginFinal;
         private System.Windows.Forms.Button btnRefresh;
+        private System.Windows.Forms.Button btnConfirmBookReturned;
     }
 }

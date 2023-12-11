@@ -48,6 +48,7 @@ namespace TF_IDF
             }
             str = str.Replace(rep + " ", "");
             str = str.Replace("- ", "");
+            str = str.Trim();
             return str;
         }
         public static string IgnoreStopWord(string str)
@@ -203,7 +204,7 @@ namespace TF_IDF
             return result;
 
         }
-        public static List<int> CompleteTF_IDF(LibraryEntities _db, string keywords)
+        public static List<int> SearchByContentSummary(LibraryEntities _db, string keywords)
         {
             Dictionary<int, string> doc = new Dictionary<int, string>();
             //Dictionnary of 50 content summary book with ISBN and it's content(Currently empty)
@@ -230,6 +231,57 @@ namespace TF_IDF
 
             Dictionary<int, string> hasKeywords = ListOfDocumentHasKeywords(doc, keywords);
             //List of book has one or more keyword in the content summary
+
+            Dictionary<string, float> idf = FindIDF(keywords, doc);
+            //Find the IDF of each keyword
+
+            Dictionary<int, Dictionary<string, float>> tf = FindTF(keywords, hasKeywords);
+            //Find the TF of each keyword
+
+            Dictionary<int, float> completeTF_IDF = CompleteTF_IDF(keywords, tf, idf);
+            //Mutilple each tf-idf then sum of all keyword's tf-idf and get the final weight of each book
+
+            var sorted = completeTF_IDF.OrderByDescending(q => q.Value);
+            //Sort the booklist descending
+
+            List<int> searchResult = new List<int>();
+            foreach (var book in sorted)
+            {
+                searchResult.Add(book.Key);
+            }
+            //Create a list store desceding ISBN of book
+
+            return searchResult;
+            //return this list
+        }
+
+        public static List<int> SearchByTitle(LibraryEntities _db, string keywords)
+        {
+            Dictionary<int, string> doc = new Dictionary<int, string>();
+            //Dictionnary of 50 content summary book with ISBN and it's content(Currently empty)
+
+            var books = (
+                from book in _db.Books
+                where book.Show == true
+                select new
+                {
+                    ISBN = book.ISBN,
+                    Title = book.Title,
+                }).ToList();
+            //Select book from database which is showed(not be hiden in the library)
+
+            foreach (var book in books)
+            {
+                string handledTitle = DeletePunctuation(book.Title);
+                //Delete punctuation and redundant space of each book's title
+                doc.Add(book.ISBN, handledTitle);
+                //Add each book's ISBN and title to dictionary
+            }
+            keywords = DeletePunctuation(keywords);
+            //Delete punctuation and lower the keywords
+
+            Dictionary<int, string> hasKeywords = ListOfDocumentHasKeywords(doc, keywords);
+            //List of book has one or more keyword in the title
 
             Dictionary<string, float> idf = FindIDF(keywords, doc);
             //Find the IDF of each keyword

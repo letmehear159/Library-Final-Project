@@ -57,7 +57,6 @@ namespace Library_Final_Project
         }
         public static void PopulateBookGrid(LibraryEntities _db, DataGridView data)
         {
-
             var books = (
                 from book in _db.Books
                 where book.Show == true

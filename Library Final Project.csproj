@@ -55,6 +55,12 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="AddBorrower.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="AddBorrower.Designer.cs">
+      <DependentUpon>AddBorrower.cs</DependentUpon>
+    </Compile>
     <Compile Include="Book.cs">
       <DependentUpon>Model1.tt</DependentUpon>
     </Compile>
@@ -184,6 +190,9 @@
     <Compile Include="User.cs">
       <DependentUpon>Model1.tt</DependentUpon>
     </Compile>
+    <EmbeddedResource Include="AddBorrower.resx">
+      <DependentUpon>AddBorrower.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="BookInformation.resx">
       <DependentUpon>BookInformation.cs</DependentUpon>
     </EmbeddedResource>

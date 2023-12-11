@@ -99,12 +99,12 @@ namespace Library_Final_Project
                 switch (searchOption)
                 {
                     case "Search By Content":
-                        List<int> searchResult = StringHandle.CompleteTF_IDF(_db, searchContent);
+                        List<int> searchResultContent = StringHandle.SearchByContentSummary(_db, searchContent);
                         //List of ISBN descending book which has content similar to keywords
-                        if (searchResult.Count > 0)
+                        if (searchResultContent.Count > 0)
                         {
                             List<object> allBooksContent = new List<object>();
-                            foreach (int isbn in searchResult)
+                            foreach (int isbn in searchResultContent)
                             {
 
                                 var booksContent = (from book in _db.Books
@@ -123,56 +123,97 @@ namespace Library_Final_Project
                             }
                             gvBookListSearch.DataSource = allBooksContent;
                             //Update the data to booklist grid view
+                            MessageBox.Show("Search completed.");
+
                         }
                         else
                         {
                             MessageBox.Show("Sorry, we couldn't find approriate books for you.");
                         }
                         break;
-                        //case "Search By Book's Title":
-                        //    var booksTitle = (from book in _db.Books
-                        //                      where StringHandle.DeletePunctuation(searchContent) == StringHandle.DeletePunctuation(book.Title)
-                        //                      select new
-                        //                      {
-                        //                          book.ISBN,
-                        //                          Title = book.Title,
-                        //                          Author = book.Author,
-                        //                          Category = book.Category,
-                        //                          Quantity = book.Quantity,
-                        //                          Status = book.Quantity > 0 ? "Available" : "Unavailable"
-                        //                      }
-                        //                 ).ToList();
-                        //    gvBookListSearch.DataSource = booksTitle;
-                        //    break;
-                        //case "Search By Author":
-                        //    var booksAuthor = (from book in _db.Books
-                        //                       where StringHandle.DeletePunctuation(searchContent) == StringHandle.DeletePunctuation(book.Author)
-                        //                       select new
-                        //                       {
-                        //                           book.ISBN,
-                        //                           Title = book.Title,
-                        //                           Author = book.Author,
-                        //                           Category = book.Category,
-                        //                           Quantity = book.Quantity,
-                        //                           Status = book.Quantity > 0 ? "Available" : "Unavailable"
-                        //                       }
-                        //                      ).ToList();
-                        //    gvBookListSearch.DataSource = booksAuthor;
-                        //    break;
-                        //case "Search Overdue Book":
-                        //    var booksOverdue = (from book in _db.TransactionHistories
-                        //                        where book.DateReturn < DateTime.Now && book.IsReturned == false
-                        //                        select new
-                        //                        {
-                        //                            ISBN = book.ISBN,
-                        //                            Title = book.BookName,
-                        //                            Borrower = book.Account,
-                        //                            DateReturn = book.DateReturn,
-                        //                        }).ToList();
-                        //    gvBookListSearch.DataSource = booksOverdue;
-                        //    break;
+                    case "Search By Book's Title":
+                        List<int> searchResultTitle = StringHandle.SearchByTitle(_db, searchContent);
+                        //List of ISBN descending book which has content similar to keywords
+                        if (searchResultTitle.Count > 0)
+                        {
+                            List<object> allBooksContent = new List<object>();
+                            foreach (int isbn in searchResultTitle)
+                            {
+                                var booksContent = (from book in _db.Books
+                                                    where book.ISBN == isbn
+                                                    select new
+                                                    {
+                                                        book.ISBN,
+                                                        Title = book.Title,
+                                                        Author = book.Author,
+                                                        Category = book.Category,
+                                                        Quantity = book.Quantity,
+                                                        Status = book.Quantity > 0 ? "Available" : "Unavailable"
+                                                    }).ToList();
+
+                                allBooksContent.AddRange(booksContent);
+                            }
+                            gvBookListSearch.DataSource = allBooksContent;
+                            //Update the data to booklist grid view
+                            MessageBox.Show("Search completed.");
+
+                        }
+                        else
+                        {
+                            MessageBox.Show("Sorry, we couldn't find approriate books for you.");
+                        }
+                        break;
+
+                    case "Search By Author":
+                        string standardSearchContent = StringHandle.DeletePunctuation(searchContent);
+                        var booksTitle = (from book in _db.Books
+                                          select new
+                                          {
+                                              book.ISBN,
+                                              Title = book.Title,
+                                              Author = book.Author,
+                                              Category = book.Category,
+                                              Quantity = book.Quantity,
+                                              Status = book.Quantity > 0 ? "Available" : "Unavailable"
+                                          }
+             ).ToList()
+             .Where(book => standardSearchContent == StringHandle.DeletePunctuation(book.Author))
+             .ToList();
+                        if (booksTitle.Count > 0)
+                        {
+                            gvBookListSearch.DataSource = booksTitle;
+                            //Update the data to booklist grid view
+                            MessageBox.Show("Search completed.");
+                        }
+                        else
+                        {
+                            MessageBox.Show("Sorry, we couldn't find approriate books for you.");
+                        }
+                        break;
+                    case "Search Overdue Book":
+                        var booksOverdue = (from book in _db.TransactionHistories
+                                            where book.DateReturn < DateTime.Now && book.IsReturned == false
+                                            select new
+                                            {
+                                                ISBN = book.ISBN,
+                                                Title = book.BookName,
+                                                Borrower = book.Account,
+                                                DateReturn = book.DateReturn,
+                                                Quantity = book.Book.Quantity,
+                                                Status = book.Book.Quantity > 0 ? "Available" : "Unavailable"
+                                            }).ToList();
+                        if (booksOverdue.Count > 0)
+                        {
+                            gvBookListSearch.DataSource = booksOverdue;
+                            //Update the data to booklist grid view
+                            MessageBox.Show("Search completed.");
+                        }
+                        else
+                        {
+                            MessageBox.Show("Sorry, we couldn't find approriate books for you.");
+                        }
+                        break;
                 }
-                MessageBox.Show("Search completed.");
             }
             catch (Exception ex)
             {
@@ -207,7 +248,7 @@ namespace Library_Final_Project
             var book = _db.Books.FirstOrDefault(q => q.ISBN == isbn);
             book.Show = book.Show == true ? false : true;
             _db.SaveChanges();
-            MessageBox.Show($"{book.Title}'s successfully hiden.");
+            MessageBox.Show($"\"{book.Title}\"'s successfully hiden.");
             Utils.PopulateBookGrid(_db, gvBookListSearch);
         }
 
@@ -224,6 +265,86 @@ namespace Library_Final_Project
         private void btnRefresh_Click(object sender, EventArgs e)
         {
             Utils.PopulateBookGrid(_db, gvBookListSearch);
+        }
+
+        private void btnConfirmBookAdd_Click(object sender, EventArgs e)
+        {
+            try
+            {
+                //Get the isbn of selected book
+                var isbn = (int)gvBookListSearch.SelectedRows[0].Cells["ISBN"].Value;
+                var book = _db.Books.FirstOrDefault(q => q.ISBN == isbn);
+                string borrower = tbUserBorrow.Text;
+                var userBorrow = (from user in _db.Users
+                                  where user.Account == borrower
+                                  select user).FirstOrDefault();
+
+                var overdueBook = (from dueBook in userBorrow.TransactionHistories
+                                   where dueBook.DateReturn < DateTime.Now && dueBook.IsReturned == false
+                                   select dueBook).ToList();
+                if (userBorrow == null)
+                {
+                    MessageBox.Show("Invalid user, this user doesn't exist in our data.");
+                }
+                else if (overdueBook.Count > 0)
+                {
+                    MessageBox.Show($"\"{borrower}\" has overdue books, tell him/her to return before borrowing new book.");
+                }
+                else if (book.Quantity <= 0)
+                {
+                    MessageBox.Show($"\"{book.Title}\" is currently out of stock. Unable to borrow.");
+                }
+                else
+                {
+                    book.Quantity -= 1;
+                    _db.SaveChanges();
+                    var addBorrower = new AddBorrower(isbn, borrower);
+                    addBorrower.Show();
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message);
+            }
+
+
+        }
+
+        private void btnConfirmBookReturned_Click(object sender, EventArgs e)
+        {
+            try
+            {
+                var isbn = (int)gvBookListSearch.SelectedRows[0].Cells["ISBN"].Value;
+                var book = _db.Books.FirstOrDefault(q => q.ISBN == isbn);
+                string borrower = tbUserBorrow.Text;
+                var userBorrow = (from user in _db.Users
+                                  where user.Account == borrower
+                                  select user).FirstOrDefault();
+                var borrowingBook = (from notReturnedBook in userBorrow.TransactionHistories
+                                     where notReturnedBook.IsReturned == false && notReturnedBook.ISBN == book.ISBN
+                                     select notReturnedBook).FirstOrDefault();
+                if (borrowingBook == null)
+                {
+                    MessageBox.Show($"\"{userBorrow}\" hasn't borrowed \"{book.Title}\" before.");
+                }
+                else if (userBorrow == null) { MessageBox.Show("Invalid user, this user doesn't exist in our data."); }
+                else
+                {
+                    var returnBook = (from notReturnedBook in userBorrow.TransactionHistories
+                                      where notReturnedBook.IsReturned == false && notReturnedBook.ISBN == book.ISBN
+                                      select notReturnedBook).FirstOrDefault();
+                    returnBook.IsReturned = true;
+                    _db.SaveChanges();
+                    MessageBox.Show($"\"{userBorrow.Account}\" has returned \"{book.Title}\" succesfully");
+                }
+            }
+            catch (Exception ex)
+            {
+
+                MessageBox.Show(ex.Message);
+            }
+
+
         }
     }
 }
