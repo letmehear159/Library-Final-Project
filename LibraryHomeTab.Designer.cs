@@ -68,6 +68,7 @@
             this.tsStatusLogin = new System.Windows.Forms.ToolStripStatusLabel();
             this.statusStrip2 = new System.Windows.Forms.StatusStrip();
             this.tsStatusLoginFinal = new System.Windows.Forms.ToolStripStatusLabel();
+            this.btnRefresh = new System.Windows.Forms.Button();
             this.tpSearchUser.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.gvBorrowingBook)).BeginInit();
             this.tpManageUser.SuspendLayout();
@@ -232,6 +233,7 @@
             // 
             // tpSearchBook
             // 
+            this.tpSearchBook.Controls.Add(this.btnRefresh);
             this.tpSearchBook.Controls.Add(this.gbManageBook);
             this.tpSearchBook.Controls.Add(this.btnViewBooksInfor);
             this.tpSearchBook.Controls.Add(this.cbSearchOption);
@@ -338,9 +340,9 @@
             "Search By Author",
             "Search By Content",
             "Search Overdue Book"});
-            this.cbSearchOption.Location = new System.Drawing.Point(125, 22);
+            this.cbSearchOption.Location = new System.Drawing.Point(57, 22);
             this.cbSearchOption.Name = "cbSearchOption";
-            this.cbSearchOption.Size = new System.Drawing.Size(143, 28);
+            this.cbSearchOption.Size = new System.Drawing.Size(211, 28);
             this.cbSearchOption.TabIndex = 42;
             // 
             // label5
@@ -472,6 +474,16 @@
             this.tsStatusLoginFinal.Size = new System.Drawing.Size(118, 17);
             this.tsStatusLoginFinal.Text = "toolStripStatusLabel1";
             // 
+            // btnRefresh
+            // 
+            this.btnRefresh.Location = new System.Drawing.Point(819, 448);
+            this.btnRefresh.Name = "btnRefresh";
+            this.btnRefresh.Size = new System.Drawing.Size(135, 69);
+            this.btnRefresh.TabIndex = 44;
+            this.btnRefresh.Text = "Refresh Search";
+            this.btnRefresh.UseVisualStyleBackColor = true;
+            this.btnRefresh.Click += new System.EventHandler(this.btnRefresh_Click);
+            // 
             // LibraryHomeTab
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -546,5 +558,6 @@
         private System.Windows.Forms.Label label9;
         private System.Windows.Forms.StatusStrip statusStrip2;
         private System.Windows.Forms.ToolStripStatusLabel tsStatusLoginFinal;
+        private System.Windows.Forms.Button btnRefresh;
     }
 }

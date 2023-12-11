@@ -172,36 +172,33 @@ namespace TF_IDF
         public static Dictionary<int, float> CompleteTF_IDF(string keywords, Dictionary<int, Dictionary<string, float>> TF, Dictionary<string, float> IDF)
         {
             Dictionary<int, float> result = new Dictionary<int, float>();
-            foreach (var d in TF)
+            Dictionary<int, Dictionary<string, float>> cloneTF = new Dictionary<int, Dictionary<string, float>>();
+            foreach (var doc in TF)
             {
-                foreach (var sd in d.Value)
+                Dictionary<string, float> cloneChildDoc = new Dictionary<string, float>();
+                foreach (var childDoc in doc.Value)
                 {
-                    d.Value[sd.Key] = sd.Value * IDF[sd.Key];
+                    //doc.Value[childDoc.Key] = childDoc.Value * IDF[childDoc.Key];
+                    float value = childDoc.Value * IDF[childDoc.Key];
+                    cloneChildDoc.Add(childDoc.Key, value);
                 }
+                cloneTF.Add(doc.Key, cloneChildDoc);
                 //Mỗi cái float trong TF chứa tf của mỗi keyword sẽ được nhân với IDF lúc đó sẽ ra tf-idf hoàn thiện
             }
             // bây giờ là đã có tf-idf hoàn thiện của mỗi keyword, việc quan trọng là với mỗi document thì phải tìm ra tích các trọng số của các từ 
-            foreach (var d in TF)
+            foreach (var d in cloneTF)
             // int,dictonary :1
             {
-                float total = 1;
-                bool check = false;
+                float total = 0;
                 foreach (var sd in d.Value)
                 // mỗi thằng string, float trong đó
                 {
-                    if (sd.Value != 0)
-                    {
-                        check = true;
-                        total *= sd.Value;
-                        //Nhân tất cả tf idf của các keyword lại (điều kiện là phải khác 0)
-                    }
+                    total += sd.Value;
+                    //Nhân tất cả tf idf của các keyword lại (điều kiện là phải khác 0)
                 }
-                if (check) //if there exists any keyword's tf-idf!=0
+                if (total != 0)
                     result.Add(d.Key, total);
-                else
-                {
-                    result.Add(d.Key, 0);
-                }
+
             }
             return result;
 
@@ -247,7 +244,7 @@ namespace TF_IDF
             //Sort the booklist descending
 
             List<int> searchResult = new List<int>();
-            foreach (var book in completeTF_IDF)
+            foreach (var book in sorted)
             {
                 searchResult.Add(book.Key);
             }
