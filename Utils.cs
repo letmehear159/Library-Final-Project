@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Drawing;
 using System.Linq;
 using System.Security.Cryptography;
 using System.Text;
@@ -159,6 +160,36 @@ namespace Library_Final_Project
             data.DataSource = favouriteBooks;
             data.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.AllCells;
             data.Columns[0].Visible = false;
+        }
+        public static void ImageSizeHandle(string imagePath, PictureBox pbBookImage)
+        {
+            if (System.IO.File.Exists(imagePath))
+            {
+                // Đọc ảnh từ file
+                using (var originalImage = System.Drawing.Image.FromFile(imagePath))
+                {
+                    // Kích thước của PictureBox
+                    int pictureBoxWidth = pbBookImage.Width;
+                    int pictureBoxHeight = pbBookImage.Height;
+
+                    // Tính tỉ lệ giữa kích thước của ảnh và kích thước của PictureBox
+                    float widthRatio = (float)pictureBoxWidth / originalImage.Width;
+                    float heightRatio = (float)pictureBoxHeight / originalImage.Height;
+
+                    // Chọn tỉ lệ thu phóng lớn nhất để không cắt bớt ảnh
+                    float ratio = Math.Min(widthRatio, heightRatio);
+
+                    // Tính toán kích thước mới
+                    int newWidth = (int)(originalImage.Width * ratio);
+                    int newHeight = (int)(originalImage.Height * ratio);
+
+                    // Tạo ảnh mới với kích thước đã tính toán
+                    var resizedImage = new Bitmap(originalImage, new Size(newWidth, newHeight));
+
+                    // Chèn ảnh vào PictureBox
+                    pbBookImage.Image = resizedImage;
+                }
+            }
         }
     }
 

@@ -209,7 +209,6 @@ namespace Library_Final_Project
                                                 Title = book.BookName,
                                                 Borrower = book.Account,
                                                 DateReturn = book.DateReturn,
-                                                Quantity = book.Book.Quantity,
                                                 Status = book.Book.Quantity > 0 ? "Available" : "Unavailable"
                                             }).ToList();
                         if (booksOverdue.Count > 0)
@@ -474,16 +473,17 @@ namespace Library_Final_Project
             try
             {
                 var id = (int)gvFavouriteList.SelectedRows[0].Cells["id"].Value;
-                var book = _db.FavouriteBooks.FirstOrDefault(q => q.id == id);
+                var book = _user.FavouriteBooks.FirstOrDefault(q => q.id == id);
+                string bookName = book.Book.Title;
                 if (book != null)
                 {
                     _db.FavouriteBooks.Remove(book);
                     _db.SaveChanges();
-                    MessageBox.Show($"\"{book.Book.Title}\" Is Unfavorited.");
+                    MessageBox.Show($"\"{bookName}\" Is Unfavorited.");
                 }
                 else
                 {
-                    MessageBox.Show("Sorry but we can find this book is out data.");
+                    MessageBox.Show("Sorry but we can find this book is our data.");
                 }
             }
             catch (Exception ex)
@@ -491,8 +491,12 @@ namespace Library_Final_Project
 
                 MessageBox.Show(ex.Message);
             }
+        }
 
-
+        private void btnRefreshFavourlist_Click(object sender, EventArgs e)
+        {
+            _user = _db.Users.FirstOrDefault(q => q.Account == _user.Account);
+            Utils.PopulateFavouriteList(_db, gvFavouriteList, _user);
         }
     }
 }

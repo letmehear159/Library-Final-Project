@@ -66,15 +66,16 @@
             this.btnViewBookInfor = new System.Windows.Forms.Button();
             this.label2 = new System.Windows.Forms.Label();
             this.gvBookListMenu = new System.Windows.Forms.DataGridView();
-            this.tsStatusLogin = new System.Windows.Forms.ToolStripStatusLabel();
-            this.statusStrip2 = new System.Windows.Forms.StatusStrip();
-            this.tsStatusLoginFinal = new System.Windows.Forms.ToolStripStatusLabel();
             this.tpMyList = new System.Windows.Forms.TabPage();
             this.btnUnfavourite = new System.Windows.Forms.Button();
             this.label3 = new System.Windows.Forms.Label();
             this.label10 = new System.Windows.Forms.Label();
             this.gvFavouriteList = new System.Windows.Forms.DataGridView();
             this.gvBorrowingList = new System.Windows.Forms.DataGridView();
+            this.tsStatusLogin = new System.Windows.Forms.ToolStripStatusLabel();
+            this.statusStrip2 = new System.Windows.Forms.StatusStrip();
+            this.tsStatusLoginFinal = new System.Windows.Forms.ToolStripStatusLabel();
+            this.btnRefreshFavourlist = new System.Windows.Forms.Button();
             this.tpSearchUser.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.gvBorrowingBook)).BeginInit();
             this.tpManageUser.SuspendLayout();
@@ -85,10 +86,10 @@
             this.tcMenu.SuspendLayout();
             this.tpMenu.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.gvBookListMenu)).BeginInit();
-            this.statusStrip2.SuspendLayout();
             this.tpMyList.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.gvFavouriteList)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.gvBorrowingList)).BeginInit();
+            this.statusStrip2.SuspendLayout();
             this.SuspendLayout();
             // 
             // tpSearchUser
@@ -481,29 +482,9 @@
             this.gvBookListMenu.Size = new System.Drawing.Size(745, 380);
             this.gvBookListMenu.TabIndex = 8;
             // 
-            // tsStatusLogin
-            // 
-            this.tsStatusLogin.Name = "tsStatusLogin";
-            this.tsStatusLogin.Size = new System.Drawing.Size(0, 17);
-            // 
-            // statusStrip2
-            // 
-            this.statusStrip2.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.tsStatusLoginFinal});
-            this.statusStrip2.Location = new System.Drawing.Point(0, 556);
-            this.statusStrip2.Name = "statusStrip2";
-            this.statusStrip2.Size = new System.Drawing.Size(970, 22);
-            this.statusStrip2.TabIndex = 38;
-            this.statusStrip2.Text = "statusStrip2";
-            // 
-            // tsStatusLoginFinal
-            // 
-            this.tsStatusLoginFinal.Name = "tsStatusLoginFinal";
-            this.tsStatusLoginFinal.Size = new System.Drawing.Size(118, 17);
-            this.tsStatusLoginFinal.Text = "toolStripStatusLabel1";
-            // 
             // tpMyList
             // 
+            this.tpMyList.Controls.Add(this.btnRefreshFavourlist);
             this.tpMyList.Controls.Add(this.btnUnfavourite);
             this.tpMyList.Controls.Add(this.label3);
             this.tpMyList.Controls.Add(this.label10);
@@ -519,7 +500,7 @@
             // 
             // btnUnfavourite
             // 
-            this.btnUnfavourite.Location = new System.Drawing.Point(640, 393);
+            this.btnUnfavourite.Location = new System.Drawing.Point(747, 393);
             this.btnUnfavourite.Name = "btnUnfavourite";
             this.btnUnfavourite.Size = new System.Drawing.Size(184, 69);
             this.btnUnfavourite.TabIndex = 14;
@@ -563,6 +544,37 @@
             this.gvBorrowingList.Size = new System.Drawing.Size(437, 289);
             this.gvBorrowingList.TabIndex = 10;
             // 
+            // tsStatusLogin
+            // 
+            this.tsStatusLogin.Name = "tsStatusLogin";
+            this.tsStatusLogin.Size = new System.Drawing.Size(0, 17);
+            // 
+            // statusStrip2
+            // 
+            this.statusStrip2.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.tsStatusLoginFinal});
+            this.statusStrip2.Location = new System.Drawing.Point(0, 556);
+            this.statusStrip2.Name = "statusStrip2";
+            this.statusStrip2.Size = new System.Drawing.Size(970, 22);
+            this.statusStrip2.TabIndex = 38;
+            this.statusStrip2.Text = "statusStrip2";
+            // 
+            // tsStatusLoginFinal
+            // 
+            this.tsStatusLoginFinal.Name = "tsStatusLoginFinal";
+            this.tsStatusLoginFinal.Size = new System.Drawing.Size(118, 17);
+            this.tsStatusLoginFinal.Text = "toolStripStatusLabel1";
+            // 
+            // btnRefreshFavourlist
+            // 
+            this.btnRefreshFavourlist.Location = new System.Drawing.Point(515, 393);
+            this.btnRefreshFavourlist.Name = "btnRefreshFavourlist";
+            this.btnRefreshFavourlist.Size = new System.Drawing.Size(184, 69);
+            this.btnRefreshFavourlist.TabIndex = 15;
+            this.btnRefreshFavourlist.Text = "Refresh Favourite List";
+            this.btnRefreshFavourlist.UseVisualStyleBackColor = true;
+            this.btnRefreshFavourlist.Click += new System.EventHandler(this.btnRefreshFavourlist_Click);
+            // 
             // LibraryHomeTab
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -589,12 +601,12 @@
             this.tpMenu.ResumeLayout(false);
             this.tpMenu.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.gvBookListMenu)).EndInit();
-            this.statusStrip2.ResumeLayout(false);
-            this.statusStrip2.PerformLayout();
             this.tpMyList.ResumeLayout(false);
             this.tpMyList.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.gvFavouriteList)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.gvBorrowingList)).EndInit();
+            this.statusStrip2.ResumeLayout(false);
+            this.statusStrip2.PerformLayout();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -648,5 +660,6 @@
         private System.Windows.Forms.Label label10;
         private System.Windows.Forms.DataGridView gvFavouriteList;
         private System.Windows.Forms.DataGridView gvBorrowingList;
+        private System.Windows.Forms.Button btnRefreshFavourlist;
     }
 }

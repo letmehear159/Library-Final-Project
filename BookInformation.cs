@@ -30,6 +30,7 @@ namespace Library_Final_Project
         public BookInformation(User user)
         {
             InitializeComponent();
+            _user = user;
         }
         /// <summary>
         /// Pass the value from the choosen book to the textbox for edit or view information
@@ -85,9 +86,34 @@ namespace Library_Final_Project
                     {
                         StaticBookInformation();
                     }
+                    string path = "D:\\Visual Studio\\WindownForm\\Library Final Project\\BookImage\\";
+                    string imageBookName = "";
+                    switch (_book.ISBN)
+                    {
+                        case 1: //Hỏa phụng Liêu Nguyên
+                            imageBookName = "HPLN.JPG";
+                            break;
+                        case 2: //Đại quản gia là ma hoàng
+                            imageBookName = "DQG.JPG";
+                            break;
+                        case 3: //Cậu bé thần giáo
+                            imageBookName = "CBTG.JPG";
+                            break;
+                        case 4:
+                            imageBookName = "NKTL.JPG";
+                            break;
+                        case 5:
+                            imageBookName = "Kingdom.JPG";
+                            break;
+                        default:
+                            imageBookName = "CatDog.JPG";
+                            break;
+                    }
+                    string imagePath = path + imageBookName;
+                    Utils.ImageSizeHandle(imagePath, pbBookImage);
                 }
-                //string imagePath = "D:\\Visual Studio\\WindownForm\\Library Final Project\\Hoa Phung Lieu Nguyen.PNG";
-                //pbBookImage.Image = System.Drawing.Image.FromFile(imagePath);
+
+
             }
             catch (Exception ex)
             {
@@ -152,13 +178,32 @@ namespace Library_Final_Project
             book.Status = true;
             book.Author = tbAuthor.Text;
             book.Title = tbTitle.Text;
-            book.ContentSummary.ContentBook = tbContenSummary.Text;
             book.Category = tbCategory.Text;
             book.Show = true;
-            //Pass the data to new book
 
-            _db.Books.Add(book);
-            _db.SaveChanges();
+            //Pass the data to new book
+            if (string.IsNullOrEmpty(tbISBN.Text))
+            {
+                _db.Books.Add(book);
+                _db.SaveChanges();
+                var justAddedBook = _db.Books.Where(q => q.Title == tbTitle.Text).ToList().LastOrDefault();
+                var contentSummary = new ContentSummary();
+                contentSummary.ContentBook = tbContenSummary.Text;
+                contentSummary.ISBN = justAddedBook.ISBN;
+                _db.ContentSummaries.Add(contentSummary);
+                _db.SaveChanges();
+            }
+            else
+            {
+                book.ISBN = int.Parse(tbISBN.Text);
+                _db.Books.Add(book);
+                _db.SaveChanges();
+                var contentSummary = new ContentSummary();
+                contentSummary.ContentBook = tbContenSummary.Text;
+                contentSummary.ISBN = book.ISBN;
+                _db.ContentSummaries.Add(contentSummary);
+                _db.SaveChanges();
+            }
             //Add this book to the database
 
             MessageBox.Show("Book added successfully to your library.");
