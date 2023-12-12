@@ -91,12 +91,6 @@
     <Compile Include="FavouriteBook.cs">
       <DependentUpon>Model1.tt</DependentUpon>
     </Compile>
-    <Compile Include="FavouriteList.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="FavouriteList.Designer.cs">
-      <DependentUpon>FavouriteList.cs</DependentUpon>
-    </Compile>
     <Compile Include="ForgotPassword.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -108,12 +102,6 @@
     </Compile>
     <Compile Include="Login.Designer.cs">
       <DependentUpon>Login.cs</DependentUpon>
-    </Compile>
-    <Compile Include="ManageUser.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="ManageUser.Designer.cs">
-      <DependentUpon>ManageUser.cs</DependentUpon>
     </Compile>
     <Compile Include="Model1.Context.cs">
       <AutoGen>True</AutoGen>
@@ -155,18 +143,6 @@
     <Compile Include="Role.cs">
       <DependentUpon>Model1.tt</DependentUpon>
     </Compile>
-    <Compile Include="SearchBook.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="SearchBook.Designer.cs">
-      <DependentUpon>SearchBook.cs</DependentUpon>
-    </Compile>
-    <Compile Include="SearchUser.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="SearchUser.Designer.cs">
-      <DependentUpon>SearchUser.cs</DependentUpon>
-    </Compile>
     <Compile Include="LibraryHomeTab.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -202,17 +178,11 @@
     <EmbeddedResource Include="CreateNewAccount.resx">
       <DependentUpon>CreateNewAccount.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="FavouriteList.resx">
-      <DependentUpon>FavouriteList.cs</DependentUpon>
-    </EmbeddedResource>
     <EmbeddedResource Include="ForgotPassword.resx">
       <DependentUpon>ForgotPassword.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Login.resx">
       <DependentUpon>Login.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="ManageUser.resx">
-      <DependentUpon>ManageUser.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="PersonalInformation.resx">
       <DependentUpon>PersonalInformation.cs</DependentUpon>
@@ -224,12 +194,6 @@
     </EmbeddedResource>
     <EmbeddedResource Include="ResetPassword.resx">
       <DependentUpon>ResetPassword.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="SearchBook.resx">
-      <DependentUpon>SearchBook.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="SearchUser.resx">
-      <DependentUpon>SearchUser.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="LibraryHomeTab.resx">
       <DependentUpon>LibraryHomeTab.cs</DependentUpon>

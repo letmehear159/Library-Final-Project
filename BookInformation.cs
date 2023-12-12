@@ -65,27 +65,34 @@ namespace Library_Final_Project
 
         private void BookInformation_Load(object sender, EventArgs e)
         {
-            string role = Utils.GetRoleOfUser(_db, _user);
-            //Get the shorcut role name of this user
-            if (role.Equals("User"))  //If this is a borrower than hide admin's operation
-            {
-                btnAddToLibrary.Visible = false;
-                lblBorrowUser.Visible = false;
-                lblBorrowUser.Visible = false;
-                btnSubmit.Visible = false;
-            }
-            if (_book != null)      //If we are viewing or editting book information
-            {
-                btnAddToLibrary.Visible = false;
-                PopulateBookInformation();
-                if (!_isEdit)
-                {
-                    StaticBookInformation();
-                }
-            }
-            else
-            {   //Case that admin adds book
 
+            try
+            {
+                string role = Utils.GetRoleOfUser(_db, _user);
+                //Get the shorcut role name of this user
+                if (role.Equals("User"))  //If this is a borrower than hide admin's operation
+                {
+                    btnAddToLibrary.Visible = false;
+                    lblBorrowUser.Visible = false;
+                    lblBorrowUser.Visible = false;
+                    btnSubmit.Visible = false;
+                }
+                if (_book != null)      //If we are viewing or editting book information
+                {
+                    btnAddToLibrary.Visible = false;
+                    PopulateBookInformation();
+                    if (!_isEdit)
+                    {
+                        StaticBookInformation();
+                    }
+                }
+                //string imagePath = "D:\\Visual Studio\\WindownForm\\Library Final Project\\Hoa Phung Lieu Nguyen.PNG";
+                //pbBookImage.Image = System.Drawing.Image.FromFile(imagePath);
+            }
+            catch (Exception ex)
+            {
+
+                MessageBox.Show(ex.Message);
             }
         }
         /// <summary>
@@ -160,17 +167,34 @@ namespace Library_Final_Project
 
         private void btnAddToFavourList_Click(object sender, EventArgs e)
         {
-            var favourBook = new FavouriteBook();
-            favourBook.Account = _user.Account;
-            favourBook.ISBN = _book.ISBN;
-            //Create a new instance of favourite book then pass the data to it
+            try
+            {
+                bool alreadyFavourite = _db.FavouriteBooks.Any(q => q.ISBN == _book.ISBN && q.Account == _user.Account);
+                if (alreadyFavourite)
+                {
+                    MessageBox.Show("You Have Already Favourited This Book Before.");
+                }
+                else
+                {
+                    var favourBook = new FavouriteBook();
+                    favourBook.Account = _user.Account;
+                    favourBook.ISBN = _book.ISBN;
+                    //Create a new instance of favourite book then pass the data to it
 
-            _db.FavouriteBooks.Add(favourBook);
-            _db.SaveChanges();
-            //Add this favourite book to favouriteBooks in database then save changes.
+                    _db.FavouriteBooks.Add(favourBook);
+                    _db.SaveChanges();
+                    //Add this favourite book to favouriteBooks in database then save changes.
 
-            MessageBox.Show("Book added successfully to your favourite list.");
-            //Inform the user.
+                    MessageBox.Show("Book added successfully to your favourite list.");
+                    //Inform the user.
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message);
+            }
+
+
 
         }
         //public string BorrowerListThisBook()
@@ -191,6 +215,5 @@ namespace Library_Final_Project
             }
 
         }
-
     }
 }

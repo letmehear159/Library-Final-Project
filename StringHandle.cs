@@ -95,7 +95,7 @@ namespace TF_IDF
             foreach (var s in text)
             {
                 int docAppearTimes = 0;
-                //Đếm số văn bản chứa keywords
+                //Reckon the number of document contain keywords.
                 foreach (var content in doc)
                 {
                     if (content.Value.Contains(s))
@@ -106,16 +106,21 @@ namespace TF_IDF
 
                 if (docAppearTimes > 0)
                 {
-                    float c = doc.Count / ((float)docAppearTimes);
-                    c = (float)Math.Log(c);
-                    dict.Add(s, c);
+                    if (!dict.ContainsKey(s))
+                    {
+                        float c = doc.Count / ((float)docAppearTimes);
+                        c = (float)Math.Log(c);
+                        dict.Add(s, c);
+                    }
+
                 }
-                //Nếu số lần xuất hiện lớn hơn 0 thì chia như thường 
+                //If the aperrancetimes>0 then divide normally.
                 else
                 {
-                    dict.Add(s, 0f);
+                    if (!dict.ContainsKey(s))
+                        dict.Add(s, 0f);
                 }
-                //Cho value =0
+                // value =0
 
             }
             return dict;
@@ -144,29 +149,33 @@ namespace TF_IDF
         /// <summary>
         /// 
         /// </summary>
-        /// <param name="keywords"></param> Key word chúng ta nhập vào
-        /// <param name="document"></param> Tuyển tập tất cả nội dung của các sách
+        /// <param name="keywords"></param> Key word we input in
+        /// <param name="document"></param> List of all summary of all book
         /// <returns></returns>
         public static Dictionary<int, Dictionary<string, float>> FindTF(string keywords, Dictionary<int, string> document)
         {
             string[] text = keywords.Split();
-            //Tách các keywords
+            //Split the keywords
 
             Dictionary<int, Dictionary<string, float>> d = new Dictionary<int, Dictionary<string, float>>();
-            //dùng để chứa mỗi id sách và mỗi sách có chứa dictionary về mỗi keyword với tf riêng của nó
+            //Used to stored id book and each of book has dictionary of keyword and it's respective tf
             foreach (var doc in document)
             {
                 Dictionary<string, float> clone = new Dictionary<string, float>();
-                //Chứa mỗi keyword với tf riêng của nó
+                //Contain each keyword with respective tf
                 foreach (var s in text)
                 {
+                    if (clone.ContainsKey(s))   //if dictionary has this key then stop to add the other same 
+                        continue;
                     float f = FindTF(s, doc.Value);
-                    //Tìm tf của keyword cụ thể
+                    //Find tf of specific keyword 
+
                     clone.Add(s, f);
-                    //Thêm nó vào dictionary
+                    //add it to dictionary 
+
                 }
                 d.Add(doc.Key, clone);
-                //Tuyển tập dictionary với tập hợp các keyword với tf riêng của nó
+                //A list of dictionary with list of keyword and their respective tf
             }
             return d;
         }
@@ -184,18 +193,18 @@ namespace TF_IDF
                     cloneChildDoc.Add(childDoc.Key, value);
                 }
                 cloneTF.Add(doc.Key, cloneChildDoc);
-                //Mỗi cái float trong TF chứa tf của mỗi keyword sẽ được nhân với IDF lúc đó sẽ ra tf-idf hoàn thiện
+                //Each of float value in TF contain tf of each keyword will be multipled with IDF into complete tf-idf.
             }
-            // bây giờ là đã có tf-idf hoàn thiện của mỗi keyword, việc quan trọng là với mỗi document thì phải tìm ra tích các trọng số của các từ 
+            // Now we have complete tf-idf of each keyword, then we need to find the total weight of each document
             foreach (var d in cloneTF)
             // int,dictonary :1
             {
                 float total = 0;
                 foreach (var sd in d.Value)
-                // mỗi thằng string, float trong đó
+                // each of string, float
                 {
                     total += sd.Value;
-                    //Nhân tất cả tf idf của các keyword lại (điều kiện là phải khác 0)
+                    //Plus all tf-idf of keywords.
                 }
                 if (total != 0)
                     result.Add(d.Key, total);

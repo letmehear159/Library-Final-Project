@@ -92,11 +92,21 @@ namespace Library_Final_Project
         }
         private void CreateNewAccount_Load(object sender, EventArgs e)
         {
-            //Update the value in the dropdown list box from the database in Role Table then display it
-            var roles = _db.Roles.Select(q => new { ID = q.ID, Name = q.RoleName, ShortcutName = q.RoleNameShorcut }).ToList();
-            cbRole.DisplayMember = "Name";
-            cbRole.ValueMember = "ID";
-            cbRole.DataSource = roles;
+            try
+            {
+                //Update the value in the dropdown list box from the database in Role Table then display it
+                var roles = _db.Roles.Select(q => new { ID = q.ID, Name = q.RoleName, ShortcutName = q.RoleNameShorcut }).ToList();
+                cbRole.DisplayMember = "Name";
+                cbRole.ValueMember = "ID";
+                cbRole.DataSource = roles;
+            }
+            catch (Exception ex)
+            {
+
+                MessageBox.Show(ex.Message);
+            }
+
+
         }
 
 

@@ -132,7 +132,35 @@ namespace Library_Final_Project
             data.Columns[2].Width = 150;
         }
 
+        public static void PopulateBorrowingBookGrid(LibraryEntities _db, DataGridView data, User user)
+        {
+            var borrowingBooks = (from book in user.TransactionHistories
+                                  where book.Account == user.Account && book.IsReturned == false
+                                  select new
+                                  {
+                                      BookName = book.Book.Title,
+                                      Author = book.Book.Author,
+                                      Category = book.Book.Category,
+                                  }).ToList();
+            data.DataSource = borrowingBooks;
+            data.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.AllCells;
+        }
+        public static void PopulateFavouriteList(LibraryEntities _db, DataGridView data, User user)
+        {
+            var favouriteBooks = (from book in user.FavouriteBooks
+                                  select new
+                                  {
+                                      id = book.id,
+                                      BookName = book.Book.Title,
+                                      Author = book.Book.Author,
+                                      Category = book.Book.Category,
 
-
+                                  }).ToList();
+            data.DataSource = favouriteBooks;
+            data.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.AllCells;
+            data.Columns[0].Visible = false;
+        }
     }
+
 }
+

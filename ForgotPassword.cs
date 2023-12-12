@@ -25,21 +25,31 @@ namespace Library_Final_Project
 
         private void btnFindUsername_Click(object sender, EventArgs e)
         {
-            var userName = tbUsername.Text;
-            if (!Utils.CheckAccountExisted(userName, _db))
+            try
             {
-                //If the user type wrong username
-                MessageBox.Show("This username doesnt exist!!!");
-            }
-            else
-            {
-                //We need to ensure this is correct user so we need to confimr the answer from the user 
-                MessageBox.Show("To assure that it's you , We need to you to fill out our question");
-                var resetPass = new ResetPassword(this, userName);
-                resetPass.Show();
-                this.Hide();
+                var userName = tbUsername.Text;
+                if (!Utils.CheckAccountExisted(userName, _db))
+                {
+                    //If the user type wrong username
+                    MessageBox.Show("This username doesnt exist!!!");
+                }
+                else
+                {
+                    //We need to ensure this is correct user so we need to confimr the answer from the user 
+                    MessageBox.Show("To assure that it's you , We need to you to fill out our question");
+                    var resetPass = new ResetPassword(this, userName);
+                    resetPass.Show();
+                    this.Hide();
 
+                }
             }
+            catch (Exception ex)
+            {
+
+                MessageBox.Show(ex.Message);
+            }
+
+
         }
     }
 }

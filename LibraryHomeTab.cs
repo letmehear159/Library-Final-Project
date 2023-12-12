@@ -4,6 +4,7 @@ using System.ComponentModel;
 using System.Data;
 using System.Drawing;
 using System.Linq;
+using System.Security.Principal;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
@@ -30,26 +31,37 @@ namespace Library_Final_Project
 
         private void LibraryHomeTab_Load(object sender, EventArgs e)
         {
-            //If the user logged in is a user(Borrower) then hide the admin's operation 
-            if (Utils.GetRoleOfUser(_db, _user) == "User")
+            try
             {
-                gbManageBook.Visible = false;
-                tcMenu.TabPages.Remove(tpManageUser);
-                tcMenu.TabPages.Remove(tpSearchUser);
-            }
-            else
-            {
-                Utils.PopulateUserGrid(_db, gvUserList);
-                //Update the data of user from database to gvUserList to display
-            }
-            Utils.PopulateBookGrid(_db, gvBookListMenu);
-            //Update the data of book from database to gvBookListMenu to display
+                //If the user logged in is a user(Borrower) then hide the admin's operation 
+                if (Utils.GetRoleOfUser(_db, _user) == "User")
+                {
+                    gbManageBook.Visible = false;
+                    tcMenu.TabPages.Remove(tpManageUser);
+                    tcMenu.TabPages.Remove(tpSearchUser);
+                }
+                else
+                {
+                    Utils.PopulateUserGrid(_db, gvUserList);
+                    //Update the data of user from database to gvUserList to display
+                }
+                Utils.PopulateBookGrid(_db, gvBookListMenu);
+                //Update the data of book from database to gvBookListMenu to display
 
-            Utils.PopulateBookGrid(_db, gvBookListSearch);
-            //Update the data of book from database to gvBookListSearch to display
-            gvBookListSearch.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.AllCells;
-            var role = _user.UserRoles.FirstOrDefault().Role.RoleNameShorcut;
-            tsStatusLoginFinal.Text = $"Logged as {role}";
+                Utils.PopulateBookGrid(_db, gvBookListSearch);
+                //Update the data of book from database to gvBookListSearch to display
+                gvBookListSearch.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.AllCells;
+                var role = _user.UserRoles.FirstOrDefault().Role.RoleNameShorcut;
+                tsStatusLoginFinal.Text = $"Logged as {role}";
+                Utils.PopulateBorrowingBookGrid(_db, gvBorrowingList, _user);
+                Utils.PopulateFavouriteList(_db, gvFavouriteList, _user);
+            }
+            catch (Exception ex)
+            {
+
+                MessageBox.Show(ex.Message);
+            }
+
         }
         /// <summary>
         /// View choosen book's information
@@ -230,34 +242,62 @@ namespace Library_Final_Project
 
         private void btnEditBook_Click(object sender, EventArgs e)
         {
-            //Get the isbn of selected book
-            var isbn = (int)gvBookListSearch.SelectedRows[0].Cells["ISBN"].Value;
-            // Get book from database by book's isbn
-            var book = _db.Books.FirstOrDefault(q => q.ISBN == isbn);
-            var bookInfor = new BookInformation(book, _user, true);
-            bookInfor.Show();
+            try
+            {
+                //Get the isbn of selected book
+                var isbn = (int)gvBookListSearch.SelectedRows[0].Cells["ISBN"].Value;
+                // Get book from database by book's isbn
+                var book = _db.Books.FirstOrDefault(q => q.ISBN == isbn);
+                var bookInfor = new BookInformation(book, _user, true);
+                bookInfor.Show();
+            }
+            catch (Exception ex)
+            {
+
+                MessageBox.Show(ex.Message);
+            }
+
+
         }
 
         private void btnShowHideBook_Click(object sender, EventArgs e)
         {
-            //Get the isbn of selected book
-            var isbn = (int)gvBookListSearch.SelectedRows[0].Cells["ISBN"].Value;
-            // Get book from database by book's isbn
-            var book = _db.Books.FirstOrDefault(q => q.ISBN == isbn);
-            book.Show = book.Show == true ? false : true;
-            _db.SaveChanges();
-            MessageBox.Show($"\"{book.Title}\"'s successfully hiden.");
-            Utils.PopulateBookGrid(_db, gvBookListSearch);
+            try
+            {
+                //Get the isbn of selected book
+                var isbn = (int)gvBookListSearch.SelectedRows[0].Cells["ISBN"].Value;
+                // Get book from database by book's isbn
+                var book = _db.Books.FirstOrDefault(q => q.ISBN == isbn);
+                book.Show = book.Show == true ? false : true;
+                _db.SaveChanges();
+                MessageBox.Show($"\"{book.Title}\"'s successfully hiden.");
+                Utils.PopulateBookGrid(_db, gvBookListSearch);
+            }
+            catch (Exception ex)
+            {
+
+                MessageBox.Show(ex.Message);
+            }
+
+
         }
 
         private void btnViewBooksInfor_Click(object sender, EventArgs e)
         {
-            //Get the isbn of selected book
-            var isbn = (int)gvBookListSearch.SelectedRows[0].Cells["ISBN"].Value;
-            // Get book from database by book's isbn
-            var book = _db.Books.FirstOrDefault(q => q.ISBN == isbn);
-            var bookInfor = new BookInformation(book, _user, false);
-            bookInfor.Show();
+            try
+            {
+                //Get the isbn of selected book
+                var isbn = (int)gvBookListSearch.SelectedRows[0].Cells["ISBN"].Value;
+                // Get book from database by book's isbn
+                var book = _db.Books.FirstOrDefault(q => q.ISBN == isbn);
+                var bookInfor = new BookInformation(book, _user, false);
+                bookInfor.Show();
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message);
+            }
+
         }
 
         private void btnRefresh_Click(object sender, EventArgs e)
@@ -352,12 +392,22 @@ namespace Library_Final_Project
 
         private void btnActDeactUser_Click(object sender, EventArgs e)
         {
-            var account = (string)gvUserList.SelectedRows[0].Cells["Account"].Value;
-            var user = _db.Users.FirstOrDefault(q => q.Account == account);
-            user.IsActive = user.IsActive == true ? false : true;
-            _db.SaveChanges();
-            MessageBox.Show($"\"{account}\"'s status successfully changes.");
-            Utils.PopulateUserGrid(_db, gvUserList);
+            try
+            {
+                var account = (string)gvUserList.SelectedRows[0].Cells["Account"].Value;
+                var user = _db.Users.FirstOrDefault(q => q.Account == account);
+                user.IsActive = user.IsActive == true ? false : true;
+                _db.SaveChanges();
+                MessageBox.Show($"\"{account}\"'s status successfully changes.");
+                Utils.PopulateUserGrid(_db, gvUserList);
+            }
+            catch (Exception ex)
+            {
+
+                MessageBox.Show(ex.Message);
+            }
+
+
         }
 
         private void btnResetPassword_Click(object sender, EventArgs e)
@@ -368,37 +418,48 @@ namespace Library_Final_Project
 
         }
 
-        private void btnSearchUserLink_Click(object sender, EventArgs e)
-        {
-
-        }
 
         private void btnSearchUser_Click(object sender, EventArgs e)
         {
-            string account = tbUsername.Text.Trim();
-            var user = _db.Users.FirstOrDefault(q => q.Account == account);
-            if (user == null)
+            try
             {
-                MessageBox.Show("Invalid user, it doesn't Exist.");
+                string account = tbUsername.Text.Trim();
+                var user = _db.Users.FirstOrDefault(q => q.Account == account);
+                if (user == null)
+                {
+                    MessageBox.Show("Invalid user, it doesn't Exist.");
+                }
+                else
+                {
+                    Utils.PopulateBorrowingBookGrid(_db, gvBorrowingBook, user);
+                    MessageBox.Show("Search Completed");
+                }
             }
-            else
+            catch (Exception ex)
             {
-                var borrowingBooks = (from book in user.TransactionHistories
-                                      where book.Account == account && book.IsReturned == false
-                                      select book).ToList();
-                gvBorrowingBook.DataSource = borrowingBooks;
-                gvBorrowingBook.AutoResizeColumns(DataGridViewAutoSizeColumnsMode.AllCells);
-                MessageBox.Show("Search Completed");
+
+                MessageBox.Show(ex.Message);
             }
+
+
         }
 
         private void btnActDeactiveUser_Click(object sender, EventArgs e)
         {
-            string account = tbUsername.Text.Trim();
-            var user = _db.Users.FirstOrDefault(q => q.Account == account);
-            user.IsActive = user.IsActive == true ? false : true;
-            _db.SaveChanges();
-            MessageBox.Show($"\"{account}\"'s status successfully changes.");
+            try
+            {
+                string account = tbUsername.Text.Trim();
+                var user = _db.Users.FirstOrDefault(q => q.Account == account);
+                user.IsActive = user.IsActive == true ? false : true;
+                _db.SaveChanges();
+                MessageBox.Show($"\"{account}\"'s status successfully changes.");
+            }
+            catch (Exception ex)
+            {
+
+                MessageBox.Show(ex.Message);
+            }
+
         }
 
         private void btnResetUserPassword_Click(object sender, EventArgs e)
@@ -406,6 +467,32 @@ namespace Library_Final_Project
             string account = tbUsername.Text.Trim();
             var resetPass = new SetNewPassword(account);
             resetPass.Show();
+        }
+
+        private void btnUnfavourite_Click(object sender, EventArgs e)
+        {
+            try
+            {
+                var id = (int)gvFavouriteList.SelectedRows[0].Cells["id"].Value;
+                var book = _db.FavouriteBooks.FirstOrDefault(q => q.id == id);
+                if (book != null)
+                {
+                    _db.FavouriteBooks.Remove(book);
+                    _db.SaveChanges();
+                    MessageBox.Show($"\"{book.Book.Title}\" Is Unfavorited.");
+                }
+                else
+                {
+                    MessageBox.Show("Sorry but we can find this book is out data.");
+                }
+            }
+            catch (Exception ex)
+            {
+
+                MessageBox.Show(ex.Message);
+            }
+
+
         }
     }
 }

@@ -33,19 +33,30 @@ namespace Library_Final_Project
 
         private void btnSubmit_Click(object sender, EventArgs e)
         {
-            var hometown = tbHometown.Text;
-            var favourSong = tbFavouriteSong.Text;
-            var name = tbUsername.Text;
-            //Get the value from text box
-            var pi = _db.PersonalInfors.FirstOrDefault(q => q.Account == username);
-            //Get the information from the username to check the answer of the user
-            if (pi.HomeTown == hometown && favourSong == pi.FavouriteSong && name == pi.Name)
+            try
             {
-                MessageBox.Show("Information is matched, you can set your new password now.");
-                var setPassword = new SetNewPassword(username, this);
-                setPassword.Show();
-                Close();
+                var hometown = tbHometown.Text;
+                var favourSong = tbFavouriteSong.Text;
+                var name = tbUsername.Text;
+                //Get the value from text box
+                var pi = _db.PersonalInfors.FirstOrDefault(q => q.Account == username);
+                //Get the information from the username to check the answer of the user
+                if (pi.HomeTown == hometown && favourSong == pi.FavouriteSong && name == pi.Name)
+                {
+                    MessageBox.Show("Information is matched, you can set your new password now.");
+                    var setPassword = new SetNewPassword(username, this);
+                    setPassword.Show();
+                    Close();
+                }
             }
+
+            catch (Exception ex)
+            {
+
+                MessageBox.Show(ex.Message);
+            }
+
+
         }
     }
 }

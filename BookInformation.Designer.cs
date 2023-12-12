@@ -62,6 +62,7 @@
             // 
             // pbBookImage
             // 
+            this.pbBookImage.InitialImage = null;
             this.pbBookImage.Location = new System.Drawing.Point(28, 12);
             this.pbBookImage.Name = "pbBookImage";
             this.pbBookImage.Size = new System.Drawing.Size(348, 292);
