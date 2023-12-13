@@ -37,19 +37,29 @@ namespace Library_Final_Project
         /// </summary>
         public void PopulateBookInformation()
         {
-            tbTitle.Text = _book.Title;
-            tbAuthor.Text = _book.Author;
-            tbCategory.Text = _book.Category;
-            tbContenSummary.Text = _book.ContentSummary.ContentBook;
-            tbISBN.Text = _book.ISBN.ToString();
-            if (_book.Quantity == 0)    //If book is out of stock
+            try
             {
-                tbStatus.Text = "Unavailable";
+                tbTitle.Text = _book.Title;
+                tbAuthor.Text = _book.Author;
+                tbCategory.Text = _book.Category;
+                tbContenSummary.Text = _book.ContentSummary.ContentBook;
+                tbISBN.Text = _book.ISBN.ToString();
+                if (_book.Quantity == 0)    //If book is out of stock
+                {
+                    tbStatus.Text = "Unavailable";
+                }
+                else
+                {
+                    tbStatus.Text = "Available";
+                }
             }
-            else
+            catch (Exception ex)
             {
-                tbStatus.Text = "Available";
+
+                MessageBox.Show(ex.Message);
             }
+
+
         }
         /// <summary>
         /// Set all the text box in bookinfor winform is read_only
@@ -125,34 +135,45 @@ namespace Library_Final_Project
         /// Save data of this book from the text box to database
         /// </summary>
         /// <param name="book"></param>: The book need changing data
+        /// 
         public void SaveBookChangeToDatabase(Book book)
         {
-            book.ISBN = int.Parse(tbISBN.Text);
-            book.Author = tbAuthor.Text;
-            book.Title = tbTitle.Text;
-            book.Category = tbCategory.Text;
-            string status = tbStatus.Text;
-            status = status.Trim();
-            status = status.ToLower();
-            if (status == "available")
+            try
             {
-                book.Status = true;
+                book.ISBN = int.Parse(tbISBN.Text);
+                book.Author = tbAuthor.Text;
+                book.Title = tbTitle.Text;
+                book.Category = tbCategory.Text;
+                string status = tbStatus.Text;
+                status = status.Trim();
+                status = status.ToLower();
+                if (status == "available")
+                {
+                    book.Status = true;
+                }
+                else
+                {
+                    book.Status = false;
+                }
+                //Pass the data to book database 
+
+                int oldISBN = _book.ISBN;
+                //Find the old isbn to get this book from the database
+
+                var contentSummary = _db.ContentSummaries.FirstOrDefault(q => q.ISBN == oldISBN);
+                contentSummary.ContentBook = tbContenSummary.Text;
+                //Get the content summary of this book and pass the new comment summary
+
+                _db.SaveChanges();
+                //Save change in database
             }
-            else
+            catch (Exception ex)
             {
-                book.Status = false;
+
+                MessageBox.Show(ex.Message);
             }
-            //Pass the data to book database 
 
-            int oldISBN = _book.ISBN;
-            //Find the old isbn to get this book from the database
 
-            var contentSummary = _db.ContentSummaries.FirstOrDefault(q => q.ISBN == oldISBN);
-            contentSummary.ContentBook = tbContenSummary.Text;
-            //Get the content summary of this book and pass the new comment summary
-
-            _db.SaveChanges();
-            //Save change in database
 
         }
         /// <summary>
@@ -160,54 +181,74 @@ namespace Library_Final_Project
         /// </summary>
         private void btnSubmit_Click(object sender, EventArgs e)
         {
-            var isbn = _book.ISBN;
-            var book = _db.Books.FirstOrDefault(q => q.ISBN == isbn);
-            //Get the book from book table database
-            SaveBookChangeToDatabase(book);
-            //Save change
-            MessageBox.Show("Successfuly saved book's changes.");
+            try
+            {
+                var isbn = _book.ISBN;
+                var book = _db.Books.FirstOrDefault(q => q.ISBN == isbn);
+                //Get the book from book table database
+                SaveBookChangeToDatabase(book);
+                //Save change
+                MessageBox.Show("Successfuly saved book's changes.");
+            }
+            catch (Exception ex)
+            {
+
+                MessageBox.Show(ex.Message);
+            }
+
+
         }
         /// <summary>
         /// Add new book to library
         /// </summary>
         private void btnAddToLibrary_Click(object sender, EventArgs e)
         {
-            var book = new Book();
-            //Create a new instance of book
-
-            book.Status = true;
-            book.Author = tbAuthor.Text;
-            book.Title = tbTitle.Text;
-            book.Category = tbCategory.Text;
-            book.Show = true;
-
-            //Pass the data to new book
-            if (string.IsNullOrEmpty(tbISBN.Text))
+            try
             {
-                _db.Books.Add(book);
-                _db.SaveChanges();
-                var justAddedBook = _db.Books.Where(q => q.Title == tbTitle.Text).ToList().LastOrDefault();
-                var contentSummary = new ContentSummary();
-                contentSummary.ContentBook = tbContenSummary.Text;
-                contentSummary.ISBN = justAddedBook.ISBN;
-                _db.ContentSummaries.Add(contentSummary);
-                _db.SaveChanges();
-            }
-            else
-            {
-                book.ISBN = int.Parse(tbISBN.Text);
-                _db.Books.Add(book);
-                _db.SaveChanges();
-                var contentSummary = new ContentSummary();
-                contentSummary.ContentBook = tbContenSummary.Text;
-                contentSummary.ISBN = book.ISBN;
-                _db.ContentSummaries.Add(contentSummary);
-                _db.SaveChanges();
-            }
-            //Add this book to the database
+                var book = new Book();
+                //Create a new instance of book
 
-            MessageBox.Show("Book added successfully to your library.");
-            //Inform the user.
+                book.Status = true;
+                book.Author = tbAuthor.Text;
+                book.Title = tbTitle.Text;
+                book.Category = tbCategory.Text;
+                book.Show = true;
+
+                //Pass the data to new book
+                if (string.IsNullOrEmpty(tbISBN.Text))
+                {
+                    _db.Books.Add(book);
+                    _db.SaveChanges();
+                    var justAddedBook = _db.Books.Where(q => q.Title == tbTitle.Text).ToList().LastOrDefault();
+                    var contentSummary = new ContentSummary();
+                    contentSummary.ContentBook = tbContenSummary.Text;
+                    contentSummary.ISBN = justAddedBook.ISBN;
+                    _db.ContentSummaries.Add(contentSummary);
+                    _db.SaveChanges();
+                }
+                else
+                {
+                    book.ISBN = int.Parse(tbISBN.Text);
+                    _db.Books.Add(book);
+                    _db.SaveChanges();
+                    var contentSummary = new ContentSummary();
+                    contentSummary.ContentBook = tbContenSummary.Text;
+                    contentSummary.ISBN = book.ISBN;
+                    _db.ContentSummaries.Add(contentSummary);
+                    _db.SaveChanges();
+                }
+                //Add this book to the database
+
+                MessageBox.Show("Book added successfully to your library.");
+                //Inform the user.
+            }
+            catch (Exception ex)
+            {
+
+                MessageBox.Show(ex.Message);
+            }
+
+
         }
 
         private void btnAddToFavourList_Click(object sender, EventArgs e)

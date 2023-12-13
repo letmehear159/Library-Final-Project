@@ -512,13 +512,31 @@ namespace Library_Final_Project
 
         private void btnRefreshFavourlist_Click(object sender, EventArgs e)
         {
-            _user = _db.Users.FirstOrDefault(q => q.Account == _user.Account);
-            Utils.PopulateFavouriteList(_db, gvFavouriteList, _user);
+            try
+            {
+                _user = _db.Users.FirstOrDefault(q => q.Account == _user.Account);
+                Utils.PopulateFavouriteList(_db, gvFavouriteList, _user);
+            }
+            catch (Exception ex)
+            {
+
+                MessageBox.Show(ex.Message);
+            }
+
         }
 
         private void btnRefreshMenu_Click(object sender, EventArgs e)
         {
-            Utils.PopulateBookGrid(_db, gvBookListMenu);
+            try
+            {
+                Utils.PopulateBookGrid(_db, gvBookListMenu);
+
+            }
+            catch (Exception ex)
+            {
+
+                MessageBox.Show(ex.Message);
+            }
         }
     }
 }
