@@ -319,6 +319,7 @@ namespace Library_Final_Project
                 var overdueBook = (from dueBook in userBorrow.TransactionHistories
                                    where dueBook.DateReturn < DateTime.Now && dueBook.IsReturned == false
                                    select dueBook).ToList();
+                var didBorrow = _db.TransactionHistories.Any(q => q.ISBN == isbn && q.IsReturned == false);
                 //Get the overdue books of this user
                 if (userBorrow == null) //if user doesnt exist
                 {
@@ -331,6 +332,10 @@ namespace Library_Final_Project
                 else if (book.Quantity <= 0) //if book is out of stock
                 {
                     MessageBox.Show($"\"{book.Title}\" is currently out of stock. Unable to borrow.");
+                }
+                else if (didBorrow == true)
+                {
+                    MessageBox.Show($"\"{book.Title}\" is borrowing by this user. Cannot borrow more");
                 }
                 else
                 {
@@ -361,8 +366,8 @@ namespace Library_Final_Project
                                   where user.Account == borrower
                                   select user).FirstOrDefault();
                 //get the user from the textbox in user database
-                var borrowingBook = (from notReturnedBook in userBorrow.TransactionHistories
-                                     where notReturnedBook.IsReturned == false && notReturnedBook.ISBN == book.ISBN
+                var borrowingBook = (from notReturnedBook in _db.TransactionHistories
+                                     where notReturnedBook.IsReturned == false && notReturnedBook.ISBN == book.ISBN && notReturnedBook.Account == borrower
                                      select notReturnedBook).FirstOrDefault();
                 //Get the book he/ she is borrowing and now wants to return
                 if (borrowingBook == null)
@@ -372,8 +377,8 @@ namespace Library_Final_Project
                 else if (userBorrow == null) { MessageBox.Show("Invalid user, this user doesn't exist in our data."); }
                 else
                 {
-                    var returnBook = (from notReturnedBook in userBorrow.TransactionHistories
-                                      where notReturnedBook.IsReturned == false && notReturnedBook.ISBN == book.ISBN
+                    var returnBook = (from notReturnedBook in _db.TransactionHistories
+                                      where notReturnedBook.IsReturned == false && notReturnedBook.ISBN == book.ISBN && notReturnedBook.Account == borrower
                                       select notReturnedBook).FirstOrDefault();
                     returnBook.IsReturned = true;
                     //set the transaction history of this user to this book is true
@@ -494,7 +499,7 @@ namespace Library_Final_Project
                 {
                     _db.FavouriteBooks.Remove(book);
                     _db.SaveChanges();
-                    MessageBox.Show($"\"{bookName}\" Is Unfavorited.");
+                    MessageBox.Show($"\"{bookName}\" Is Removed From Your Favourite List.");
                     //Remove and savechange
 
                 }
@@ -537,6 +542,65 @@ namespace Library_Final_Project
 
                 MessageBox.Show(ex.Message);
             }
+        }
+
+        private void btnConfirmBookReturn_Click(object sender, EventArgs e)
+        {
+            try
+            {
+                var isbn = (int)gvBorrowingBook.SelectedRows[0].Cells["ISBN"].Value;
+                var book = _db.Books.FirstOrDefault(q => q.ISBN == isbn);
+                string borrower = tbUsername.Text;
+                var userBorrow = (from user in _db.Users
+                                  where user.Account == borrower
+                                  select user).FirstOrDefault();
+                //get the user from the textbox in user database
+                var borrowingBook = (from notReturnedBook in _db.TransactionHistories
+                                     where notReturnedBook.IsReturned == false && notReturnedBook.ISBN == book.ISBN && notReturnedBook.Account == borrower
+                                     select notReturnedBook).FirstOrDefault();
+                //Get the book he/ she is borrowing and now wants to return
+                if (borrowingBook == null)
+                {
+                    MessageBox.Show($"\"{userBorrow.Account}\" hasn't borrowed \"{book.Title}\" before.");
+                }
+                else if (userBorrow == null) { MessageBox.Show("Invalid user, this user doesn't exist in our data."); }
+                else
+                {
+                    borrowingBook.IsReturned = true;
+                    //returnBook.IsReturned = true;
+                    //set the transaction history of this user to this book is true
+                    book.Quantity += 1;
+                    //increase book quantity in library
+                    _db.SaveChanges();
+                    MessageBox.Show($"\"{userBorrow.Account}\" has returned \"{book.Title}\" succesfully");
+                    Utils.PopulateBorrowingBookGrid(_db, gvBorrowingBook, userBorrow);
+                }
+            }
+            catch (Exception ex)
+            {
+
+                MessageBox.Show(ex.Message);
+            }
+        }
+
+        private void btnRefreshBorrowingBook_Click(object sender, EventArgs e)
+        {
+            try
+            {
+
+                string borrower = tbUsername.Text.Trim();
+                var userBorrow = (from user in _db.Users
+                                  where user.Account == borrower
+                                  select user).FirstOrDefault();
+                Utils.PopulateBorrowingBookGrid(_db, gvBorrowingBook, userBorrow);
+
+            }
+            catch (Exception ex)
+            {
+
+                MessageBox.Show(ex.Message);
+            }
+
         }
     }
 }

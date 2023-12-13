@@ -33,7 +33,6 @@
             this.pbBookImage = new System.Windows.Forms.PictureBox();
             this.label1 = new System.Windows.Forms.Label();
             this.label9 = new System.Windows.Forms.Label();
-            this.lblBorrowUser = new System.Windows.Forms.Label();
             this.label4 = new System.Windows.Forms.Label();
             this.label5 = new System.Windows.Forms.Label();
             this.label2 = new System.Windows.Forms.Label();
@@ -48,7 +47,6 @@
             this.label3 = new System.Windows.Forms.Label();
             this.btnViewComment = new System.Windows.Forms.Button();
             this.btnAddToFavourList = new System.Windows.Forms.Button();
-            this.lblCurrentBorrow = new System.Windows.Forms.Label();
             this.btnAddToLibrary = new System.Windows.Forms.Button();
             this.btnSubmit = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)(this.pbBookImage)).BeginInit();
@@ -89,16 +87,6 @@
             this.label9.Size = new System.Drawing.Size(62, 20);
             this.label9.TabIndex = 10;
             this.label9.Text = "Status";
-            // 
-            // lblBorrowUser
-            // 
-            this.lblBorrowUser.AutoSize = true;
-            this.lblBorrowUser.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lblBorrowUser.Location = new System.Drawing.Point(857, 101);
-            this.lblBorrowUser.Name = "lblBorrowUser";
-            this.lblBorrowUser.Size = new System.Drawing.Size(51, 20);
-            this.lblBorrowUser.TabIndex = 6;
-            this.lblBorrowUser.Text = "label3";
             // 
             // label4
             // 
@@ -243,16 +231,6 @@
             this.btnAddToFavourList.UseVisualStyleBackColor = false;
             this.btnAddToFavourList.Click += new System.EventHandler(this.btnAddToFavourList_Click);
             // 
-            // lblCurrentBorrow
-            // 
-            this.lblCurrentBorrow.AutoSize = true;
-            this.lblCurrentBorrow.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, ((System.Drawing.FontStyle)((System.Drawing.FontStyle.Bold | System.Drawing.FontStyle.Underline))), System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lblCurrentBorrow.Location = new System.Drawing.Point(852, 71);
-            this.lblCurrentBorrow.Name = "lblCurrentBorrow";
-            this.lblCurrentBorrow.Size = new System.Drawing.Size(171, 20);
-            this.lblCurrentBorrow.TabIndex = 17;
-            this.lblCurrentBorrow.Text = "Currently Borrowing:";
-            // 
             // btnAddToLibrary
             // 
             this.btnAddToLibrary.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
@@ -282,7 +260,6 @@
             this.ClientSize = new System.Drawing.Size(1035, 588);
             this.Controls.Add(this.btnSubmit);
             this.Controls.Add(this.btnAddToLibrary);
-            this.Controls.Add(this.lblCurrentBorrow);
             this.Controls.Add(this.btnAddToFavourList);
             this.Controls.Add(this.btnViewComment);
             this.Controls.Add(this.label3);
@@ -290,7 +267,6 @@
             this.Controls.Add(this.tableLayoutPanel1);
             this.Controls.Add(this.label1);
             this.Controls.Add(this.pbBookImage);
-            this.Controls.Add(this.lblBorrowUser);
             this.Name = "BookInformation";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "BookInformation";
@@ -309,7 +285,6 @@
         private System.Windows.Forms.PictureBox pbBookImage;
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.Label label9;
-        private System.Windows.Forms.Label lblBorrowUser;
         private System.Windows.Forms.Label label4;
         private System.Windows.Forms.Label label5;
         private System.Windows.Forms.Label label2;
@@ -319,7 +294,6 @@
         private System.Windows.Forms.Label label3;
         private System.Windows.Forms.Button btnViewComment;
         private System.Windows.Forms.Button btnAddToFavourList;
-        private System.Windows.Forms.Label lblCurrentBorrow;
         private System.Windows.Forms.TextBox tbCategory;
         private System.Windows.Forms.TextBox tbStatus;
         private System.Windows.Forms.TextBox tbISBN;

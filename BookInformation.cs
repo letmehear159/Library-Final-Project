@@ -84,8 +84,6 @@ namespace Library_Final_Project
                 if (role.Equals("User"))  //If this is a borrower than hide admin's operation
                 {
                     btnAddToLibrary.Visible = false;
-                    lblBorrowUser.Visible = false;
-                    lblBorrowUser.Visible = false;
                     btnSubmit.Visible = false;
                 }
                 if (_book != null)      //If we are viewing or editting book information
@@ -136,10 +134,11 @@ namespace Library_Final_Project
         /// </summary>
         /// <param name="book"></param>: The book need changing data
         /// 
-        public void SaveBookChangeToDatabase(Book book)
+        public void SaveBookChangeToDatabase(Book editBook)
         {
             try
             {
+                var book = _db.Books.FirstOrDefault(q => q.ISBN == editBook.ISBN);
                 book.ISBN = int.Parse(tbISBN.Text);
                 book.Author = tbAuthor.Text;
                 book.Title = tbTitle.Text;

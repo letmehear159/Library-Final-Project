@@ -62,6 +62,7 @@
             this.tbSearch = new System.Windows.Forms.TextBox();
             this.tcMenu = new System.Windows.Forms.TabControl();
             this.tpMenu = new System.Windows.Forms.TabPage();
+            this.btnRefreshMenu = new System.Windows.Forms.Button();
             this.label9 = new System.Windows.Forms.Label();
             this.btnViewBookInfor = new System.Windows.Forms.Button();
             this.label2 = new System.Windows.Forms.Label();
@@ -76,7 +77,7 @@
             this.tsStatusLogin = new System.Windows.Forms.ToolStripStatusLabel();
             this.statusStrip2 = new System.Windows.Forms.StatusStrip();
             this.tsStatusLoginFinal = new System.Windows.Forms.ToolStripStatusLabel();
-            this.btnRefreshMenu = new System.Windows.Forms.Button();
+            this.btnRefreshBorrowingBook = new System.Windows.Forms.Button();
             this.tpSearchUser.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.gvBorrowingBook)).BeginInit();
             this.tpManageUser.SuspendLayout();
@@ -95,6 +96,7 @@
             // 
             // tpSearchUser
             // 
+            this.tpSearchUser.Controls.Add(this.btnRefreshBorrowingBook);
             this.tpSearchUser.Controls.Add(this.btnResetUserPassword);
             this.tpSearchUser.Controls.Add(this.btnActDeactiveUser);
             this.tpSearchUser.Controls.Add(this.btnConfirmBookReturn);
@@ -123,7 +125,7 @@
             // 
             // btnActDeactiveUser
             // 
-            this.btnActDeactiveUser.Location = new System.Drawing.Point(789, 298);
+            this.btnActDeactiveUser.Location = new System.Drawing.Point(789, 320);
             this.btnActDeactiveUser.Name = "btnActDeactiveUser";
             this.btnActDeactiveUser.Size = new System.Drawing.Size(150, 69);
             this.btnActDeactiveUser.TabIndex = 26;
@@ -133,12 +135,13 @@
             // 
             // btnConfirmBookReturn
             // 
-            this.btnConfirmBookReturn.Location = new System.Drawing.Point(789, 204);
+            this.btnConfirmBookReturn.Location = new System.Drawing.Point(789, 229);
             this.btnConfirmBookReturn.Name = "btnConfirmBookReturn";
             this.btnConfirmBookReturn.Size = new System.Drawing.Size(150, 69);
             this.btnConfirmBookReturn.TabIndex = 25;
             this.btnConfirmBookReturn.Text = "Confirm Book Returned";
             this.btnConfirmBookReturn.UseVisualStyleBackColor = true;
+            this.btnConfirmBookReturn.Click += new System.EventHandler(this.btnConfirmBookReturn_Click);
             // 
             // label7
             // 
@@ -315,7 +318,7 @@
             // 
             // tbUserBorrow
             // 
-            this.tbUserBorrow.Location = new System.Drawing.Point(27, 70);
+            this.tbUserBorrow.Location = new System.Drawing.Point(27, 76);
             this.tbUserBorrow.Name = "tbUserBorrow";
             this.tbUserBorrow.Size = new System.Drawing.Size(306, 27);
             this.tbUserBorrow.TabIndex = 39;
@@ -447,6 +450,16 @@
             this.tpMenu.Text = "Menu";
             this.tpMenu.UseVisualStyleBackColor = true;
             // 
+            // btnRefreshMenu
+            // 
+            this.btnRefreshMenu.Location = new System.Drawing.Point(770, 294);
+            this.btnRefreshMenu.Name = "btnRefreshMenu";
+            this.btnRefreshMenu.Size = new System.Drawing.Size(184, 69);
+            this.btnRefreshMenu.TabIndex = 37;
+            this.btnRefreshMenu.Text = "Refresh Book List";
+            this.btnRefreshMenu.UseVisualStyleBackColor = true;
+            this.btnRefreshMenu.Click += new System.EventHandler(this.btnRefreshMenu_Click);
+            // 
             // label9
             // 
             this.label9.AutoSize = true;
@@ -577,15 +590,15 @@
             this.tsStatusLoginFinal.Size = new System.Drawing.Size(118, 17);
             this.tsStatusLoginFinal.Text = "toolStripStatusLabel1";
             // 
-            // btnRefreshMenu
+            // btnRefreshBorrowingBook
             // 
-            this.btnRefreshMenu.Location = new System.Drawing.Point(770, 294);
-            this.btnRefreshMenu.Name = "btnRefreshMenu";
-            this.btnRefreshMenu.Size = new System.Drawing.Size(184, 69);
-            this.btnRefreshMenu.TabIndex = 37;
-            this.btnRefreshMenu.Text = "Refresh Book List";
-            this.btnRefreshMenu.UseVisualStyleBackColor = true;
-            this.btnRefreshMenu.Click += new System.EventHandler(this.btnRefreshMenu_Click);
+            this.btnRefreshBorrowingBook.Location = new System.Drawing.Point(789, 140);
+            this.btnRefreshBorrowingBook.Name = "btnRefreshBorrowingBook";
+            this.btnRefreshBorrowingBook.Size = new System.Drawing.Size(150, 69);
+            this.btnRefreshBorrowingBook.TabIndex = 28;
+            this.btnRefreshBorrowingBook.Text = "Refresh ";
+            this.btnRefreshBorrowingBook.UseVisualStyleBackColor = true;
+            this.btnRefreshBorrowingBook.Click += new System.EventHandler(this.btnRefreshBorrowingBook_Click);
             // 
             // LibraryHomeTab
             // 
@@ -674,5 +687,6 @@
         private System.Windows.Forms.DataGridView gvBorrowingList;
         private System.Windows.Forms.Button btnRefreshFavourlist;
         private System.Windows.Forms.Button btnRefreshMenu;
+        private System.Windows.Forms.Button btnRefreshBorrowingBook;
     }
 }

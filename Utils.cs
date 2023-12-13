@@ -135,15 +135,19 @@ namespace Library_Final_Project
 
         public static void PopulateBorrowingBookGrid(LibraryEntities _db, DataGridView data, User user)
         {
-            var borrowingBooks = (from book in user.TransactionHistories
+            var borrowingBooks = (from book in _db.TransactionHistories
                                   where book.Account == user.Account && book.IsReturned == false
                                   select new
                                   {
+                                      ISBN = book.ISBN,
                                       BookName = book.Book.Title,
                                       Author = book.Book.Author,
                                       Category = book.Book.Category,
+                                      DateBorrowed = book.DateBorrow,
+                                      DateHasToRetur = book.DateReturn
                                   }).ToList();
             data.DataSource = borrowingBooks;
+            data.Columns[0].Visible = false;
             data.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.AllCells;
         }
         public static void PopulateFavouriteList(LibraryEntities _db, DataGridView data, User user)
