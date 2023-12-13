@@ -67,6 +67,7 @@
             this.label2 = new System.Windows.Forms.Label();
             this.gvBookListMenu = new System.Windows.Forms.DataGridView();
             this.tpMyList = new System.Windows.Forms.TabPage();
+            this.btnRefreshFavourlist = new System.Windows.Forms.Button();
             this.btnUnfavourite = new System.Windows.Forms.Button();
             this.label3 = new System.Windows.Forms.Label();
             this.label10 = new System.Windows.Forms.Label();
@@ -75,7 +76,7 @@
             this.tsStatusLogin = new System.Windows.Forms.ToolStripStatusLabel();
             this.statusStrip2 = new System.Windows.Forms.StatusStrip();
             this.tsStatusLoginFinal = new System.Windows.Forms.ToolStripStatusLabel();
-            this.btnRefreshFavourlist = new System.Windows.Forms.Button();
+            this.btnRefreshMenu = new System.Windows.Forms.Button();
             this.tpSearchUser.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.gvBorrowingBook)).BeginInit();
             this.tpManageUser.SuspendLayout();
@@ -433,6 +434,7 @@
             // 
             // tpMenu
             // 
+            this.tpMenu.Controls.Add(this.btnRefreshMenu);
             this.tpMenu.Controls.Add(this.label9);
             this.tpMenu.Controls.Add(this.btnViewBookInfor);
             this.tpMenu.Controls.Add(this.label2);
@@ -497,6 +499,16 @@
             this.tpMyList.TabIndex = 5;
             this.tpMyList.Text = "My List";
             this.tpMyList.UseVisualStyleBackColor = true;
+            // 
+            // btnRefreshFavourlist
+            // 
+            this.btnRefreshFavourlist.Location = new System.Drawing.Point(515, 393);
+            this.btnRefreshFavourlist.Name = "btnRefreshFavourlist";
+            this.btnRefreshFavourlist.Size = new System.Drawing.Size(184, 69);
+            this.btnRefreshFavourlist.TabIndex = 15;
+            this.btnRefreshFavourlist.Text = "Refresh Favourite List";
+            this.btnRefreshFavourlist.UseVisualStyleBackColor = true;
+            this.btnRefreshFavourlist.Click += new System.EventHandler(this.btnRefreshFavourlist_Click);
             // 
             // btnUnfavourite
             // 
@@ -565,15 +577,15 @@
             this.tsStatusLoginFinal.Size = new System.Drawing.Size(118, 17);
             this.tsStatusLoginFinal.Text = "toolStripStatusLabel1";
             // 
-            // btnRefreshFavourlist
+            // btnRefreshMenu
             // 
-            this.btnRefreshFavourlist.Location = new System.Drawing.Point(515, 393);
-            this.btnRefreshFavourlist.Name = "btnRefreshFavourlist";
-            this.btnRefreshFavourlist.Size = new System.Drawing.Size(184, 69);
-            this.btnRefreshFavourlist.TabIndex = 15;
-            this.btnRefreshFavourlist.Text = "Refresh Favourite List";
-            this.btnRefreshFavourlist.UseVisualStyleBackColor = true;
-            this.btnRefreshFavourlist.Click += new System.EventHandler(this.btnRefreshFavourlist_Click);
+            this.btnRefreshMenu.Location = new System.Drawing.Point(770, 294);
+            this.btnRefreshMenu.Name = "btnRefreshMenu";
+            this.btnRefreshMenu.Size = new System.Drawing.Size(184, 69);
+            this.btnRefreshMenu.TabIndex = 37;
+            this.btnRefreshMenu.Text = "Refresh Book List";
+            this.btnRefreshMenu.UseVisualStyleBackColor = true;
+            this.btnRefreshMenu.Click += new System.EventHandler(this.btnRefreshMenu_Click);
             // 
             // LibraryHomeTab
             // 
@@ -661,5 +673,6 @@
         private System.Windows.Forms.DataGridView gvFavouriteList;
         private System.Windows.Forms.DataGridView gvBorrowingList;
         private System.Windows.Forms.Button btnRefreshFavourlist;
+        private System.Windows.Forms.Button btnRefreshMenu;
     }
 }

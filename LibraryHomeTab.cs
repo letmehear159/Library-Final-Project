@@ -315,26 +315,29 @@ namespace Library_Final_Project
                 var userBorrow = (from user in _db.Users
                                   where user.Account == borrower
                                   select user).FirstOrDefault();
-
+                //Get the user in the textbox from User database
                 var overdueBook = (from dueBook in userBorrow.TransactionHistories
                                    where dueBook.DateReturn < DateTime.Now && dueBook.IsReturned == false
                                    select dueBook).ToList();
-                if (userBorrow == null)
+                //Get the overdue books of this user
+                if (userBorrow == null) //if user doesnt exist
                 {
                     MessageBox.Show("Invalid user, this user doesn't exist in our data.");
                 }
-                else if (overdueBook.Count > 0)
+                else if (overdueBook.Count > 0) //If he/she has overdue books
                 {
                     MessageBox.Show($"\"{borrower}\" has overdue books, tell him/her to return before borrowing new book.");
                 }
-                else if (book.Quantity <= 0)
+                else if (book.Quantity <= 0) //if book is out of stock
                 {
                     MessageBox.Show($"\"{book.Title}\" is currently out of stock. Unable to borrow.");
                 }
                 else
                 {
                     book.Quantity -= 1;
+                    //decrease the book quantity
                     _db.SaveChanges();
+                    //save change.
                     var addBorrower = new AddBorrower(isbn, borrower);
                     addBorrower.Show();
                 }
@@ -357,12 +360,14 @@ namespace Library_Final_Project
                 var userBorrow = (from user in _db.Users
                                   where user.Account == borrower
                                   select user).FirstOrDefault();
+                //get the user from the textbox in user database
                 var borrowingBook = (from notReturnedBook in userBorrow.TransactionHistories
                                      where notReturnedBook.IsReturned == false && notReturnedBook.ISBN == book.ISBN
                                      select notReturnedBook).FirstOrDefault();
+                //Get the book he/ she is borrowing and now wants to return
                 if (borrowingBook == null)
                 {
-                    MessageBox.Show($"\"{userBorrow}\" hasn't borrowed \"{book.Title}\" before.");
+                    MessageBox.Show($"\"{userBorrow.Account}\" hasn't borrowed \"{book.Title}\" before.");
                 }
                 else if (userBorrow == null) { MessageBox.Show("Invalid user, this user doesn't exist in our data."); }
                 else
@@ -371,6 +376,9 @@ namespace Library_Final_Project
                                       where notReturnedBook.IsReturned == false && notReturnedBook.ISBN == book.ISBN
                                       select notReturnedBook).FirstOrDefault();
                     returnBook.IsReturned = true;
+                    //set the transaction history of this user to this book is true
+                    book.Quantity += 1;
+                    //increase book quantity in library
                     _db.SaveChanges();
                     MessageBox.Show($"\"{userBorrow.Account}\" has returned \"{book.Title}\" succesfully");
                 }
@@ -424,7 +432,8 @@ namespace Library_Final_Project
             {
                 string account = tbUsername.Text.Trim();
                 var user = _db.Users.FirstOrDefault(q => q.Account == account);
-                if (user == null)
+                //Get the user from User database
+                if (user == null)  //If wrong account
                 {
                     MessageBox.Show("Invalid user, it doesn't Exist.");
                 }
@@ -432,6 +441,7 @@ namespace Library_Final_Project
                 {
                     Utils.PopulateBorrowingBookGrid(_db, gvBorrowingBook, user);
                     MessageBox.Show("Search Completed");
+                    //Get the borrowing book list of this user 
                 }
             }
             catch (Exception ex)
@@ -449,9 +459,13 @@ namespace Library_Final_Project
             {
                 string account = tbUsername.Text.Trim();
                 var user = _db.Users.FirstOrDefault(q => q.Account == account);
+                //Get the user from database
                 user.IsActive = user.IsActive == true ? false : true;
+                //If the user is active then change to unactive 
                 _db.SaveChanges();
+                //Save change in database
                 MessageBox.Show($"\"{account}\"'s status successfully changes.");
+                //inform successfully change
             }
             catch (Exception ex)
             {
@@ -474,12 +488,15 @@ namespace Library_Final_Project
             {
                 var id = (int)gvFavouriteList.SelectedRows[0].Cells["id"].Value;
                 var book = _user.FavouriteBooks.FirstOrDefault(q => q.id == id);
+                //get the choosen book in database favouritelist
                 string bookName = book.Book.Title;
-                if (book != null)
+                if (book != null) //if the database favouritelist has this book
                 {
                     _db.FavouriteBooks.Remove(book);
                     _db.SaveChanges();
                     MessageBox.Show($"\"{bookName}\" Is Unfavorited.");
+                    //Remove and savechange
+
                 }
                 else
                 {
@@ -497,6 +514,11 @@ namespace Library_Final_Project
         {
             _user = _db.Users.FirstOrDefault(q => q.Account == _user.Account);
             Utils.PopulateFavouriteList(_db, gvFavouriteList, _user);
+        }
+
+        private void btnRefreshMenu_Click(object sender, EventArgs e)
+        {
+            Utils.PopulateBookGrid(_db, gvBookListMenu);
         }
     }
 }
