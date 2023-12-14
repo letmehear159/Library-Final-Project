@@ -65,7 +65,7 @@
           <Key>
             <PropertyRef Name="ISBN" />
             <PropertyRef Name="Account" />
-            <PropertyRef Name="DateBorrow" />
+            <PropertyRef Name="IsReturned" />
           </Key>
           <Property Name="ISBN" Type="int" Nullable="false" />
           <Property Name="Account" Type="nvarchar" MaxLength="50" Nullable="false" />
@@ -271,7 +271,6 @@
           <EntitySet Name="FavouriteBooks" EntityType="LibraryModel.FavouriteBook" />
           <EntitySet Name="PersonalInfors" EntityType="LibraryModel.PersonalInfor" />
           <EntitySet Name="Roles" EntityType="LibraryModel.Role" />
-          <EntitySet Name="TransactionHistories" EntityType="LibraryModel.TransactionHistory" />
           <EntitySet Name="Users" EntityType="LibraryModel.User" />
           <EntitySet Name="UserRoles" EntityType="LibraryModel.UserRole" />
           <AssociationSet Name="FK_ContentSummary_ContentSummary" Association="LibraryModel.FK_ContentSummary_ContentSummary">
@@ -281,10 +280,6 @@
           <AssociationSet Name="FK_FavouriteBook_Book" Association="LibraryModel.FK_FavouriteBook_Book">
             <End Role="Book" EntitySet="Books" />
             <End Role="FavouriteBook" EntitySet="FavouriteBooks" />
-          </AssociationSet>
-          <AssociationSet Name="FK_TransactionHistory_Book" Association="LibraryModel.FK_TransactionHistory_Book">
-            <End Role="Book" EntitySet="Books" />
-            <End Role="TransactionHistory" EntitySet="TransactionHistories" />
           </AssociationSet>
           <AssociationSet Name="FK_FavouriteBook_User" Association="LibraryModel.FK_FavouriteBook_User">
             <End Role="User" EntitySet="Users" />
@@ -297,10 +292,6 @@
           <AssociationSet Name="FK_UserRole_Role" Association="LibraryModel.FK_UserRole_Role">
             <End Role="Role" EntitySet="Roles" />
             <End Role="UserRole" EntitySet="UserRoles" />
-          </AssociationSet>
-          <AssociationSet Name="FK_TransactionHistory_User" Association="LibraryModel.FK_TransactionHistory_User">
-            <End Role="User" EntitySet="Users" />
-            <End Role="TransactionHistory" EntitySet="TransactionHistories" />
           </AssociationSet>
           <AssociationSet Name="FK_UserRole_User" Association="LibraryModel.FK_UserRole_User">
             <End Role="User" EntitySet="Users" />
@@ -315,7 +306,16 @@
             <End Role="User" EntitySet="Users" />
             <End Role="Comment" EntitySet="Comments" />
           </AssociationSet>
-        </EntityContainer>
+          <EntitySet Name="TransactionHistories" EntityType="LibraryModel.TransactionHistory" />
+          <AssociationSet Name="FK_TransactionHistory_Book" Association="LibraryModel.FK_TransactionHistory_Book">
+            <End Role="Book" EntitySet="Books" />
+            <End Role="TransactionHistory" EntitySet="TransactionHistories" />
+          </AssociationSet>
+          <AssociationSet Name="FK_TransactionHistory_User" Association="LibraryModel.FK_TransactionHistory_User">
+            <End Role="User" EntitySet="Users" />
+            <End Role="TransactionHistory" EntitySet="TransactionHistories" />
+          </AssociationSet>
+          </EntityContainer>
         <EntityType Name="Book">
           <Key>
             <PropertyRef Name="ISBN" />
@@ -329,8 +329,8 @@
           <Property Name="Show" Type="Boolean" />
           <NavigationProperty Name="ContentSummary" Relationship="LibraryModel.FK_ContentSummary_ContentSummary" FromRole="Book" ToRole="ContentSummary" />
           <NavigationProperty Name="FavouriteBooks" Relationship="LibraryModel.FK_FavouriteBook_Book" FromRole="Book" ToRole="FavouriteBook" />
-          <NavigationProperty Name="TransactionHistories" Relationship="LibraryModel.FK_TransactionHistory_Book" FromRole="Book" ToRole="TransactionHistory" />
           <NavigationProperty Name="Comments" Relationship="LibraryModel.FK_Comment_Book" FromRole="Book" ToRole="Comment" />
+          <NavigationProperty Name="TransactionHistories" Relationship="LibraryModel.FK_TransactionHistory_Book" FromRole="Book" ToRole="TransactionHistory" />
         </EntityType>
         <EntityType Name="ContentSummary">
           <Key>
@@ -371,21 +371,6 @@
           <Property Name="RoleNameShorcut" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
           <NavigationProperty Name="UserRoles" Relationship="LibraryModel.FK_UserRole_Role" FromRole="Role" ToRole="UserRole" />
         </EntityType>
-        <EntityType Name="TransactionHistory">
-          <Key>
-            <PropertyRef Name="ISBN" />
-            <PropertyRef Name="Account" />
-            <PropertyRef Name="DateBorrow" />
-          </Key>
-          <Property Name="ISBN" Type="Int32" Nullable="false" />
-          <Property Name="Account" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
-          <Property Name="DateBorrow" Type="DateTime" Nullable="false" Precision="3" />
-          <Property Name="BookName" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
-          <Property Name="DateReturn" Type="DateTime" Precision="3" />
-          <NavigationProperty Name="Book" Relationship="LibraryModel.FK_TransactionHistory_Book" FromRole="TransactionHistory" ToRole="Book" />
-          <NavigationProperty Name="User" Relationship="LibraryModel.FK_TransactionHistory_User" FromRole="TransactionHistory" ToRole="User" />
-          <Property Name="IsReturned" Type="Boolean" Nullable="false" />
-        </EntityType>
         <EntityType Name="User">
           <Key>
             <PropertyRef Name="Account" />
@@ -395,9 +380,9 @@
           <Property Name="Password" Type="String" Nullable="false" MaxLength="100" FixedLength="false" Unicode="true" />
           <NavigationProperty Name="FavouriteBooks" Relationship="LibraryModel.FK_FavouriteBook_User" FromRole="User" ToRole="FavouriteBook" />
           <NavigationProperty Name="PersonalInfor" Relationship="LibraryModel.FK_PersonalInformation_User" FromRole="User" ToRole="PersonalInfor" />
-          <NavigationProperty Name="TransactionHistories" Relationship="LibraryModel.FK_TransactionHistory_User" FromRole="User" ToRole="TransactionHistory" />
           <NavigationProperty Name="UserRoles" Relationship="LibraryModel.FK_UserRole_User" FromRole="User" ToRole="UserRole" />
           <NavigationProperty Name="Comments" Relationship="LibraryModel.FK_Comment_User" FromRole="User" ToRole="Comment" />
+          <NavigationProperty Name="TransactionHistories" Relationship="LibraryModel.FK_TransactionHistory_User" FromRole="User" ToRole="TransactionHistory" />
         </EntityType>
         <EntityType Name="UserRole">
           <Key>
@@ -429,18 +414,6 @@
               <PropertyRef Name="ISBN" />
             </Principal>
             <Dependent Role="FavouriteBook">
-              <PropertyRef Name="ISBN" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK_TransactionHistory_Book">
-          <End Type="LibraryModel.Book" Role="Book" Multiplicity="1" />
-          <End Type="LibraryModel.TransactionHistory" Role="TransactionHistory" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="Book">
-              <PropertyRef Name="ISBN" />
-            </Principal>
-            <Dependent Role="TransactionHistory">
               <PropertyRef Name="ISBN" />
             </Dependent>
           </ReferentialConstraint>
@@ -478,18 +451,6 @@
             </Principal>
             <Dependent Role="UserRole">
               <PropertyRef Name="RoleID" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK_TransactionHistory_User">
-          <End Type="LibraryModel.User" Role="User" Multiplicity="1" />
-          <End Type="LibraryModel.TransactionHistory" Role="TransactionHistory" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="User">
-              <PropertyRef Name="Account" />
-            </Principal>
-            <Dependent Role="TransactionHistory">
-              <PropertyRef Name="Account" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -537,6 +498,45 @@
               <PropertyRef Name="Account" />
             </Principal>
             <Dependent Role="Comment">
+              <PropertyRef Name="Account" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityType Name="TransactionHistory">
+          <Key>
+            <PropertyRef Name="ISBN" />
+            <PropertyRef Name="Account" />
+            <PropertyRef Name="IsReturned" />
+          </Key>
+          <Property Name="ISBN" Type="Int32" Nullable="false" />
+          <Property Name="Account" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="DateBorrow" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="BookName" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="DateReturn" Type="DateTime" Precision="3" />
+          <Property Name="IsReturned" Type="Boolean" Nullable="false" />
+          <NavigationProperty Name="Book" Relationship="LibraryModel.FK_TransactionHistory_Book" FromRole="TransactionHistory" ToRole="Book" />
+          <NavigationProperty Name="User" Relationship="LibraryModel.FK_TransactionHistory_User" FromRole="TransactionHistory" ToRole="User" />
+        </EntityType>
+        <Association Name="FK_TransactionHistory_Book">
+          <End Type="LibraryModel.Book" Role="Book" Multiplicity="1" />
+          <End Type="LibraryModel.TransactionHistory" Role="TransactionHistory" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Book">
+              <PropertyRef Name="ISBN" />
+            </Principal>
+            <Dependent Role="TransactionHistory">
+              <PropertyRef Name="ISBN" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_TransactionHistory_User">
+          <End Type="LibraryModel.User" Role="User" Multiplicity="1" />
+          <End Type="LibraryModel.TransactionHistory" Role="TransactionHistory" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="User">
+              <PropertyRef Name="Account" />
+            </Principal>
+            <Dependent Role="TransactionHistory">
               <PropertyRef Name="Account" />
             </Dependent>
           </ReferentialConstraint>
@@ -598,18 +598,6 @@
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
-          <EntitySetMapping Name="TransactionHistories">
-            <EntityTypeMapping TypeName="LibraryModel.TransactionHistory">
-              <MappingFragment StoreEntitySet="TransactionHistory">
-                <ScalarProperty Name="IsReturned" ColumnName="IsReturned" />
-                <ScalarProperty Name="DateReturn" ColumnName="DateReturn" />
-                <ScalarProperty Name="BookName" ColumnName="BookName" />
-                <ScalarProperty Name="DateBorrow" ColumnName="DateBorrow" />
-                <ScalarProperty Name="Account" ColumnName="Account" />
-                <ScalarProperty Name="ISBN" ColumnName="ISBN" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
           <EntitySetMapping Name="Users">
             <EntityTypeMapping TypeName="LibraryModel.User">
               <MappingFragment StoreEntitySet="User">
@@ -633,6 +621,18 @@
               <MappingFragment StoreEntitySet="Comment">
                 <ScalarProperty Name="CommentaryContent" ColumnName="CommentaryContent" />
                 <ScalarProperty Name="Date" ColumnName="Date" />
+                <ScalarProperty Name="Account" ColumnName="Account" />
+                <ScalarProperty Name="ISBN" ColumnName="ISBN" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="TransactionHistories">
+            <EntityTypeMapping TypeName="LibraryModel.TransactionHistory">
+              <MappingFragment StoreEntitySet="TransactionHistory">
+                <ScalarProperty Name="IsReturned" ColumnName="IsReturned" />
+                <ScalarProperty Name="DateReturn" ColumnName="DateReturn" />
+                <ScalarProperty Name="BookName" ColumnName="BookName" />
+                <ScalarProperty Name="DateBorrow" ColumnName="DateBorrow" />
                 <ScalarProperty Name="Account" ColumnName="Account" />
                 <ScalarProperty Name="ISBN" ColumnName="ISBN" />
               </MappingFragment>

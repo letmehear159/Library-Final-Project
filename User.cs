@@ -18,9 +18,9 @@ namespace Library_Final_Project
         public User()
         {
             this.FavouriteBooks = new HashSet<FavouriteBook>();
-            this.TransactionHistories = new HashSet<TransactionHistory>();
             this.UserRoles = new HashSet<UserRole>();
             this.Comments = new HashSet<Comment>();
+            this.TransactionHistories = new HashSet<TransactionHistory>();
         }
     
         public string Account { get; set; }
@@ -31,10 +31,10 @@ namespace Library_Final_Project
         public virtual ICollection<FavouriteBook> FavouriteBooks { get; set; }
         public virtual PersonalInfor PersonalInfor { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<TransactionHistory> TransactionHistories { get; set; }
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<UserRole> UserRoles { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Comment> Comments { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<TransactionHistory> TransactionHistories { get; set; }
     }
 }

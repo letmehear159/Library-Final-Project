@@ -319,7 +319,7 @@ namespace Library_Final_Project
                 var overdueBook = (from dueBook in userBorrow.TransactionHistories
                                    where dueBook.DateReturn < DateTime.Now && dueBook.IsReturned == false
                                    select dueBook).ToList();
-                var didBorrow = _db.TransactionHistories.Any(q => q.ISBN == isbn && q.IsReturned == false);
+                var didBorrow = _db.TransactionHistories.Any(q => q.ISBN == isbn && q.IsReturned == false && q.Account == userBorrow.Account);
                 //Get the overdue books of this user
                 if (userBorrow == null) //if user doesnt exist
                 {
@@ -555,9 +555,11 @@ namespace Library_Final_Project
                                   where user.Account == borrower
                                   select user).FirstOrDefault();
                 //get the user from the textbox in user database
-                var borrowingBook = (from notReturnedBook in _db.TransactionHistories
-                                     where notReturnedBook.IsReturned == false && notReturnedBook.ISBN == book.ISBN && notReturnedBook.Account == borrower
-                                     select notReturnedBook).FirstOrDefault();
+                //TransactionHistory borrowingBook = (from notReturnedBook in _db.TransactionHistories
+                //                                    where notReturnedBook.IsReturned == false && notReturnedBook.ISBN == book.ISBN && notReturnedBook.Account == borrower
+                //                                    select notReturnedBook).FirstOrDefault();
+                var borrowingBook = _db.TransactionHistories.FirstOrDefault(q => q.IsReturned == false && q.ISBN == isbn && q.Account == borrower);
+                var check = _db.TransactionHistories.FirstOrDefault(q => q.IsReturned == false && q.ISBN == isbn && q.Account == borrower);
                 //Get the book he/ she is borrowing and now wants to return
                 if (borrowingBook == null)
                 {
@@ -566,10 +568,16 @@ namespace Library_Final_Project
                 else if (userBorrow == null) { MessageBox.Show("Invalid user, this user doesn't exist in our data."); }
                 else
                 {
-                    borrowingBook.IsReturned = true;
+
                     //returnBook.IsReturned = true;
                     //set the transaction history of this user to this book is true
-                    book.Quantity += 1;
+                    borrowingBook.Book.Quantity += 1;
+                    _db.TransactionHistories.Remove(borrowingBook);
+                    if (check.DateBorrow != borrowingBook.DateBorrow)
+                    {
+                        MessageBox.Show("Not equal day");
+                    }
+
                     //increase book quantity in library
                     _db.SaveChanges();
                     MessageBox.Show($"\"{userBorrow.Account}\" has returned \"{book.Title}\" succesfully");
