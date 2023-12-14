@@ -53,13 +53,13 @@ namespace TF_IDF
         }
         public static string IgnoreStopWord(string str)
         {
-            string filePath = "D:/Single Stop Word.TXT";
+            string filePath = "D:\\Visual Studio\\WindownForm\\Library Final Project\\Single Stop Word.TXT";
             StreamReader reader = new StreamReader(filePath);
             string singleStopWord = reader.ReadToEnd();
             singleStopWord = singleStopWord.Replace("\r\n", " ");
             //Read from file
             reader.Close();
-            filePath = "D:/Double Stop Word.TXT";
+            filePath = "D:\\Visual Studio\\WindownForm\\Library Final Project\\Double Stop Word.TXT";
             reader = new StreamReader(filePath);
             string doubleStopWordContent = reader.ReadToEnd();
             //Read from file
